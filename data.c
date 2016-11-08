@@ -23,17 +23,17 @@
 typedef unsigned int uint;
 
 typedef struct _list_node {
-	const void        * data ;
-	struct _list_node * next ;  // previous pointer for linked lists
-	struct _list_node * prev ; // next     pointer for linked lists
+	const void        * data;
+	struct _list_node * next;
+	struct _list_node * prev;
 } * _lnode_pt;
 
 typedef struct _tree_node {
-	const void        * data ;
-	const char        * index;
+	const void        * data  ;
+	const char        * key   ;
 	struct _tree_node * parent;
-	struct _tree_node * left;
-	struct _tree_node * right;
+	struct _tree_node * left  ;
+	struct _tree_node * right ;
 } * _tnode_pt;
 
 typedef union {
@@ -66,11 +66,6 @@ const char* _e_empty  ="The data structure is empty";
 
 
 /******************************************************************************/
-//                           PRIVATE PROTOTYPES
-/******************************************************************************/
-
-
-/******************************************************************************/
 //                       PRIVATE FUNCTION DEFINITIONS
 /******************************************************************************/
 
@@ -89,7 +84,11 @@ inline static _node_pt _new_node(const DS const root){
 	
 		if (root->freelist.l){ // check the freelist first
 			new_node = root->freelist;
-			root->freelist.l = root->freelist.l->next;
+			root->freelist.l = root->freelist.l->prev;
+			
+			// Make sure it's clean for the next use
+			new_node.l->next = NULL;
+			new_node.l->prev = NULL;
 		}
 		else {
 			new_node.l = calloc(1, sizeof(struct _list_node));
@@ -102,6 +101,11 @@ inline static _node_pt _new_node(const DS const root){
 		if (root->freelist.t){
 			new_node = root->freelist;
 			root->freelist.t = root->freelist.t->right;
+			
+			// Make sure it's clean for the next use
+			new_node.t->left = NULL;
+			new_node.t->right = NULL;
+			new_node.t->parent = NULL;
 		}
 		else{
 			new_node.t = calloc(1, sizeof(struct _tree_node));
@@ -120,7 +124,7 @@ inline static _node_pt _new_node(const DS const root){
 inline static void _print_node(_tnode_pt node, uint lvl){
 	for (uint i=0; i<lvl; i++)
 		printf("   ");
-	puts(node->index);
+	puts(node->key);
 	if (node->left != NULL)
 		_print_node(node->left, lvl+1);
 	else {
@@ -349,7 +353,7 @@ bool DS_insert_last (const DS const root, void const * const data){
 bool DS_sort(
 	const DS     const root,
 	const void * const data,
-	const char * const index
+	const char * const key
 ){
 	_node_pt new_node;
 	_tnode_pt * position;
@@ -367,7 +371,7 @@ bool DS_sort(
 	position = &(root->head.t);
 	while (*position){
 		root->current.t = *position;
-		result=strcmp(index, root->current.t->index);
+		result=strcmp(key, root->current.t->key);
 		if      (result <0) position = &(root->current.t->left);
 		else if (result >0) position = &(root->current.t->right);
 		else { // result is 0
@@ -387,7 +391,7 @@ bool DS_sort(
 	
 	root->count++;
 	new_node.t->data   = data;
-	new_node.t->index  = index;
+	new_node.t->key    = key;
 	new_node.t->parent = root->current.t;
 	root->current=new_node;
 	
@@ -400,15 +404,158 @@ bool DS_sort(
 #define DS_pop(A) DS_remove_first(A)
 #define DS_dq(A)  DS_remove_last(A)
 
-//void * DS_remove      (DS const root){}
-//void * DS_remove_first(DS const root){}
-//void * DS_remove_last (DS const root){}
+void * DS_remove(DS const root){
+	void * data;
+	
+	if (root->current.l == NULL){
+		_error(_e_empty);
+		return NULL;
+	}
+	
+	data = root->current.l->data;
+	
+	switch (root->type){
+	case DS_bst:
+		// add to freelist
+		root->current.t->right = root->freelist.t;
+		root->freelist.t = root->current.t;
+		
+		
+		if(!root->current.t->left && !root->current.t->right){ //leaf
+			// remove from tree
+			if(root->current.t->parent->left == root->current.t)
+				root->current.t->parent->left = NULL;
+			else if(root->current.t->parent->right == root->current.t)
+				root->current.t->parent->right = NULL;
+			else _error("ERROR: parent does not have child");
+			
+		}
+		else if(!root->current.t->right){
+			// remove from tree
+			if(root->current.t->parent->left == root->current.t)
+				root->current.t->parent->left = NULL;
+			else if(root->current.t->parent->right == root->current.t)
+				root->current.t->parent->right = NULL;
+			else _error("ERROR: parent does not have child");
+		}
+		break;
+		
+	case DS_list:
+		// Check if we are at the beginning or end
+		if (root->current.l == root->head.l)
+			return DS_remove_first(root);
+		else if (root->current.l == root->tail.l)
+			return DS_remove_last (root);
+	
+	case DS_circular_list:
+		if (root->current.l->next == root->current.l){
+			// last node in a circular list
+			root->head.l = NULL;
+		}
+		else{
+			// Close the gap
+			root->current.l->prev->next = root->current.l->next;
+			root->current.l->next->prev = root->current.l->prev;
+		}
+		
+		// move to freelist
+		root->current.l->prev = root->freelist.l;
+		root->freelist = root->current;
+		
+		if (!root->head.l){
+			root->current.l = NULL;
+			root->tail.l    = NULL;
+			root->count=0;
+		}
+		else root->current.l = root->current.l->next;
+		break;
+		
+	default: _error(_e_invtype); return NULL;
+	}
+	
+	root->count--;
+	return data;
+}
+
+
+void * DS_remove_first(DS const root){
+	void * data;
+	
+	if (root->current.l == NULL){
+		_error(_e_empty);
+		return NULL;
+	}
+	
+	switch (root->type){
+	case DS_list         : break;
+	case DS_bst          :
+	case DS_circular_list: _error(_e_nsense ); return NULL;
+	default              : _error(_e_invtype); return NULL;
+	}
+	
+	root->current = root->tail;
+	data = root->head.l->data;
+	
+	// remove from structure
+	root->head.l = root->head.l->next;
+	root->head.l->prev = NULL;
+	root->count--;
+	
+	// move to freelist
+	root->current.l->prev = root->freelist.l;
+	root->freelist = root->current;
+	
+	if (!root->head.l) {
+		root->current.l = NULL;
+		root->tail.l    = NULL;
+		root->count=0;
+	}
+	
+	return data;
+}
+
+
+void * DS_remove_last (DS const root){
+	void * data;
+	
+	if (root->current.l == NULL){
+		_error(_e_empty);
+		return NULL;
+	}
+	
+	switch (root->type){
+	case DS_list         : break;
+	case DS_bst          :
+	case DS_circular_list: _error(_e_nsense ); return NULL;
+	default              : _error(_e_invtype); return NULL;
+	}
+	
+	root->current = root->tail;
+	data = root->current.l->data;
+	
+	// remove from structure
+	root->tail.l = root->tail.l->prev;
+	root->tail.l->next = NULL;
+	root->count--;
+	
+	// move to freelist
+	root->current.l->prev = root->freelist.l;
+	root->freelist = root->current;
+	
+	if (!root->tail.l) {
+		root->current.l = NULL;
+		root->tail.l    = NULL;
+		root->count=0;
+	}
+	
+	return data;
+}
 
 /************************* CHANGE DATA IN STRUCTURE ***************************/
 
 // set the data at the current position
 void DS_set_data(const DS const root, void * data){
-		if (root->current.l == NULL){
+	if (root->current.l == NULL){
 		_error(_e_empty);
 		return;
 	}
@@ -421,19 +568,44 @@ void DS_set_data(const DS const root, void * data){
 	case DS_list:
 	case DS_circular_list:
 		root->current.l->data = data;
+		break;
 		
+	default: _error(_e_invtype); return;
 	}
 }
 
 /********************** VIEW RECORD IN DATA STRUCTURE *************************/
 
-//void* DS_find(const DS root, const char * const){
-//	if (root->current.l == NULL){
-//		_error(_e_empty);
-//		return NULL;
-//	}
-//	
-//}
+void* DS_find(const DS root, const char * const key){
+	_tnode_pt node;
+	int result;
+	
+	if (root->current.l == NULL){
+		_error(_e_empty);
+		return NULL;
+	}
+	
+	switch (root->type){
+	case DS_bst: break;
+	case DS_list:
+	case DS_circular_list: _error(_e_nsense); return NULL;
+	default: _error(_e_invtype); return NULL;
+	}
+	
+	node = root->head.t;
+	while (node != NULL){
+		result=strcmp(key, node->key);
+		
+		if      (result>0) node=node->right;
+		else if (result<0) node=node->left;
+		else { //strcmp returns 0
+			root->current.t=node;
+			return root->current.t->data;
+		}
+	}
+	
+	return NULL;
+}
 
 
 // VISITING
@@ -601,392 +773,5 @@ void * DS_position(const DS const root, const unsigned int position){
 	
 	return root->current.l->data;
 }
-
-
-
-
-
-
-
-
-
-
-
-/*********************** REMOVE FROM DATA STRUCTURE ***************************/
-
-///**	Pop the top record from a linked list
-// */
-//void* pop(const DS root) {
-//	void* data;
-//	struct _node* temp;
-//	
-//	if (root->head==NULL)
-//		return NULL;
-//	
-//	if(root->view == root->head)
-//		root->view= NULL;
-//	
-//	data=root->head->data;
-//	temp=root->head;
-//	
-//	switch (root->type){
-//	case _LL:
-//	
-//		if (root->head->right == NULL){ // if this is the last node
-//			root->head=NULL;
-//			root->tail=NULL;
-//		}else{
-//			root->head->right->previous=NULL;
-//			root->head=root->head->right;
-//		}
-//	
-//	break;
-//	case _CLL:
-//	
-//		if(root->head->right == root->head){ // if this is the last node
-//			root->head=NULL;
-//			root->tail=NULL;
-//		}else{
-//			root->tail->right			=root->head->right;
-//			root->head->right->previous	=root->tail;
-//			root->head					=root->head->right;
-//		}
-//	
-//	break;
-//	case _BST:
-//	case 'b':
-//		puts(_e_nsense);
-//		return NULL;
-//	default:
-//		puts(_e_invtype);
-//		return NULL;
-//	}
-//	
-//	free(temp);
-//	root->size--;
-//	return data;
-//}
-///**	de-queue the bottom record from a linked list
-// */
-//void* dq(DS root) {
-//	void* data;
-//	struct _node* temp;
-//	
-//	if (root->tail==NULL)
-//		return NULL;
-//	
-//	if(root->view == root->tail)
-//		root->view= NULL;
-//	
-//	data=root->tail->data;
-//	temp=root->tail;
-//	
-//	switch (root->type){
-//	case _LL:
-//	
-//		if (root->tail->previous == NULL){ // if this is the last node
-//			root->head=NULL;
-//			root->tail=NULL;
-//		}else{
-//			root->tail->previous->right=NULL;
-//			root->tail=root->tail->previous;
-//		}
-//	
-//	break;
-//	case _CLL:
-//	
-//		if(root->tail->right == root->tail){ // if this is the last node
-//			root->head=NULL;
-//			root->tail=NULL;
-//		}else{
-//			root->head->previous		=root->tail->previous;
-//			root->tail->previous->right	=root->head;
-//			root->tail					=root->tail->previous;
-//		}
-//	
-//	break;
-//	case _BST:
-//	case 'b':
-//		puts(_e_nsense);
-//		return NULL;
-//	default:
-//		puts(_e_invtype);
-//		return NULL;
-//	}
-//	free(temp);
-//	root->size--;
-//	return data;
-//}
-
-///**	remove a record from a linked list
-// *	record is searched by ID
-// */
-//int iremove(DS root, char* index) {
-//	_isearch(root, index);
-//	if (root->view == NULL){
-//		printf("iremove(): ERROR: %s not found.\n", index);
-//		return EXIT_FAILURE;
-//	}
-//	_delete_node(root);
-//	return EXIT_SUCCESS;
-//}
-
-///**	remove a node by position
-// *	positive counts from the head, negative from the tail
-// */
-////int premove(DS root, int position) {
-////	return EXIT_FAILURE;
-////}
-
-///********************** VIEW RECORD IN DATA STRUCTURE *************************/
-
-///**	search for a node by index in a sorted link list and return its contents
-// */
-//void* iview(const DS root, const char* index){
-//	_isearch(root, index);
-//	if (root->view == NULL)
-//		return NULL;
-//	return root->view->data;
-//}
-
-///**	search for a node by position and return its contents
-// *	positive counts from the head, negative from the tail
-// */
-//void* pview(const DS root, int position){
-//	switch (root->type){
-//	case _LL:
-//		if (position != 0){
-//			puts(_e_noimp);
-//			// FIXME
-//			return NULL;
-//		}else{
-//			root->view=NULL;
-//			return root->view;
-//		}
-//	
-//	case _CLL:
-//		puts(_e_noimp);
-//		return NULL;
-//	
-//	case _BST:
-//	case 'b':
-//		puts(_e_nsense);
-//		return NULL;
-//	
-//	default:
-//		puts(_e_invtype);
-//		return NULL;
-//	}
-//}
-
-///**	View each member of a linked list in order
-// *	each call to this function returns the next member of the ll
-// *	return to the first member with pview(root, 1);
-// */
-//void* view_next(DS root) {
-//	if (root->head == NULL){ // empty data structure
-//		//puts(_n_empty);
-//		return NULL;
-//	}
-//	
-//	if (root->view == NULL){
-//		root->view = root->head;
-//		return root->view->data;
-//	}
-//	
-//	if (root->view->right == NULL) {
-//		//puts(_n_end);
-//		root->view = root->head;
-//		return NULL;
-//	}
-//	
-//	root->view = root->view->right;
-//	return root->view->data;
-//}
-
-///***************************** PRIVATE FUNCTIONS ******************************/
-
-
-
-//static void _isearch(const DS root, const char* index){
-//	int result;
-//	
-//	if (root->head == NULL){
-//		root->view=NULL;
-//		return;
-//	}
-//	
-//	// FIXME this function should check that the index pointer is set. 
-//	// is this a sorted list?
-//	
-//	root->view=root->head;
-//	
-//	switch (root->type){
-//	case _CLL:
-//	
-//		while (root->view != root->tail){
-//			result=strcmp(index,root->view->index);
-//			
-//			if (result>0)
-//				root->view=root->view->right;
-//			else if (result<0)
-//				root->view=NULL;
-//			else return; //strcmp returns 0
-//		}
-//	
-//	break;
-//	case _LL:
-//	
-//		while (root->view != NULL){
-//			result=strcmp(index,root->view->index);
-//			
-//			if (result>0)
-//				root->view=root->view->right;
-//			else if (result<0)
-//				root->view=NULL;
-//			else return; //strcmp returns 0
-//		}
-//	
-//	break; // this will probably be the same for trees
-//	case _BST:
-//	
-//		while (root->view != NULL){
-//			result=strcmp(index,root->view->index);
-//			
-//			if (result>0)
-//				root->view=root->view->right;
-//			else if (result<0)
-//				root->view=root->view->left;
-//			else return; //strcmp returns 0
-//		}
-//	
-//	break;
-//	case 'b':
-//	
-//		puts(_e_noimp);
-//	
-//	break;
-//	default:
-//		puts(_e_invtype);
-//	}
-//}
-
-//static void _delete_node(const DS root){
-//	if (root->view == NULL) return;
-//	
-//	switch (root->type){
-//	case _LL:
-//	case _CLL:
-//	
-//		if (root->view == root->head){
-//			(void) pop(root);
-//			return;
-//		}
-//		if (root->view == root->tail){
-//			(void) dq(root);
-//			return;
-//		}
-//		
-//		// It we're in the middle of the list
-//		root->view->previous->right=root->view->right;
-//		root->view->right->previous=root->view->previous;
-//		root->size--;
-//	
-//	break;
-//	case _BST:
-//	case 'b':
-//	
-//		puts(_e_noimp);
-//	
-//	break;
-//	default:
-//		puts(_e_invtype);
-//	}
-//	
-//	free(root->view);
-//	root->view = NULL;
-//	return;
-//}
-
-
-
-///**	add new data to a link list data structure in sort order
-// *	data must be a structure with field int* ID that will be used for sorting
-// */
-//static int _sortll(DS root, void* data_pt, const char* index) {
-//	struct _node* new_node;
-//	struct _node* current_position;
-//	
-//	// allocate a new node
-//	new_node=malloc(sizeof(struct _node));
-//	if (new_node == NULL){
-//		puts(_e_mem);
-//		return EXIT_FAILURE;
-//	}
-//	
-//	// setup the new node
-//	new_node->data=data_pt;
-//	new_node->index=index;
-//	new_node->left=NULL;
-//	root->view=new_node;
-//	
-//	root->size++;
-//	
-//	if (root->head == NULL) { // if the data structure is empty
-//		_add_first_node(root, new_node);
-//		return EXIT_SUCCESS;
-//	}
-//	
-//	current_position=root->head;
-//	while (( strcmp(index,current_position->index) )>0) {
-//		if (current_position->right == NULL) {
-//			// we are at the end of the linked list,
-//			// and the new data must go last
-//			
-//			current_position->right=new_node;
-//			
-//			new_node->previous=current_position;
-//			new_node->right=NULL;
-//			
-//			root->tail=new_node;
-//			
-//			return EXIT_SUCCESS;
-//		}
-//		
-//		current_position=current_position->right;
-//	}
-//	
-//	if (!strcmp(index,current_position->index)) {
-//		puts(_e_repeat);
-//		free(new_node);
-//		return EXIT_FAILURE;
-//	}
-//	
-//	if (current_position == root->head){
-//		// we are at the head of the linked list and the new data must go before
-//		
-//		current_position->previous=new_node;
-//		
-//		new_node->previous=NULL;
-//		new_node->right=current_position;
-//		
-//		root->head=new_node;
-//		
-//		return EXIT_SUCCESS;
-//	}
-//	
-//	// If we are still running, then there is a node before and after us,
-//	// and the new node must go before the current node
-//	
-//	current_position->previous->right=new_node;
-//	
-//	new_node->previous=current_position->previous;
-//	new_node->right=current_position;
-//	
-//	current_position->previous=new_node;
-//	
-//	return EXIT_SUCCESS;
-//}
-
 
 

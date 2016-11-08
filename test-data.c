@@ -37,6 +37,18 @@ int main(void){
 	puts("Dumping circle:");
 	DS_dump(circle);
 	
+	printf("Count is: %d, ", DS_count(circle));
+	DS_remove(circle);
+	printf("Count is: %d, ", DS_count(circle));
+	DS_remove(circle);
+	printf("Count is: %d, ", DS_count(circle));
+	DS_remove(circle);
+	printf("Count is: %d, ", DS_count(circle));
+	DS_remove(circle);
+	printf("Count is: %d\n", DS_count(circle));
+	
+	if(!DS_isempty(circle)) puts("ERROR: empty circle is not empty");
+	
 	printf("\nEND CIRCLE TESTS\n\n");
 	
 	/***************************** BST TESTS **********************************/
@@ -55,6 +67,9 @@ int main(void){
 	if(!DS_sort(ex_bst, second, second)) puts("ERROR: inserted dup second");
 	if(!DS_sort(ex_bst, third, third)) puts("ERROR: inserted dup third");
 	if(!DS_sort(ex_bst, fourth, fourth)) puts("ERROR: inserted dup fourth");
+	
+	temp=DS_find(ex_bst, second);
+	if(!temp || strcmp(second, temp)) puts("ERROR: find failed");
 	
 	puts("Dumping ex_bst:");
 	DS_dump(ex_bst);
@@ -81,6 +96,11 @@ int main(void){
 	while((temp = DS_previous(dup_bst)))
 		printf("Previous: %s\n", temp);
 	printf("Last in-order node: %s\n", (char*) DS_last(dup_bst));
+	
+	temp=DS_find(ex_bst, second);
+	if(!temp || strcmp(second, temp)) puts("ERROR: find failed");
+	temp=DS_find(ex_bst, third);
+	if(!temp || strcmp(third, temp)) puts("ERROR: find failed");
 	
 	puts("Dumping dup_bst:");
 	DS_dump(dup_bst);

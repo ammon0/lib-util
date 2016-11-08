@@ -1,5 +1,15 @@
 /*******************************************************************************
- *	A generic data structures library for C development
+ *
+ *	lib-util : A Utility Library
+ *
+ *	Copyright (c) 2016 Ammon Dodson
+ *	You should have received a copy of the licence terms with this software. If
+ *	not, please visit the project homepage at:
+ *	https://github.com/ammon0/lib-util
+ *
+ *******************************************************************************
+ *
+ *	data.h : A generic data structures library for C development
  *
  *	Provides linked lists and binary search trees
  *	Each data structure keeps track of the current working position, and most of
@@ -63,22 +73,27 @@
  *		DS_current()
  *
  *
- *	functions are documented below
+ *	Individual functions are documented below.
  *
  ******************************************************************************/
 
 
-#ifndef DATA_H_INCLUDE
-#define DATA_H_INCLUDE
+#ifndef _DATA_H_INCLUDE
+#define _DATA_H_INCLUDE
 
 #include <stdbool.h>
 
+// All data structures are represented in the caller's code as type DS
 typedef struct _root* DS;
+
+// These are types of data structures availible
 typedef enum {DS_list, DS_circular_list, DS_bst } DS_type;
 
-// DS_splay_tree DS_k_tree DS_tree DS_hash_table
 
-/********************** ACTIONS ON WHOLE DATA STRUCTURE ***********************/
+/******************************************************************************/
+//                     COMMANDS FOR ALL DATA STRUCTURES
+/******************************************************************************/
+
 
 DS DS_new(DS_type type, bool duplicates);
 /**	create a new data structure
@@ -97,8 +112,13 @@ void         DS_dump   (const DS const root);
  *	the stored data is not changed
  */
 
-/**************************** ADD TO DATA STRUCTURE ***************************/
 
+/******************************************************************************/
+//                           ADD TO DATA STRUCTURE
+/******************************************************************************/
+
+
+// Inserts a new node at the "current" position
 bool DS_insert      (const DS const root, void const * const data);
 bool DS_insert_first(const DS const root, void const * const data);
 bool DS_insert_last (const DS const root, void const * const data);
@@ -109,15 +129,20 @@ bool DS_insert_last (const DS const root, void const * const data);
 bool DS_sort(
 	const DS     const root,
 	const void * const data,
-	const char * const index
+	const char * const key
 );
 /**	insert node in to the structure in sort order
  *	the third value must be a \0 terminated string used for sorting
  *	duplicate indexes are not allowed
  */
 
-/*********************** REMOVE FROM DATA STRUCTURE ***************************/
 
+/******************************************************************************/
+//                       REMOVE FROM DATA STRUCTURE
+/******************************************************************************/
+
+
+// Removes the node at the "current" position and returns its data
 void * DS_remove      (DS const root);
 void * DS_remove_first(DS const root);
 void * DS_remove_last (DS const root);
@@ -125,12 +150,20 @@ void * DS_remove_last (DS const root);
 #define DS_pop(A) DS_remove_first(A)
 #define DS_dq(A)  DS_remove_last(A)
 
-/************************* CHANGE DATA IN STRUCTURE ***************************/
+
+/******************************************************************************/
+//                          MODIFY DATA IN STRUCTURE
+/******************************************************************************/
+
 
 // set the data at the current position
 void DS_set_data(DS, void * data);
 
-/********************** VIEW RECORD IN DATA STRUCTURE *************************/
+
+/******************************************************************************/
+//                       VIEW RECORD IN DATA STRUCTURE
+/******************************************************************************/
+
 
 void* DS_find(const DS, const char * const);
 /**	search for a node by index in a sorted link list and return a pointer to
@@ -148,4 +181,6 @@ void * DS_position (const DS const root, const unsigned int);
 // set the current position to a specific count from the beginning
 
 
-#endif
+#endif // _DATA_H_INCLUDE
+
+

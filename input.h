@@ -1,5 +1,20 @@
-#ifndef input_h_INCLUDE
-#define input_h_INCLUDE
+/*******************************************************************************
+ *
+ *	lib-util : A Utility Library
+ *
+ *	Copyright (c) 2016 Ammon Dodson
+ *	You should have received a copy of the licence terms with this software. If
+ *	not, please visit the project homepage at:
+ *	https://github.com/ammon0/lib-util
+ *
+ *******************************************************************************
+ *
+ *	input.h : Safe input functions
+ *
+ ******************************************************************************/
+
+#ifndef _INPUT_H_INCLUDE
+#define _INPUT_H_INCLUDE
 
 #include <stdio.h>
 
@@ -27,4 +42,6 @@ char* grabfield(FILE*);
  *	returns NULL on failure
  */
 
-#endif
+#endif // _INPUT_H_INCLUDE
+
+

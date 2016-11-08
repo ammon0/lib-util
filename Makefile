@@ -1,5 +1,13 @@
-# lib-util : A Utility Library
-
+################################################################################
+#
+#	lib-util : A Utility Library
+#
+#	Copyright (c) 2016 Ammon Dodson
+#	You should have received a copy of the licence terms with this software. If
+#	not, please visit the project homepage at:
+#	https://github.com/ammon0/lib-util
+#
+################################################################################
 
 # Change these variables to point to the appropriate installation directories
 INSTALLDIR:=$(HOME)/prg
@@ -21,10 +29,10 @@ CFLAGS:= $(CWARNINGS) --std=c11
 ALLFILES:= data.c data.h test-data.c input.h input.c test-input.c
 
 
-.PHONEY: install debug-data debug-input release
+.PHONEY: install debug-data debug-input all
 
-release: CFLAGS += -O2
-release: libdata.a libinput.a
+all: CFLAGS += -O2
+all: libdata.a libinput.a
 
 debug-data: CFLAGS += -DDEBUG -g
 debug-data: test-data

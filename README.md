@@ -1,13 +1,22 @@
 # lib-util : A Utility Library
 
 Includes
-* data.h
 * input.h
+* data.h
+
+
+## input.h : File Input Functions
+Safe replacements for some Standard C Library functions. *grabline()* in particular is a safe replacement for fgets().
+
+Functions include:
+* grabword() : get the next whitespace delimited word from the input stream
+* grabline() : get the next line of text from the input stream
+* grabfield() : get the next __tab__ delimited field from the input stream
+
+Each function returns a dynamically sized string that must be freed by the caller. All will return __NULL__ on an error or the end of input.
 
 ## data.h : Quick Data Structures
-A C library implementing of some of the most common data structures with an easy-to-use interface
-
-Currently in process of a major rewrite after which the interface should remain stable.
+A C library implementing of some of the most common data structures with an easy-to-use interface. It works with any data type because data is stored as ()void*). This will require you to recast some pointers returned by data.h to the correct data type.
 
 Each data structure keeps track of the "current working position", and most of the function calls operate at, or modify the current position. The _data.h_ header contains details for the use of each function.
 
@@ -72,15 +81,5 @@ Future Plans include:
 *	`DS_next()`
 *	`DS_previous()`
 *	`DS_current()`
-
-## input.h : File Input Functions
-Safe replacements for some Standard C Library functions.
-
-Functions include:
-* grabword() : get the next whitespace delimited word from the input stream
-* grabline() : get the next line of text from the input stream
-* grabfield() : get the next __tab__ delimited field from the input stream
-
-Each function returns a dynamically sized string that must be freed by the caller. All will return __NULL__ on an error or the end of input.
 
 
