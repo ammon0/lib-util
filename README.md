@@ -29,6 +29,7 @@ Future Plans include:
 *	Splay Trees
 *	k Trees
 *	General Trees
+*	heaps
 *	Hash Tables
 
 ### Acceptable Actions for Each Structure Type

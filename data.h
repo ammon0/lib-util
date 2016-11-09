@@ -95,11 +95,20 @@ typedef enum {DS_list, DS_circular_list, DS_bst } DS_type;
 /******************************************************************************/
 
 
-DS DS_new(DS_type type, bool duplicates);
+DS DS_new(
+	DS_type type,
+	bool duplicates,
+	int (*comparator)(const void* left, const void* right)
+);
 /**	create a new data structure
  *
  *	the duplicate parameter is used for sorted structures and indicates whether
  *	duplicated data is allowed
+ *
+ *	comparator is used in sorted structures. It must return <0 if left is
+ *	ordered before right, >0 if left is ordered after right, and 0 if they are
+ *	the same.
+ *
  *	Returns NULL on failure
  */
 
@@ -128,8 +137,7 @@ bool DS_insert_last (const DS const root, void const * const data);
 
 bool DS_sort(
 	const DS     const root,
-	const void * const data,
-	const char * const key
+	const void * const data
 );
 /**	insert node in to the structure in sort order
  *	the third value must be a \0 terminated string used for sorting
@@ -165,7 +173,7 @@ void DS_set_data(DS, void * data);
 /******************************************************************************/
 
 
-void* DS_find(const DS, const char * const);
+void* DS_find(const DS root, const void * const key);
 /**	search for a node by index in a sorted link list and return a pointer to
  *	its contents
  *	does not change contents of data structure
