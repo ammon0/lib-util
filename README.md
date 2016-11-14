@@ -1,5 +1,7 @@
 # lib-util : A Utility Library
 
+This project uses semantic versioning: http://semver.org/
+
 Includes
 * input.h
 * data.h

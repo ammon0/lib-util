@@ -165,6 +165,8 @@ void         DS_dump   (const DS root);
 #define DS_nq(A,B)   DS_insert_first(A,B)
 #define DS_push(A,B) DS_insert_first(A,B)
 
+// TODO: these should return a pointer to the data in the structure
+
 // Inserts a new node at the "current" position
 bool DS_insert      (DS root, const void * data);
 bool DS_insert_first(DS root, const void * data);
