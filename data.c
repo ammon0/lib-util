@@ -217,7 +217,7 @@ DS DS_new(
 
 void DS_delete(DS root){
 	
-	while (DS_remove_last(root));
+	while (root->count) DS_remove_last(root);
 	DS_flush(root); // clear the freelist
 	
 	free(root);
@@ -628,7 +628,7 @@ const void * DS_remove_first(DS root){
 		
 		// remove from structure
 		root->head.l = root->head.l->next;
-		root->head.l->prev = NULL;
+		if (root->head.l) root->head.l->prev = NULL;
 		
 		// move to freelist
 		root->current.l->prev = root->freelist.l;
@@ -694,7 +694,7 @@ const void * DS_remove_last (DS root){
 		
 		// remove from structure
 		root->tail.l = root->tail.l->prev;
-		root->tail.l->next = NULL;
+		if (root->tail.l) root->tail.l->next = NULL;
 		
 		// move to freelist
 		root->current.l->prev = root->freelist.l;

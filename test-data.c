@@ -15,7 +15,7 @@ int main(void){
 		*third  = "CCCC",
 		*fourth = "DDDD";
 	
-	//DS list    = DS_new(DS_list         , true );
+	DS list    = DS_new(DS_list         , sizeof(char*), true , NULL, NULL);
 	DS circle  = DS_new(DS_circular_list, sizeof(char*), true , NULL, NULL);
 	DS dup_bst = DS_new(DS_bst          , sizeof(char*), true , &cmp, &cmp);
 	DS ex_bst  = DS_new(DS_bst          , sizeof(char*), false, &cmp, &cmp);
@@ -137,6 +137,15 @@ int main(void){
 	printf("\nEND DUP_BST TESTS\n\n");
 	
 	/***************************** LIST TESTS *********************************/
+	
+	if(DS_push(list, first)) puts("ERROR: failed push first");
+	if(DS_push(list, second)) puts("ERROR: failed push second");
+	if(DS_push(list, third)) puts("ERROR: failed push third");
+	if(DS_push(list, fourth)) puts("ERROR: failed push fourth");
+	
+	DS_delete(list);
+	
+	printf("\nEND LIST TESTS\n\n");
 	
 	printf("\n*** END OF TESTS ***\n\n");
 	
