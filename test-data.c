@@ -10,15 +10,15 @@ static inline int cmp(const void * left, const void * right){
 
 int main(void){
 	char * temp;
-	char *first = "AAAA",
+	const char *first = "AAAA",
 		*second = "BBBB",
 		*third  = "CCCC",
 		*fourth = "DDDD";
 	
 	//DS list    = DS_new(DS_list         , true );
-	DS circle  = DS_new(DS_circular_list, true , NULL);
-	DS dup_bst = DS_new(DS_bst          , true , &cmp);
-	DS ex_bst  = DS_new(DS_bst          , false, &cmp);
+	DS circle  = DS_new(DS_circular_list, sizeof(char*), true , NULL, NULL);
+	DS dup_bst = DS_new(DS_bst          , sizeof(char*), true , &cmp, &cmp);
+	DS ex_bst  = DS_new(DS_bst          , sizeof(char*), false, &cmp, &cmp);
 	
 	puts("");
 	
@@ -47,6 +47,8 @@ int main(void){
 	}
 	
 	if(!DS_isempty(circle)) puts("ERROR: empty circle is not empty");
+	
+	DS_delete(circle);
 	
 	printf("\nEND CIRCLE TESTS\n\n");
 	
@@ -117,8 +119,20 @@ int main(void){
 	
 	while(! DS_isempty(dup_bst)){
 		DS_remove_first(dup_bst);
+		puts("Dumping dup_bst:");
+		DS_dump(dup_bst);
 		DS_remove_last(dup_bst);
+		puts("Dumping dup_bst:");
+		DS_dump(dup_bst);
 	}
+	
+	DS_sort(dup_bst, second);
+	DS_flush(dup_bst);
+	
+	DS_sort(ex_bst, second);
+	
+	DS_delete(ex_bst);
+	DS_delete(dup_bst);
 	
 	printf("\nEND DUP_BST TESTS\n\n");
 	

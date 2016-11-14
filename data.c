@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdint.h>
 #include "data.h"
 
 
@@ -23,16 +24,16 @@
 typedef unsigned int uint;
 
 typedef struct _list_node {
-	const void        * data;
 	struct _list_node * next;
 	struct _list_node * prev;
+	int8_t data[];
 } * _lnode_pt;
 
 typedef struct _tree_node {
-	const void        * data  ;
 	struct _tree_node * parent;
 	struct _tree_node * left  ;
 	struct _tree_node * right ;
+	int8_t data[];
 } * _tnode_pt;
 
 typedef union {
@@ -45,23 +46,23 @@ struct _root {
 	_node_pt tail;
 	_node_pt current;
 	_node_pt freelist;
+	int      (*cmp_data)(const void * left, const void * right);
+	int      (*cmp_key) (const void * key , const void * data );
 	DS_type  type;
-	int (*comparator)(const void* left, const void* right);
-	bool     duplicates_allowed;
+	size_t   data_size;
+	bool     dups;  // duplicate data allowed
 	uint     count;  // number of nodes in the structure
 };
 
 /********************************* MESSAGES ***********************************/
 
 // ERRORS
-	// internal error
-const char* _e_invtype="Invalid DS type";
-	// os error
-const char* _e_mem    ="Could not allocate more memory";
-	// caller error
-const char* _e_repeat ="Attempt to insert duplicate data in a structure that does not allow duplicates";
-const char* _e_nsense ="Nonsensical action for given structure type";
-const char* _e_empty  ="The data structure is empty";
+const char* _e_invtype="ERROR: Invalid DS type";
+const char* _e_mem    ="ERROR: Could not allocate more memory";
+const char* _e_repeat ="ERROR: Attempt to insert duplicate data when duplicates are not allowed";
+const char* _e_nsense ="ERROR: Nonsensical action for given structure type";
+const char* _e_null   ="ERROR: the DS pointer is NULL";
+const char* _n_empty  ="NOTICE: The data structure is empty";
 
 
 /******************************************************************************/
@@ -71,7 +72,7 @@ const char* _e_empty  ="The data structure is empty";
 
 // report an error
 inline static void _error(const char * message){
-	fprintf(stderr, "data.h: ERROR: %s\n", message);
+	fprintf(stderr, "data.h: %s\n", message);
 }
 
 inline static _node_pt _new_node(const DS const root){
@@ -80,38 +81,38 @@ inline static _node_pt _new_node(const DS const root){
 	switch(root->type){
 	case DS_list:
 	case DS_circular_list:
-	
 		if (root->freelist.l){ // check the freelist first
 			new_node = root->freelist;
 			root->freelist.l = root->freelist.l->prev;
-			
-			// Make sure it's clean for the next use
-			new_node.l->next = NULL;
-			new_node.l->prev = NULL;
 		}
 		else {
-			new_node.l = calloc(1, sizeof(struct _list_node));
+			new_node.l = malloc(sizeof(struct _list_node)+root->data_size);
 			if (!new_node.l) _error(_e_mem);
 		}
+		
+		// Make sure it's clean for the next use
+		new_node.l->next = NULL;
+		new_node.l->prev = NULL;
+		break;
 	
-	break;
+	
 	case DS_bst:
-	
 		if (root->freelist.t){
 			new_node = root->freelist;
-			root->freelist.t = root->freelist.t->right;
-			
-			// Make sure it's clean for the next use
-			new_node.t->left = NULL;
-			new_node.t->right = NULL;
-			new_node.t->parent = NULL;
+			root->freelist.t = root->freelist.t->left;
 		}
 		else{
-			new_node.t = calloc(1, sizeof(struct _tree_node));
+			new_node.t = malloc(sizeof(struct _tree_node)+root->data_size);
 			if (!new_node.t) _error(_e_mem);
 		}
+		
+		// Make sure it's clean for the next use
+		new_node.t->left = NULL;
+		new_node.t->right = NULL;
+		new_node.t->parent = NULL;
+		break;
 	
-	break;
+	
 	default:
 		_error(_e_invtype);
 		new_node.l = NULL;
@@ -170,41 +171,108 @@ inline static _tnode_pt _remove_least_in_tree(_tnode_pt * parent_pt){
 // Make a new data structure
 DS DS_new(
 	DS_type type,
-	bool duplicates,
-	int (*comparator)(const void* left, const void* right)
+	size_t  data_size,
+	bool    duplicates,
+	int     (*cmp_data)(const void * left, const void * right),
+	int     (*cmp_key )(const void * key , const void * data)
 ){
 	DS new_structure;
 	
 	// Checks if any
 	switch (type){
 	case DS_list         :
-	case DS_circular_list:
-	case DS_bst          : break;
+	case DS_circular_list: break;
+	case DS_bst:
+		if (!cmp_data || !cmp_key){
+			_error(_e_nsense);
+			return NULL;
+		}
+		break;
 	default:
-		puts(_e_invtype);
+		_error(_e_invtype);
 		return NULL;
 	}
 	
 	// Allocate space
-	new_structure=calloc(1, sizeof(struct _root));
+	new_structure=malloc(sizeof(struct _root));
 	if (new_structure == NULL) {
-		puts(_e_mem);
+		_error(_e_mem);
 		return NULL;
 	}
 	
 	// Initialize
-	new_structure->type               = type      ;
-	new_structure->duplicates_allowed = duplicates;
-	new_structure->comparator         = comparator;
+	new_structure->head.l     = NULL      ;
+	new_structure->tail.l     = NULL      ;
+	new_structure->current.l  = NULL      ;
+	new_structure->freelist.l = NULL      ;
+	new_structure->cmp_data   = cmp_data  ;
+	new_structure->cmp_key    = cmp_key   ;
+	new_structure->type       = type      ;
+	new_structure->data_size  = data_size ;
+	new_structure->dups       = duplicates;
+	new_structure->count      = 0         ;
 	
 	return new_structure;
 }
 
-// Simple tests
-inline uint DS_count   (const DS const root) { return root->count   ; }
-inline bool DS_isempty (const DS const root) { return !(root->count); }
+void DS_delete(DS root){
+	
+	while (DS_remove_last(root));
+	DS_flush(root); // clear the freelist
+	
+	free(root);
+}
 
-bool DS_isleaf (const DS const root){
+void DS_flush (DS root){
+	_node_pt dead_node;
+	
+	switch (root->type){
+	case DS_list:
+	case DS_circular_list:
+		while (root->freelist.l) {
+		dead_node = root->freelist;
+		root->freelist.l = root->freelist.l->prev;
+		free(dead_node.l);
+		}
+		return;
+	
+	case DS_bst:
+		while (root->freelist.t) {
+		dead_node = root->freelist;
+		root->freelist.t = root->freelist.t->left;
+		free(dead_node.t);
+		}
+		return;
+	
+	default: _error(_e_invtype); return;
+	}
+}
+
+
+
+// Simple tests
+inline uint DS_count(const DS root) {
+	if (!root){
+		_error(_e_null);
+		return 0;
+	}
+	return root->count;
+}
+
+inline bool DS_isempty (const DS root) {
+	if (!root){
+		_error(_e_null);
+		return true;
+	}
+	return !(root->count);
+}
+
+bool DS_isleaf (const DS root){
+	if (!root){
+		_error(_e_null);
+		return false;
+	}
+
 	switch (root->type){
 	case DS_bst          : break;
 	case DS_list         :
@@ -216,8 +284,15 @@ bool DS_isleaf (const DS const root){
 }
 
 // Dump the contents of the data structure
-void DS_dump (const DS const root){
-	_node_pt this_node = root->head;
+void DS_dump (const DS root){
+	_node_pt this_node;
+	
+	if (!root){
+		_error(_e_null);
+		return;
+	}
+	
+	this_node = root->head;
 	
 	switch (root->type){
 	case DS_list:
@@ -244,7 +319,7 @@ void DS_dump (const DS const root){
 	
 	break;
 	default:
-		puts(_e_invtype);
+		_error(_e_invtype);
 	}
 }
 
@@ -253,8 +328,13 @@ void DS_dump (const DS const root){
 #define DS_nq(A,B)   DS_insert_first(A,B)
 #define DS_push(A,B) DS_insert_first(A,B)
 
-bool DS_insert (const DS const root, void const * const data){
+bool DS_insert (DS root, const void * data){
 	_node_pt new_node;
+	
+	if (!root){
+		_error(_e_null);
+		return EXIT_FAILURE;
+	}
 	
 	switch (root->type){
 	case DS_list:
@@ -302,14 +382,19 @@ bool DS_insert (const DS const root, void const * const data){
 	}
 	
 	root->count++;
-	new_node.l->data=data;
+	memcpy(new_node.l->data, data, root->data_size);
 	root->current=new_node;
 	
 	return EXIT_SUCCESS;
 }
 
-bool DS_insert_first(const DS const root, void const * const data){
+bool DS_insert_first(DS root, const void * data){
 	_node_pt new_node;
+	
+	if (!root){
+		_error(_e_null);
+		return EXIT_FAILURE;
+	}
 	
 	switch (root->type){
 	case DS_list         : break;
@@ -332,14 +417,19 @@ bool DS_insert_first(const DS const root, void const * const data){
 	root->count++;
 	
 	// assign data
-	new_node.l->data=data;
+	memcpy(new_node.l->data, data, root->data_size);
 	root->current=new_node;
 	root->head   =new_node;
 	return EXIT_SUCCESS;
 }
 
-bool DS_insert_last (const DS const root, void const * const data){
+bool DS_insert_last (DS root, const void * data){
 	_node_pt new_node;
+	
+	if (!root){
+		_error(_e_null);
+		return EXIT_FAILURE;
+	}
 	
 	switch (root->type){
 	case DS_list         : break;
@@ -362,20 +452,21 @@ bool DS_insert_last (const DS const root, void const * const data){
 	root->count++;
 	
 	// assign data
-	new_node.l->data=data;
+	memcpy(new_node.l->data, data, root->data_size);
 	root->current=new_node;
 	root->tail   =new_node;
 	return EXIT_SUCCESS;
 }
 
-bool DS_sort(
-	const DS     const root,
-	const void * const data
-){
+bool DS_sort(DS root, const void * data){
 	_node_pt new_node;
 	_tnode_pt * position;
 	int result;
 	
+	if (!root){
+		_error(_e_null);
+		return EXIT_FAILURE;
+	}
 	
 	switch (root->type){
 	case DS_bst          : break;
@@ -388,13 +479,13 @@ bool DS_sort(
 	position = &(root->head.t);
 	while (*position){
 		root->current.t = *position;
-		result=root->comparator(data, root->current.t->data);
+		result=root->cmp_data(data, root->current.t->data);
 		if      (result <0) position = &(root->current.t->left);
 		else if (result >0) position = &(root->current.t->right);
 		else { // result is 0
-			if(root->duplicates_allowed) position = &(root->current.t->right);
+			if(root->dups) position = &(root->current.t->right);
 			else {
-				puts(_e_repeat);
+				_error(_e_repeat);
 				return EXIT_FAILURE;
 			}
 		}
@@ -407,7 +498,7 @@ bool DS_sort(
 	if (new_node.t == NULL) return EXIT_FAILURE;
 	
 	root->count++;
-	new_node.t->data   = data;
+	memcpy(new_node.t->data, data, root->data_size);
 	new_node.t->parent = root->current.t;
 	root->current=new_node;
 	
@@ -420,13 +511,18 @@ bool DS_sort(
 #define DS_pop(A) DS_remove_first(A)
 #define DS_dq(A)  DS_remove_last(A)
 
-void * DS_remove(DS const root){
-	void * data;
-	_tnode_pt swapnode;
+const void * DS_remove(DS root){
+	const void * data;
+	_tnode_pt swapnode=NULL;
 	_tnode_pt * parent_pt;
 	
+	if (!root){
+		_error(_e_null);
+		return NULL;
+	}
+	
 	if (root->current.l == NULL){
-		_error(_e_empty);
+		_error(_n_empty);
 		return NULL;
 	}
 	
@@ -440,16 +536,17 @@ void * DS_remove(DS const root){
 			parent_pt = &root->current.t->parent->left;
 		else parent_pt = &root->current.t->parent->right;
 		
-		// No left Child
-		if(!root->current.t->left){
-			*parent_pt = root->current.t->right;
-			if(*parent_pt) (*parent_pt)->parent = root->current.t->parent;
-		}
-		// No right Child
-		else if(!root->current.t->right){
+		
+		// No Right Child
+		if(!root->current.t->right){
 			*parent_pt = root->current.t->left;
 			if(*parent_pt) (*parent_pt)->parent = root->current.t->parent;
-		} 
+		}
+		// Only Right Child
+		else if(!root->current.t->left){
+			*parent_pt = root->current.t->right;
+			(*parent_pt)->parent = root->current.t->parent;
+		}
 		else{ //Two Children
 			swapnode = _remove_least_in_tree(&root->current.t->right);
 			
@@ -465,10 +562,10 @@ void * DS_remove(DS const root){
 		}
 		
 		// return current to freelist
-		root->current.t->right = root->freelist.t;
+		root->current.t->left = root->freelist.t;
 		root->freelist = root->current;
 		
-		// Set current to something
+		// Reset current to the head
 		root->current = root->head;
 		break;
 		
@@ -510,12 +607,17 @@ void * DS_remove(DS const root){
 }
 
 
-void * DS_remove_first(DS const root){
-	void * data;
+const void * DS_remove_first(DS root){
+	const void * data;
 	_tnode_pt * parent_pt;
 	
+	if (!root){
+		_error(_e_null);
+		return NULL;
+	}
+	
 	if (root->current.l == NULL){
-		_error(_e_empty);
+		_error(_n_empty);
 		return NULL;
 	}
 	
@@ -541,24 +643,24 @@ void * DS_remove_first(DS const root){
 	case DS_bst:
 		parent_pt = &root->head.t;
 		
-		while((*parent_pt)->left){
-			parent_pt = &(*parent_pt)->left;
-		}
+		while((*parent_pt)->left) parent_pt = &(*parent_pt)->left;
 		root->current.t = *parent_pt;
-		
-		// remove from tree
-		*parent_pt = root->current.t->right;
-		if (root->current.t->right)
-			root->current.t->right->parent = root->current.t->parent;
 		
 		data = root->current.t->data;
 		
+		// remove from tree
+		*parent_pt = root->current.t->right;
+		if (*parent_pt) (*parent_pt)->parent = root->current.t->parent;
+		
 		// move to freelist
-		root->current.t->right = root->freelist.t;
+		root->current.t->left = root->freelist.t;
 		root->freelist = root->current;
 		
-		// set current
+		// set current to next in-order node
 		root->current = root->head;
+		if (root->current.t) // may have been the last node
+			while (root->current.t->left)
+				root->current.t = root->current.t->left;
 		
 		break;
 		
@@ -566,18 +668,22 @@ void * DS_remove_first(DS const root){
 	default              : _error(_e_invtype); return NULL;
 	}
 	
-	
 	root->count--;
 	return data;
 }
 
 
-void * DS_remove_last (DS const root){
-	void * data;
+const void * DS_remove_last (DS root){
+	const void * data;
 	_tnode_pt * parent_pt;
 	
+	if (!root){
+		_error(_e_null);
+		return NULL;
+	}
+	
 	if (root->current.l == NULL){
-		_error(_e_empty);
+		_error(_n_empty);
 		return NULL;
 	}
 	
@@ -602,24 +708,24 @@ void * DS_remove_last (DS const root){
 	case DS_bst:
 		parent_pt = &root->head.t;
 		
-		while((*parent_pt)->right){
-			parent_pt = &(*parent_pt)->right;
-		}
+		while((*parent_pt)->right) parent_pt = &(*parent_pt)->right;
 		root->current.t = *parent_pt;
-		
-		// remove from tree
-		*parent_pt = root->current.t->left;
-		if (root->current.t->left)
-			root->current.t->left->parent = root->current.t->parent;
 		
 		data = root->current.t->data;
 		
+		// remove from tree
+		*parent_pt = root->current.t->left;
+		if (*parent_pt) (*parent_pt)->parent = root->current.t->parent;
+		
 		// move to freelist
-		root->current.t->right = root->freelist.t;
+		root->current.t->left = root->freelist.t;
 		root->freelist = root->current;
 		
 		// set current
 		root->current = root->head;
+		if (root->current.t) // may have been the last node
+			while (root->current.t->right)
+				root->current.t = root->current.t->right;
 		
 		break;
 	case DS_circular_list: _error(_e_nsense ); return NULL;
@@ -634,34 +740,46 @@ void * DS_remove_last (DS const root){
 /************************* CHANGE DATA IN STRUCTURE ***************************/
 
 // set the data at the current position
-void DS_set_data(const DS const root, void * data){
-	if (root->current.l == NULL){
-		_error(_e_empty);
-		return;
-	}
-	
-	switch (root->type){
-	case DS_bst:
-		root->current.t->data = data;
-		break;
-		
-	case DS_list:
-	case DS_circular_list:
-		root->current.l->data = data;
-		break;
-		
-	default: _error(_e_invtype); return;
-	}
-}
+//bool DS_set_data(const DS root, const void * data){
+//	if (!root){
+//		_error(_e_null);
+//		return EXIT_FAILURE;
+//	}
+//	
+//	if (root->current.l == NULL){
+//		_error(_n_empty);
+//		return EXIT_FAILURE;
+//	}
+//	
+//	switch (root->type){
+//	case DS_bst:
+//		root->current.t->data = data;
+//		break;
+//		
+//	case DS_list:
+//	case DS_circular_list:
+//		root->current.l->data = data;
+//		break;
+//		
+//	default: _error(_e_invtype); return EXIT_FAILURE;
+//	}
+//	
+//	return EXIT_SUCCESS;
+//}
 
 /********************** VIEW RECORD IN DATA STRUCTURE *************************/
 
-void* DS_find(const DS root, const void * const key){
+void * DS_find(const DS root, const void * key){
 	_tnode_pt node;
 	int result;
 	
+	if (!root){
+		_error(_e_null);
+		return NULL;
+	}
+	
 	if (root->current.l == NULL){
-		_error(_e_empty);
+		_error(_n_empty);
 		return NULL;
 	}
 	
@@ -674,7 +792,7 @@ void* DS_find(const DS root, const void * const key){
 	
 	node = root->head.t;
 	while (node != NULL){
-		result=root->comparator(key, node->data);
+		result=root->cmp_key(key, node->data);
 		
 		if      (result>0) node=node->right;
 		else if (result<0) node=node->left;
@@ -689,9 +807,14 @@ void* DS_find(const DS root, const void * const key){
 
 
 // VISITING
-void * DS_first(const DS const root){ // visit the first node
+void * DS_first(const DS root){ // visit the first node
+	if (!root){
+		_error(_e_null);
+		return NULL;
+	}
+	
 	if (root->current.l == NULL){
-		_error(_e_empty);
+		_error(_n_empty);
 		return NULL;
 	}
 	
@@ -712,9 +835,14 @@ void * DS_first(const DS const root){ // visit the first node
 	}
 }
 
-void * DS_last(const DS const root){ // visit the last node
+void * DS_last(const DS root){ // visit the last node
+	if (!root){
+		_error(_e_null);
+		return NULL;
+	}
+	
 	if (root->current.l == NULL){
-		_error(_e_empty);
+		_error(_n_empty);
 		return NULL;
 	}
 	
@@ -734,12 +862,17 @@ void * DS_last(const DS const root){ // visit the last node
 	}
 }
 
-void * DS_next(const DS const root){ // visit the next in-order node
-	if (root->current.l == NULL){
-		_error(_e_empty);
+void * DS_next(const DS root){ // visit the next in-order node
+	if (!root){
+		_error(_e_null);
 		return NULL;
 	}
-
+	
+	if (root->current.l == NULL){
+		_error(_n_empty);
+		return NULL;
+	}
+	
 	switch (root->type){
 	case DS_bst: // this is an in-order traversal
 		
@@ -777,12 +910,17 @@ void * DS_next(const DS const root){ // visit the next in-order node
 	}
 }
 
-void * DS_previous(const DS const root){ // visit the previous in-order node
-	if (root->current.l == NULL){
-		_error(_e_empty);
+void * DS_previous(const DS root){ // visit the previous in-order node
+	if (!root){
+		_error(_e_null);
 		return NULL;
 	}
-
+	
+	if (root->current.l == NULL){
+		_error(_n_empty);
+		return NULL;
+	}
+	
 	switch (root->type){
 	case DS_bst:
 		// We can assume the right children have already been visited
@@ -818,9 +956,14 @@ void * DS_previous(const DS const root){ // visit the previous in-order node
 	}
 }
 
-void * DS_current (const DS const root){ // visit the current node
+void * DS_current (const DS root){ // visit the current node
+	if (!root){
+		_error(_e_null);
+		return NULL;
+	}
+	
 		if (root->current.l == NULL){
-		_error(_e_empty);
+		_error(_n_empty);
 		return NULL;
 	}
 	
@@ -833,9 +976,14 @@ void * DS_current (const DS const root){ // visit the current node
 }
 
 // set the current position to a specific count from the beginning
-void * DS_position(const DS const root, const unsigned int position){
-		if (root->current.l == NULL){
-		_error(_e_empty);
+void * DS_position(const DS root, const unsigned int position){
+	if (!root){
+		_error(_e_null);
+		return NULL;
+	}
+	
+	if (root->current.l == NULL){
+		_error(_n_empty);
 		return NULL;
 	}
 	

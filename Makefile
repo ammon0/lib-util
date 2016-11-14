@@ -27,6 +27,7 @@ CWARNINGS:=	-Wall -Wextra -pedantic \
 CFLAGS:= $(CWARNINGS) --std=c11
 
 ALLFILES:= data.c data.h test-data.c input.h input.c test-input.c
+CLEANFILES:= data.o input.o libinput.a libdata.a test-data test-input
 
 
 .PHONEY: install debug-data debug-input all
@@ -65,7 +66,6 @@ libdata.a: data.o
 
 
 ################################## UTILITIES ###################################
-CLEANFILES:= data.o input.o libinput.a libdata.a test-data test-input
 
 .PHONEY: clean todolist
 clean:

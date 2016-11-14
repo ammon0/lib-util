@@ -20,7 +20,7 @@ static inline bool word(char c){
 	return ( c == ' ' || c == '\n' || c == '\t' || c == '\r' || c == EOF );
 }
 
-static inline char* finishup(char* store, int i){
+static inline char* finishup(char* store, unsigned int i){
 	if (*store == '\0') { // if nothing was read
 		free(store);
 		return NULL;
@@ -43,11 +43,11 @@ static inline char* finishup(char* store, int i){
 
 // since grabword and grabline were nearly identical I combined their code
 static inline char* grab (bool (test) (char c), FILE* source){
-	int i=0;				// position in the array
-	int size=ARRAY_SIZE;	// current size of the array
-	int state=OUT;			// assume that the pointer is not already in a word
-	char* store;			// a variable array to temporarily hold the word
-	char c;					// temporary character
+	unsigned int i    = 0;          // position in the array
+	unsigned int size = ARRAY_SIZE; // current size of the array
+	int          state= OUT;        // assume that the pointer is not in a word
+	char       * store;             // an array to temporarily hold the word
+	char         c;                 // temporary character
 	
 	if (source == NULL)
 		return NULL;
@@ -61,7 +61,7 @@ static inline char* grab (bool (test) (char c), FILE* source){
 	
 	// while c is not whitespace read it into store
 	do {
-		c = fgetc(source);
+		c = (char) fgetc(source);
 		if (test (c)){
 			if (state == IN)
 				break; // stop when we find whitespace at the end of the word
@@ -99,12 +99,12 @@ char* grabline(FILE* source){
 }
 
 char* grabfield(FILE* source){
-	int i=0;				// position in the array
-	int size=ARRAY_SIZE;	// current size of the array
-	int state=OUT;			// assume that the pointer is not already in a field
-	char* store;			// a variable array to temporarily hold the field
-	char c;					// temporary character
-	int space_count=0;		// track number of contiguous spaces
+	unsigned int i    = 0;          // position in the array
+	unsigned int size = ARRAY_SIZE; // current size of the array
+	int          state= OUT;        // assume that the pointer is not in a field
+	char*        store;             // an array to temporarily hold the field
+	char         c;                 // temporary character
+	int          space_count=0;     // track number of contiguous spaces
 	
 	if (source == NULL)
 		return NULL;
@@ -117,7 +117,7 @@ char* grabfield(FILE* source){
 	
 	// while c is not EOF read it into store
 	do {
-		c = fgetc(source);
+		c = (char) fgetc(source);
 		if      (c == ' ' && state == OUT); // do nothing
 		else if( (c>='\t' && c<='\r') || c == EOF || space_count >=SP_NW_FIELD){
 			if (state == IN)
