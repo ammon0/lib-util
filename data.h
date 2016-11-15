@@ -212,13 +212,15 @@ bool DS_insert_first(DS root, const void * data);
 /// Insert data at the end of a DS_list
 bool DS_insert_last (DS root, const void * data);
 
+// TODO: this should be built into insert
+
 /**	Insert data into the structure in sorted order.
  *	
  *	##Results
  *	Returns 0 on sucess. This call will fail if a duplicate key is found and
  *	duplicates are not allowed.
  */
-bool DS_sort(DS root, const void * data);
+//bool DS_sort(DS root, const void * data);
 
 
 /******************************************************************************/
