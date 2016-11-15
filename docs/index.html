@@ -83,7 +83,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="data_8h.html" title="A generic data structures library for C development. ">data.h</a></li>
 </ul>
 <p>Please visit the <a href="https://ammon0.github.io/lib-util/">project homepage</a>.</p>
-<h2><a class="el" href="input_8h.html" title="Safe input functions. ">input.h</a> : File Input Functions</h2>
+<h2>Version Numbering</h2>
+<p>This project is using semantic versioning. As such, the API as documented in the header files and the project website will not change unless there is a new major version number.</p>
+<h2>Headers Provided</h2>
+<h3><a class="el" href="input_8h.html" title="Safe input functions. ">input.h</a> : File Input Functions</h3>
 <p>Safe replacements for some Standard C Library functions. <em><a class="el" href="input_8h.html#a1d2edab52913529f67227871baa20081" title="Get the next newline terminated line of text and store it in an array. ">grabline()</a></em> in particular is a safe replacement for fgets().</p>
 <p>Functions include:</p><ul>
 <li><a class="el" href="input_8h.html#a9133c67e05507d46f0a52a198beb609d" title="Get the next alphanumeric word from the input stream. ">grabword()</a> : get the next whitespace delimited word from the input stream</li>
@@ -91,7 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="input_8h.html#a378a20435c41d347e09cb8a58142d038" title="Get the next tab or newline terminated string from the input stream. ">grabfield()</a> : get the next <b>tab</b> delimited field from the input stream</li>
 </ul>
 <p>Each function returns a dynamically sized string that must be freed by the caller. All will return <b>NULL</b> on an error or the end of input.</p>
-<h2><a class="el" href="data_8h.html" title="A generic data structures library for C development. ">data.h</a> : Quick Data Structures</h2>
+<h3><a class="el" href="data_8h.html" title="A generic data structures library for C development. ">data.h</a> : Quick Data Structures</h3>
 <p>A C library implementing of some of the most common data structures with an easy-to-use interface. It works with any data type because data is stored as ()void*). This will require you to recast some pointers returned by <a class="el" href="data_8h.html" title="A generic data structures library for C development. ">data.h</a> to the correct data type.</p>
 <p>Each data structure keeps track of the "current working position", and most of the function calls operate at, or modify the current position. The <em><a class="el" href="data_8h.html" title="A generic data structures library for C development. ">data.h</a></em> header contains details for the use of each function.</p>
 <p>Data structure types include:</p><ul>
