@@ -172,6 +172,7 @@ bool DS_insert      (DS root, const void * data);
 bool DS_insert_first(DS root, const void * data);
 bool DS_insert_last (DS root, const void * data);
 
+// TODO: this should be built into insert
 bool DS_sort(DS root, const void * data);
 /**	insert node in to the structure in sort order
  *	the third value must be a \0 terminated string used for sorting
