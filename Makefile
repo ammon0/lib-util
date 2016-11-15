@@ -67,7 +67,10 @@ libdata.a: data.o
 
 ################################## UTILITIES ###################################
 
-.PHONEY: clean todolist
+.PHONEY: clean todolist docs
+docs: Doxyfile data.h input.h
+	doxygen Doxyfile
+
 clean:
 	rm -f $(CLEANFILES)
 

@@ -62,7 +62,8 @@
  *	*	DS_count()
  *	*	DS_isempty()
  *	*	DS_dump()
- *	### List
+ *
+ *	### Lists
  *	*	DS_insert()
  *	*	DS_insert_first()
  *	*	DS_insert_last()
@@ -82,14 +83,14 @@
  *	*	DS_nq()
  *	*	DS_dq()
  *
- *	### Circular List
+ *	### Circular Lists
  *	*	DS_insert()
  *	*	DS_remove()
  *	*	DS_next()
  *	*	DS_previous()
  *	*	DS_current()
  *
- *	### Binary Search Tree
+ *	### Binary Search Trees
  *	*	DS_isleaf()
  *	*	DS_sort()
  *	*	DS_remove()
