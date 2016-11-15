@@ -6,8 +6,10 @@ Includes
 
 Please visit the [project homepage](https://ammon0.github.io/lib-util/).
 
+The latest release of this project is availible [here](https://github.com/ammon0/lib-util/releases/latest).
+
 ## Version Numbering
-This project is using semantic versioning. As such, the API as documented in the header files and the project website will not change unless there is a new major version number.
+This project is using semantic versioning. As such, the API as documented in the header files and the project website will not change in an incompatible way unless there is a new major version number. Compatible changes are indicated by the minor version number.
 
 ## Headers Provided
 
