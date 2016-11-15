@@ -1,20 +1,16 @@
 # lib-util : A Utility Library
 
-Includes
-* input.h
-* data.h
+A collection of utilities for development in C. Including some basic data structures. and headache free IO functions to replace some of the functionality of `stdio.h`.
 
-Please visit the [project homepage](https://ammon0.github.io/lib-util/).
-
-The latest release of this project is availible [here](https://github.com/ammon0/lib-util/releases/latest).
-
-## Version Numbering
-This project is using semantic versioning. As such, the API as documented in the header files and the project website will not change in an incompatible way unless there is a new major version number. Compatible changes are indicated by the minor version number.
+## Project Pages
+*	[Latest Release](https://github.com/ammon0/lib-util/releases/latest)
+*	[API Documentation](https://ammon0.github.io/lib-util/)
+*	[github](https://github.com/ammon0/lib-util)
 
 ## Headers Provided
 
 ### input.h : File Input Functions
-Safe replacements for some Standard C Library functions. *grabline()* in particular is a safe replacement for fgets().
+Safe replacements for some Standard C Library functions. *grabline()* in particular is a safe replacement for fgets() / gets(). Grabword can often be used effectively in place of getchar() / getc() / fgetc().
 
 Functions include:
 * grabword() : get the next whitespace delimited word from the input stream
@@ -39,6 +35,9 @@ Future Plans include:
 *	General Trees
 *	heaps
 *	Hash Tables
+
+## Version Numbering
+This project is using semantic versioning. As such, the API as documented in the header files and the project website will not change in an incompatible way unless there is a new major version number. Compatible changes are indicated by the minor version number.
 
 ##MIT License
 
