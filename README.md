@@ -4,6 +4,10 @@ Includes
 * input.h
 * data.h
 
+##Licence
+Copyright (c) 2016 Ammon Dodson
+
+You should have received a copy of the licence terms with this software. If not, please visit the project homepage at: [https://github.com/ammon0/lib-util](https://github.com/ammon0/lib-util)
 
 ## input.h : File Input Functions
 Safe replacements for some Standard C Library functions. *grabline()* in particular is a safe replacement for fgets().
