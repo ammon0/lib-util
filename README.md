@@ -12,10 +12,12 @@ A collection of utilities for development in C. Including some basic data struct
 ### input.h : File Input Functions
 Safe replacements for some Standard C Library functions. *grabline()* in particular is a safe replacement for fgets() / gets(). Grabword can often be used effectively in place of getchar() / getc() / fgetc().
 
+Each function automatically handles differnt types of line endings (__CR__ / __LF__) in a sane way. Never have to worry about eating the newline.
+
 Functions include:
 * grabword() : get the next whitespace delimited word from the input stream
 * grabline() : get the next line of text from the input stream
-* grabfield() : get the next __tab__ delimited field from the input stream
+* grabfield() : get the next __TAB__ delimited field from the input stream
 
 Each function returns a dynamically sized string that must be freed by the caller. All will return __NULL__ on an error or the end of input.
 
@@ -37,7 +39,12 @@ Future Plans include:
 *	Hash Tables
 
 ## Version Numbering
-This project is using semantic versioning. As such, the API as documented in the header files and the project website will not change in an incompatible way unless there is a new major version number. Compatible changes are indicated by the minor version number.
+This project is using [semantic versioning](http://semver.org/). As such, the API as documented in the header files and the project website will not change in an incompatible way unless there is a new major version number. Compatible changes are indicated by the minor version number.
+
+## Dependencies
+*	Standard C Library
+*	Lib-Util is built to the C11 standard. It may not build with lower versions.
+*	make
 
 ##MIT License
 
