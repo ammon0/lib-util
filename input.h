@@ -20,6 +20,8 @@
 
 #include <stdio.h>
 
+//TODO: create consistant behavoir of discarding all leading whitespace
+
 /**	Get the next **newline** terminated line of text and store it in an array.
  *	*	The newline is discarded and the array is \0 teriminated.
  *	*	Discards leading NL, CL, and trailing spaces and tabs
