@@ -18,6 +18,8 @@
 
 #include <stdio.h>
 
+//TODO: create consistant behavoir of discarding all leading whitespace
+
 char* grabline(FILE*);
 /**	Get the next newline terminated line of text and store it in an array.
  *	The newline is discarded and the array is \0 teriminated.
