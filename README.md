@@ -37,6 +37,7 @@ Future Plans include:
 *	General Trees
 *	heaps
 *	Hash Tables
+*	Dynamic Arrays
 
 ## Version Numbering
 This project is using [semantic versioning](http://semver.org/). As such, the API as documented in the header files and the project website will not change in an incompatible way unless there is a new major version number. Compatible changes are indicated by the minor version number.

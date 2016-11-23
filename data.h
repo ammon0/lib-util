@@ -59,6 +59,9 @@
  *	## Acceptable Actions For Each Structure Type ##
  *
  *	### All Structures
+ *	*	DS_new()
+ *	*	DS_flush()
+ *	*	DS_delete()
  *	*	DS_count()
  *	*	DS_isempty()
  *	*	DS_dump()
