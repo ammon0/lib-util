@@ -20,15 +20,13 @@
 
 #include <stdio.h>
 
-//TODO: create consistant behavoir of discarding all leading whitespace
-
 /**	Get the next **newline** terminated line of text and store it in an array.
  *	*	The newline is discarded and the array is \0 teriminated.
  *	*	Discards all leading whitespace and control characters
  *	*	the caller must free the array provided by grabline()
  *	*	returns NULL on failure
  */
-char* grabline(FILE*);
+char * grabline(FILE*);
 
 /**	Get the next **space** terminated word and store it in an array.
  *	*	The space is discarded and the arrya is \0 terminated.
@@ -36,7 +34,7 @@ char* grabline(FILE*);
  *	*	the caller must free the array provided by grabword()
  *	*	returns NULL on failure
  */
-char* grabword(FILE*);
+char * grabword(FILE*);
 
 /**	Get the next **tab** or 3x **newline** terminated string and store it in an
  *	array.
@@ -45,7 +43,7 @@ char* grabword(FILE*);
  *	*	the caller must free the array provided by grabfield()
  *	*	returns NULL on failure
  */
-char* grabfield(FILE*);
+char * grabfield(FILE*);
 
 
 #endif // _INPUT_H_INCLUDE
