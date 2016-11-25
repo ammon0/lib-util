@@ -325,15 +325,14 @@ void DS_dump (const DS root){
 
 /**************************** ADD TO DATA STRUCTURE ***************************/
 
-#define DS_nq(A,B)   DS_insert_first(A,B)
-#define DS_push(A,B) DS_insert_first(A,B)
-
-bool DS_insert (DS root, const void * data){
+void * DS_insert (DS root, const void * data){
 	_node_pt new_node;
+	_tnode_pt * position;
+		int result;
 	
 	if (!root){
 		_error(_e_null);
-		return EXIT_FAILURE;
+		return NULL;
 	}
 	
 	switch (root->type){
@@ -344,7 +343,7 @@ bool DS_insert (DS root, const void * data){
 			return DS_insert_last (root, data);
 		
 		new_node = _new_node(root);
-		if (new_node.l == NULL) return EXIT_FAILURE;
+		if (new_node.l == NULL) return NULL;
 		
 		if (root->head.l == NULL){
 			root->head = new_node;
@@ -356,12 +355,17 @@ bool DS_insert (DS root, const void * data){
 			root->current.l->prev->next = new_node.l;
 			root->current.l->prev       = new_node.l;
 		}
-		break;
 		
+		root->current=new_node;
+		root->count++;
 		
+		memcpy(new_node.l->data, data, root->data_size);
+		return new_node.l->data;
+	
+	
 	case DS_circular_list:
 		new_node = _new_node(root);
-		if (new_node.l == NULL) return EXIT_FAILURE;
+		if (new_node.l == NULL) return NULL;
 		
 		if (root->head.l == NULL){
 			root->head = new_node;
@@ -374,38 +378,70 @@ bool DS_insert (DS root, const void * data){
 			root->current.l->prev->next = new_node.l;
 			root->current.l->prev       = new_node.l;
 		}
-		break;
 		
+		root->current=new_node;
+		root->count++;
 		
-	case DS_bst: _error(_e_nsense); return EXIT_FAILURE;
-	default    : _error(_e_invtype); return EXIT_FAILURE;
+		memcpy(new_node.l->data, data, root->data_size);
+		return new_node.l->data;
+	
+	
+	case DS_bst:
+		// Find the position
+		position = &(root->head.t);
+		while (*position){
+			root->current.t = *position;
+			result=root->cmp_data(data, root->current.t->data);
+			if      (result <0) position = &(root->current.t->left);
+			else if (result >0) position = &(root->current.t->right);
+			else { // result is 0
+				if(root->dups) position = &(root->current.t->right);
+				else {
+					_error(_e_repeat);
+					return NULL;
+				}
+			}
+		}
+		
+		// position now points to a null _tnode_pt where the new node will go
+		
+		// allocate the node
+		new_node = _new_node(root);
+		if (new_node.t == NULL) return NULL;
+		
+		// insert the node
+		new_node.t->parent = root->current.t;
+		*position = new_node.t;
+		root->current=new_node;
+		root->count++;
+		
+		// copy data and return it
+		memcpy(new_node.t->data, data, root->data_size);
+		return new_node.t->data;
+	
+	
+	default: _error(_e_invtype); return NULL;
 	}
-	
-	root->count++;
-	memcpy(new_node.l->data, data, root->data_size);
-	root->current=new_node;
-	
-	return EXIT_SUCCESS;
 }
 
-bool DS_insert_first(DS root, const void * data){
+void * DS_insert_first(DS root, const void * data){
 	_node_pt new_node;
 	
 	if (!root){
 		_error(_e_null);
-		return EXIT_FAILURE;
+		return NULL;
 	}
 	
 	switch (root->type){
 	case DS_list         : break;
 	case DS_circular_list:
-	case DS_bst          : _error(_e_nsense ); return EXIT_FAILURE;
-	default              : _error(_e_invtype); return EXIT_FAILURE;
+	case DS_bst          : _error(_e_nsense ); return NULL;
+	default              : _error(_e_invtype); return NULL;
 	}
 	
 	// allocate the node
 	new_node = _new_node(root);
-	if (new_node.l == NULL) return EXIT_FAILURE;
+	if (new_node.l == NULL) return NULL;
 	
 	// if the structure is empty
 	if (root->head.l == NULL) root->tail=new_node;
@@ -420,27 +456,27 @@ bool DS_insert_first(DS root, const void * data){
 	memcpy(new_node.l->data, data, root->data_size);
 	root->current=new_node;
 	root->head   =new_node;
-	return EXIT_SUCCESS;
+	return new_node.l->data;
 }
 
-bool DS_insert_last (DS root, const void * data){
+void * DS_insert_last (DS root, const void * data){
 	_node_pt new_node;
 	
 	if (!root){
 		_error(_e_null);
-		return EXIT_FAILURE;
+		return NULL;
 	}
 	
 	switch (root->type){
 	case DS_list         : break;
 	case DS_circular_list:
-	case DS_bst          : _error(_e_nsense ); return EXIT_FAILURE;
-	default              : _error(_e_invtype); return EXIT_FAILURE;
+	case DS_bst          : _error(_e_nsense ); return NULL;
+	default              : _error(_e_invtype); return NULL;
 	}
 	
 	// allocate the node
 	new_node = _new_node(root);
-	if (new_node.l == NULL) return EXIT_FAILURE;
+	if (new_node.l == NULL) return NULL;
 	
 	// if the structure is empty
 	if (root->head.l == NULL) root->head=new_node;
@@ -455,61 +491,10 @@ bool DS_insert_last (DS root, const void * data){
 	memcpy(new_node.l->data, data, root->data_size);
 	root->current=new_node;
 	root->tail   =new_node;
-	return EXIT_SUCCESS;
-}
-
-bool DS_sort(DS root, const void * data){
-	_node_pt new_node;
-	_tnode_pt * position;
-	int result;
-	
-	if (!root){
-		_error(_e_null);
-		return EXIT_FAILURE;
-	}
-	
-	switch (root->type){
-	case DS_bst          : break;
-	case DS_list         :
-	case DS_circular_list: _error(_e_nsense ); return EXIT_FAILURE;
-	default              : _error(_e_invtype); return EXIT_FAILURE;
-	}
-	
-	// Find the position
-	position = &(root->head.t);
-	while (*position){
-		root->current.t = *position;
-		result=root->cmp_data(data, root->current.t->data);
-		if      (result <0) position = &(root->current.t->left);
-		else if (result >0) position = &(root->current.t->right);
-		else { // result is 0
-			if(root->dups) position = &(root->current.t->right);
-			else {
-				_error(_e_repeat);
-				return EXIT_FAILURE;
-			}
-		}
-	}
-	
-	// position now points to a null _tnode_pt where the new node will go
-	
-	// allocate the node
-	new_node = _new_node(root);
-	if (new_node.t == NULL) return EXIT_FAILURE;
-	
-	root->count++;
-	memcpy(new_node.t->data, data, root->data_size);
-	new_node.t->parent = root->current.t;
-	root->current=new_node;
-	
-	*position = new_node.t;
-	return EXIT_SUCCESS;
+	return new_node.l->data;
 }
 
 /*********************** REMOVE FROM DATA STRUCTURE ***************************/
-
-#define DS_pop(A) DS_remove_first(A)
-#define DS_dq(A)  DS_remove_last(A)
 
 const void * DS_remove(DS root){
 	const void * data;

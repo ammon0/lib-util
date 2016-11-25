@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 #define IN	1 /* inside a word */
 #define OUT	2 /* outside a word */
@@ -14,14 +15,14 @@
 /******************************************************************************/
 
 static inline bool line(char c){
-	return ( c == '\n' || c == '\r' || c == EOF );
+	return (c == '\n' || c == '\f' || c == '\r' || c == EOF );
 }
 static inline bool word(char c){
-	return ( c == ' ' || c == '\n' || c == '\t' || c == '\r' || c == EOF );
+	return ( !isgraph(c) || c == EOF );
 }
 
 static inline char* finishup(char* store, unsigned int i){
-	if (*store == '\0') { // if nothing was read
+	if (*store == '\0' || *store == EOF) { // if nothing was read
 		free(store);
 		return NULL;
 	}
@@ -43,9 +44,8 @@ static inline char* finishup(char* store, unsigned int i){
 
 // since grabword and grabline were nearly identical I combined their code
 static inline char* grab (bool (test) (char c), FILE* source){
-	unsigned int i    = 0;          // position in the array
+	unsigned int i    = 1;          // position in the array
 	unsigned int size = ARRAY_SIZE; // current size of the array
-	int          state= OUT;        // assume that the pointer is not in a word
 	char       * store;             // an array to temporarily hold the word
 	char         c;                 // temporary character
 	
@@ -53,33 +53,32 @@ static inline char* grab (bool (test) (char c), FILE* source){
 		return NULL;
 	
 	// allocate
-	if ( (store=malloc(ARRAY_SIZE)) == NULL ) {
-		puts("ERROR: malloc() failed.");
+	if ( (store=calloc(1, ARRAY_SIZE)) == NULL ) {
+		puts("ERROR: calloc() failed.");
 		return NULL;
 	}
-	*store='\0';
 	
-	// while c is not whitespace read it into store
-	do {
+	// get the first character excluding all whitespace
+	while(!isgraph( c = (char) fgetc(source) ) && !feof(source));
+	store[0]=c;
+	
+	while (!feof(source)){
 		c = (char) fgetc(source);
-		if (test (c)){
-			if (state == IN)
-				break; // stop when we find whitespace at the end of the word
-		} else {
-			state = IN;
-			if (i == size-1) { // if store isn't big enough we double it.
-				if ( (store=realloc(store, size *=2)) == NULL ) {
-					puts("ERROR: realloc() failed.");
-					free(store);
-					return NULL;
-				}
+		if (test (c)) break;
+		
+		// if store isn't big enough we double it.
+		if (i == size-1)
+			if ( (store=realloc(store, size *=2)) == NULL ) {
+				puts("ERROR: realloc() failed.");
+				free(store);
+				return NULL;
 			}
-			// store c in the array and increment i
-			store[i]=c;
-			i++;
-			store[i]='\0';
-		}
-	} while (!feof(source));
+		
+		// store c in the array and increment i
+		store[i]=c;
+		i++;
+		store[i]='\0'; // don't know if realloc space is initialized
+	}
 	
 	return finishup(store, i);
 }
@@ -111,17 +110,17 @@ char* grabfield(FILE* source){
 	
 	// allocate
 	if ( (store=calloc(1, ARRAY_SIZE)) == NULL ) {
-		puts("ERROR: malloc() failed.");
+		puts("ERROR: calloc() failed.");
 		return NULL;
 	}
 	
 	// while c is not EOF read it into store
 	do {
+		if (state == IN && space_count >=SP_NW_FIELD) break;
 		c = (char) fgetc(source);
 		if      (c == ' ' && state == OUT); // do nothing
-		else if( (c>='\t' && c<='\r') || c == EOF || space_count >=SP_NW_FIELD){
-			if (state == IN)
-				break; // stop when we find whitespace at the end of the word
+		else if( (c>='\t' && c<='\r') || c == EOF ){
+			if (state == IN) break;
 		
 		} else {
 			state = IN;
@@ -135,7 +134,7 @@ char* grabfield(FILE* source){
 			// store c in the array and increment i
 			store[i]=c;
 			i++;
-			store[i]='\0';
+			store[i]='\0'; // don't know if realloc space is initialized
 			
 			if (c == ' ') space_count++;
 			else space_count=0;

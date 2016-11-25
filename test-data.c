@@ -26,10 +26,10 @@ int main(void){
 	
 	if(!DS_isempty(circle)) puts("ERROR: empty circle reports nodes");
 	
-	if(DS_insert(circle, first)) puts("ERROR: failed insert first");
-	if(DS_insert(circle, second)) puts("ERROR: failed insert second");
-	if(DS_insert(circle, third)) puts("ERROR: failed insert third");
-	if(DS_insert(circle, fourth)) puts("ERROR: failed insert fourth");
+	if(!DS_insert(circle, first)) puts("ERROR: failed insert first");
+	if(!DS_insert(circle, second)) puts("ERROR: failed insert second");
+	if(!DS_insert(circle, third)) puts("ERROR: failed insert third");
+	if(!DS_insert(circle, fourth)) puts("ERROR: failed insert fourth");
 	
 	if(DS_isempty(circle)) puts("ERROR: circle misreports empty");
 	if(DS_count(circle) != 4) puts("ERROR: circle insert miscount");
@@ -56,18 +56,18 @@ int main(void){
 	
 	if(!DS_isempty(ex_bst)) puts("ERROR: empty BST reports nodes");
 	
-	if(DS_sort(ex_bst, second)) puts("ERROR: failed insert second");
-	if(DS_sort(ex_bst, third )) puts("ERROR: failed insert third");
-	if(DS_sort(ex_bst, first )) puts("ERROR: failed insert first");
-	if(DS_sort(ex_bst, fourth)) puts("ERROR: failed insert forth");
+	if(!DS_insert(ex_bst, second)) puts("ERROR: failed insert second");
+	if(!DS_insert(ex_bst, third )) puts("ERROR: failed insert third");
+	if(!DS_insert(ex_bst, first )) puts("ERROR: failed insert first");
+	if(!DS_insert(ex_bst, fourth)) puts("ERROR: failed insert forth");
 	
 	if(DS_isempty(ex_bst)) puts("ERROR: BST mis-reports empty");
 	if(DS_count(ex_bst) != 4) puts("ERROR: ex_bst miscount");
 	
-	if(!DS_sort(ex_bst, first )) puts("ERROR: inserted dup first");
-	if(!DS_sort(ex_bst, second)) puts("ERROR: inserted dup second");
-	if(!DS_sort(ex_bst, third )) puts("ERROR: inserted dup third");
-	if(!DS_sort(ex_bst, fourth)) puts("ERROR: inserted dup fourth");
+	if(DS_insert(ex_bst, first )) puts("ERROR: inserted dup first");
+	if(DS_insert(ex_bst, second)) puts("ERROR: inserted dup second");
+	if(DS_insert(ex_bst, third )) puts("ERROR: inserted dup third");
+	if(DS_insert(ex_bst, fourth)) puts("ERROR: inserted dup fourth");
 	
 	temp=DS_find(ex_bst, second);
 	if(!temp || strcmp(second, temp)) puts("ERROR: find failed");
@@ -85,14 +85,14 @@ int main(void){
 	
 	printf("\nEND EX_BST TESTS\n\n");
 	
-	if(DS_sort(dup_bst, fourth)) puts("ERROR: failed insert forth");
-	if(DS_sort(dup_bst, second)) puts("ERROR: failed insert second");
-	if(DS_sort(dup_bst, third )) puts("ERROR: failed insert third");
-	if(DS_sort(dup_bst, first )) puts("ERROR: failed insert first");
-	if(DS_sort(dup_bst, first )) puts("ERROR: failed duplicate first");
-	if(DS_sort(dup_bst, second)) puts("ERROR: failed duplicate second");
-	if(DS_sort(dup_bst, third )) puts("ERROR: failed duplicate third");
-	if(DS_sort(dup_bst, fourth)) puts("ERROR: failed duplicate fourth");
+	if(!DS_insert(dup_bst, fourth)) puts("ERROR: failed insert forth");
+	if(!DS_insert(dup_bst, second)) puts("ERROR: failed insert second");
+	if(!DS_insert(dup_bst, third )) puts("ERROR: failed insert third");
+	if(!DS_insert(dup_bst, first )) puts("ERROR: failed insert first");
+	if(!DS_insert(dup_bst, first )) puts("ERROR: failed duplicate first");
+	if(!DS_insert(dup_bst, second)) puts("ERROR: failed duplicate second");
+	if(!DS_insert(dup_bst, third )) puts("ERROR: failed duplicate third");
+	if(!DS_insert(dup_bst, fourth)) puts("ERROR: failed duplicate fourth");
 	
 	if(DS_count(dup_bst) != 8) puts("ERROR: dup_bst miscount");
 	
@@ -126,10 +126,10 @@ int main(void){
 		DS_dump(dup_bst);
 	}
 	
-	DS_sort(dup_bst, second);
+	DS_insert(dup_bst, second);
 	DS_flush(dup_bst);
 	
-	DS_sort(ex_bst, second);
+	DS_insert(ex_bst, second);
 	
 	DS_delete(ex_bst);
 	DS_delete(dup_bst);
@@ -138,10 +138,10 @@ int main(void){
 	
 	/***************************** LIST TESTS *********************************/
 	
-	if(DS_push(list, first)) puts("ERROR: failed push first");
-	if(DS_push(list, second)) puts("ERROR: failed push second");
-	if(DS_push(list, third)) puts("ERROR: failed push third");
-	if(DS_push(list, fourth)) puts("ERROR: failed push fourth");
+	if(!DS_push(list, first)) puts("ERROR: failed push first");
+	if(!DS_push(list, second)) puts("ERROR: failed push second");
+	if(!DS_push(list, third)) puts("ERROR: failed push third");
+	if(!DS_push(list, fourth)) puts("ERROR: failed push fourth");
 	
 	DS_delete(list);
 	

@@ -24,21 +24,22 @@
 
 /**	Get the next **newline** terminated line of text and store it in an array.
  *	*	The newline is discarded and the array is \0 teriminated.
- *	*	Discards leading NL, CL, and trailing spaces and tabs
+ *	*	Discards all leading whitespace and control characters
  *	*	the caller must free the array provided by grabline()
  *	*	returns NULL on failure
  */
 char* grabline(FILE*);
 
-/**	Get the next alphanumeric word from the input stream.
- *	*	Discards leading whitespace, and trailing spaces and tabs
- *	*	whitespace is NL, CR, spaces, and tabs
+/**	Get the next **space** terminated word and store it in an array.
+ *	*	The space is discarded and the arrya is \0 terminated.
+ *	*	Discards all leading whitespace and control characters
  *	*	the caller must free the array provided by grabword()
  *	*	returns NULL on failure
  */
 char* grabword(FILE*);
 
-/**	Get the next **tab** or **newline** terminated string from the input stream.
+/**	Get the next **tab** or 3x **newline** terminated string and store it in an
+ *	array.
  *	*	Discards leading and terminating whitespace
  *	*	whitespace is newlines, tabs, and spaces
  *	*	the caller must free the array provided by grabfield()

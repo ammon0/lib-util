@@ -202,25 +202,23 @@ void         DS_dump   (const DS root);
  */
 #define DS_push(A,B) DS_insert_first(A,B)
 
-// TODO: these should return a pointer to the data in the structure
-/// Inserts a new node at the *current position*
-bool DS_insert      (DS root, const void * data);
-
-/// Insert data at the beginning of a DS_list
-bool DS_insert_first(DS root, const void * data);
-
-/// Insert data at the end of a DS_list
-bool DS_insert_last (DS root, const void * data);
-
-// TODO: this should be built into insert
-
-/**	Insert data into the structure in sorted order.
+/**	Insert data into the structure
+ *	
+ *	For sorted structures DS_insert() will insert the data in sort order. For
+ *	other structures the data will be inserted at the *current position*.
  *	
  *	##Results
- *	Returns 0 on sucess. This call will fail if a duplicate key is found and
- *	duplicates are not allowed.
+ *	Returns NULL on failure. Otherwise it returns a pointer to the data in its
+ *	new location. This call will fail on a sorted structure if a duplicate key
+ *	is found and duplicates are not allowed.
  */
-//bool DS_sort(DS root, const void * data);
+void * DS_insert      (DS root, const void * data);
+
+/// Insert data at the beginning of a DS_list
+void * DS_insert_first(DS root, const void * data);
+
+/// Insert data at the end of a DS_list
+void * DS_insert_last (DS root, const void * data);
 
 
 /******************************************************************************/
