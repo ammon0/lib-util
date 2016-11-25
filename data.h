@@ -194,7 +194,7 @@ void         DS_dump   (const DS root);
  *	*	Used on a DS_list to implement a queue.
  *	*	If your data structure is a queue use only DS_nq() and DS_dq()
  */
-#define DS_nq(A,B)   DS_insert_first(A,B)
+#define DS_nq(A,B)   DS_insert_last(A,B)
 
 /** Push data onto a stack.
  *	*	Used on a DS_list to implement a stack.
@@ -240,7 +240,7 @@ bool DS_insert_last (DS root, const void * data);
  *	*	Used on a DS_list to implement a queue.
  *	*	If your data structure is a queue use only DS_nq() and DS_dq()
  */
-#define DS_dq(A)  DS_remove_last(A)
+#define DS_dq(A)  DS_remove_first(A)
 
 /** Removes the node at the *current position* and returns its data
  */
