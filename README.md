@@ -12,7 +12,7 @@ A collection of utilities for development in C. Including some basic data struct
 ### input.h : File Input Functions
 Safe replacements for some Standard C Library functions. *grabline()* in particular is a safe replacement for fgets() / gets(). Grabword can often be used effectively in place of getchar() / getc() / fgetc().
 
-Each function automatically handles differnt types of line endings (__CR__ / __LF__) in a sane way. Never have to worry about eating the newline.
+Each function automatically handles different types of line endings (__CR__ / __LF__) in a sane way. Never have to worry about eating the newline.
 
 Functions include:
 * grabword() : get the next whitespace delimited word from the input stream
