@@ -140,7 +140,7 @@ typedef enum {DS_list, DS_circular_list, DS_bst } DS_type;
  *		the data structure.
  *
  *	###Sorted Structures Only: BST
- *	* duplicates: Indicates whether duplicate  keys are allowed.
+ *	* option: Non-zero if duplicate keys are allowed, zero otherwise.
  *	* cmp_data: Is used when inserting data. data.h will pass two data entries
  *		to this function. It must return <0 if left is ordered before right, >0
  *		if left is ordered after right, and 0 if they are the same.
@@ -153,7 +153,7 @@ typedef enum {DS_list, DS_circular_list, DS_bst } DS_type;
 DS DS_new(
 	DS_type type,
 	size_t  data_size,
-	bool    duplicates,
+	int     option,
 	int     (*cmp_data)(const void * left, const void * right),
 	int     (*cmp_key )(const void * key , const void * data)
 );

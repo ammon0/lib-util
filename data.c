@@ -172,11 +172,18 @@ inline static _tnode_pt _remove_least_in_tree(_tnode_pt * parent_pt){
 DS DS_new(
 	DS_type type,
 	size_t  data_size,
-	bool    duplicates,
+	int     option,
 	int     (*cmp_data)(const void * left, const void * right),
 	int     (*cmp_key )(const void * key , const void * data)
 ){
 	DS new_structure;
+	
+	// Allocate space
+	new_structure=calloc(1, sizeof(struct _root));
+	if (new_structure == NULL) {
+		_error(_e_mem);
+		return NULL;
+	}
 	
 	// Checks if any
 	switch (type){
@@ -187,30 +194,26 @@ DS DS_new(
 			_error(_e_nsense);
 			return NULL;
 		}
+		new_structure->cmp_data = cmp_data;
+		new_structure->cmp_key  = cmp_key ;
+		
+		if(option) new_structure->dups = true;
+		else new_structure->dups = false;
 		break;
+		
 	default:
 		_error(_e_invtype);
 		return NULL;
 	}
 	
-	// Allocate space
-	new_structure=malloc(sizeof(struct _root));
-	if (new_structure == NULL) {
-		_error(_e_mem);
-		return NULL;
-	}
-	
-	// Initialize
-	new_structure->head.l     = NULL      ;
-	new_structure->tail.l     = NULL      ;
-	new_structure->current.l  = NULL      ;
-	new_structure->freelist.l = NULL      ;
-	new_structure->cmp_data   = cmp_data  ;
-	new_structure->cmp_key    = cmp_key   ;
-	new_structure->type       = type      ;
-	new_structure->data_size  = data_size ;
-	new_structure->dups       = duplicates;
-	new_structure->count      = 0         ;
+	// Common
+	new_structure->head.l     = NULL     ;
+	new_structure->tail.l     = NULL     ;
+	new_structure->current.l  = NULL     ;
+	new_structure->freelist.l = NULL     ;
+	new_structure->type       = type     ;
+	new_structure->data_size  = data_size;
+	new_structure->count      = 0        ;
 	
 	return new_structure;
 }
