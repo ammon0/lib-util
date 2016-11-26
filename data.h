@@ -95,7 +95,7 @@
  *
  *	### Binary Search Trees
  *	*	DS_isleaf()
- *	*	DS_sort()
+ *	*	DS_insert()
  *	*	DS_remove()
  *	*	DS_remove_first()
  *	*	DS_remove_last()
