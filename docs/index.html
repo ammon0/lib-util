@@ -88,11 +88,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h2>Headers Provided</h2>
 <h3><a class="el" href="input_8h.html" title="Safe input functions. ">input.h</a> : File Input Functions</h3>
 <p>Safe replacements for some Standard C Library functions. <em><a class="el" href="input_8h.html#a1d2edab52913529f67227871baa20081" title="Get the next newline terminated line of text and store it in an array. ">grabline()</a></em> in particular is a safe replacement for fgets() / gets(). Grabword can often be used effectively in place of getchar() / getc() / fgetc().</p>
-<p>Each function automatically handles differnt types of line endings (<b>CR</b> / <b>LF</b>) in a sane way. Never have to worry about eating the newline.</p>
+<p>Each function automatically handles different types of line endings (<b>CR</b> / <b>LF</b>) in a sane way. Never have to worry about eating the newline.</p>
 <p>Functions include:</p><ul>
-<li><a class="el" href="input_8h.html#a9133c67e05507d46f0a52a198beb609d" title="Get the next alphanumeric word from the input stream. ">grabword()</a> : get the next whitespace delimited word from the input stream</li>
+<li><a class="el" href="input_8h.html#a9133c67e05507d46f0a52a198beb609d" title="Get the next space terminated word and store it in an array. ">grabword()</a> : get the next whitespace delimited word from the input stream</li>
 <li><a class="el" href="input_8h.html#a1d2edab52913529f67227871baa20081" title="Get the next newline terminated line of text and store it in an array. ">grabline()</a> : get the next line of text from the input stream</li>
-<li><a class="el" href="input_8h.html#a378a20435c41d347e09cb8a58142d038" title="Get the next tab or newline terminated string from the input stream. ">grabfield()</a> : get the next <b>TAB</b> delimited field from the input stream</li>
+<li><a class="el" href="input_8h.html#a378a20435c41d347e09cb8a58142d038" title="Get the next tab or 3x newline terminated string and store it in an array. ">grabfield()</a> : get the next <b>TAB</b> delimited field from the input stream</li>
 </ul>
 <p>Each function returns a dynamically sized string that must be freed by the caller. All will return <b>NULL</b> on an error or the end of input.</p>
 <h3><a class="el" href="data_8h.html" title="A generic data structures library for C development. ">data.h</a> : Quick Data Structures</h3>

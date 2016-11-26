@@ -98,16 +98,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a6236e7db202987b2a038fe590fbbf55b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a6236e7db202987b2a038fe590fbbf55b">DS_nq</a>(A,  B)&#160;&#160;&#160;<a class="el" href="data_8h.html#ad0a7806c31fdf410a72664dea0c9ebba">DS_insert_first</a>(A,B)</td></tr>
+<tr class="memitem:a6236e7db202987b2a038fe590fbbf55b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a6236e7db202987b2a038fe590fbbf55b">DS_nq</a>(A,  B)&#160;&#160;&#160;<a class="el" href="data_8h.html#a75725b5a9e0b4a7786cdec269015fbdd">DS_insert_last</a>(A,B)</td></tr>
 <tr class="memdesc:a6236e7db202987b2a038fe590fbbf55b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueue data.  <a href="#a6236e7db202987b2a038fe590fbbf55b">More...</a><br /></td></tr>
 <tr class="separator:a6236e7db202987b2a038fe590fbbf55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49d7a7e7da92af0194d26b9712fa7f3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a49d7a7e7da92af0194d26b9712fa7f3e">DS_push</a>(A,  B)&#160;&#160;&#160;<a class="el" href="data_8h.html#ad0a7806c31fdf410a72664dea0c9ebba">DS_insert_first</a>(A,B)</td></tr>
+<tr class="memitem:a49d7a7e7da92af0194d26b9712fa7f3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a49d7a7e7da92af0194d26b9712fa7f3e">DS_push</a>(A,  B)&#160;&#160;&#160;<a class="el" href="data_8h.html#aa3f00b82568d5c0bb7b43d79c3b35c62">DS_insert_first</a>(A,B)</td></tr>
 <tr class="memdesc:a49d7a7e7da92af0194d26b9712fa7f3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push data onto a stack.  <a href="#a49d7a7e7da92af0194d26b9712fa7f3e">More...</a><br /></td></tr>
 <tr class="separator:a49d7a7e7da92af0194d26b9712fa7f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ab7d9bd0d57df4279dd3b530136de59"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a4ab7d9bd0d57df4279dd3b530136de59">DS_pop</a>(A)&#160;&#160;&#160;<a class="el" href="data_8h.html#a8d5e4bcac50816790fddd053549e5d17">DS_remove_first</a>(A)</td></tr>
 <tr class="memdesc:a4ab7d9bd0d57df4279dd3b530136de59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pop data off a stack.  <a href="#a4ab7d9bd0d57df4279dd3b530136de59">More...</a><br /></td></tr>
 <tr class="separator:a4ab7d9bd0d57df4279dd3b530136de59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a615d393e7e9a90b6bee7b718803be4ce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a615d393e7e9a90b6bee7b718803be4ce">DS_dq</a>(A)&#160;&#160;&#160;<a class="el" href="data_8h.html#ab06d25e611009bd3469bd2cef9999583">DS_remove_last</a>(A)</td></tr>
+<tr class="memitem:a615d393e7e9a90b6bee7b718803be4ce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a615d393e7e9a90b6bee7b718803be4ce">DS_dq</a>(A)&#160;&#160;&#160;<a class="el" href="data_8h.html#a8d5e4bcac50816790fddd053549e5d17">DS_remove_first</a>(A)</td></tr>
 <tr class="memdesc:a615d393e7e9a90b6bee7b718803be4ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dequeue data.  <a href="#a615d393e7e9a90b6bee7b718803be4ce">More...</a><br /></td></tr>
 <tr class="separator:a615d393e7e9a90b6bee7b718803be4ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -154,21 +154,17 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data
 <tr class="memitem:afa5865b5c5c30cf28f9a71780227cd49"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#afa5865b5c5c30cf28f9a71780227cd49">DS_dump</a> (const <a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
 <tr class="memdesc:afa5865b5c5c30cf28f9a71780227cd49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump the entire contents of the data structure to the console.  <a href="#afa5865b5c5c30cf28f9a71780227cd49">More...</a><br /></td></tr>
 <tr class="separator:afa5865b5c5c30cf28f9a71780227cd49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76bbc7e7efc4e048596fca5b59fca342"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a76bbc7e7efc4e048596fca5b59fca342"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a76bbc7e7efc4e048596fca5b59fca342">DS_insert</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root, const void *data)</td></tr>
-<tr class="memdesc:a76bbc7e7efc4e048596fca5b59fca342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a new node at the <em>current position</em> <br /></td></tr>
-<tr class="separator:a76bbc7e7efc4e048596fca5b59fca342"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0a7806c31fdf410a72664dea0c9ebba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0a7806c31fdf410a72664dea0c9ebba"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#ad0a7806c31fdf410a72664dea0c9ebba">DS_insert_first</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root, const void *data)</td></tr>
-<tr class="memdesc:ad0a7806c31fdf410a72664dea0c9ebba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert data at the beginning of a DS_list. <br /></td></tr>
-<tr class="separator:ad0a7806c31fdf410a72664dea0c9ebba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a565539fe84b95b2e749da52ac9a4f301"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a565539fe84b95b2e749da52ac9a4f301"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a565539fe84b95b2e749da52ac9a4f301">DS_insert_last</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root, const void *data)</td></tr>
-<tr class="memdesc:a565539fe84b95b2e749da52ac9a4f301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert data at the end of a DS_list. <br /></td></tr>
-<tr class="separator:a565539fe84b95b2e749da52ac9a4f301"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a131827091bdacd3b084a9a9c840693"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a1a131827091bdacd3b084a9a9c840693">DS_sort</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root, const void *data)</td></tr>
-<tr class="memdesc:a1a131827091bdacd3b084a9a9c840693"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert data into the structure in sorted order.  <a href="#a1a131827091bdacd3b084a9a9c840693">More...</a><br /></td></tr>
-<tr class="separator:a1a131827091bdacd3b084a9a9c840693"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5390b657446b15f8397eb9705af3ca4a"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a5390b657446b15f8397eb9705af3ca4a">DS_insert</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root, const void *data)</td></tr>
+<tr class="memdesc:a5390b657446b15f8397eb9705af3ca4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert data into the structure.  <a href="#a5390b657446b15f8397eb9705af3ca4a">More...</a><br /></td></tr>
+<tr class="separator:a5390b657446b15f8397eb9705af3ca4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3f00b82568d5c0bb7b43d79c3b35c62"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa3f00b82568d5c0bb7b43d79c3b35c62"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#aa3f00b82568d5c0bb7b43d79c3b35c62">DS_insert_first</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root, const void *data)</td></tr>
+<tr class="memdesc:aa3f00b82568d5c0bb7b43d79c3b35c62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert data at the beginning of a DS_list. <br /></td></tr>
+<tr class="separator:aa3f00b82568d5c0bb7b43d79c3b35c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75725b5a9e0b4a7786cdec269015fbdd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a75725b5a9e0b4a7786cdec269015fbdd"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a75725b5a9e0b4a7786cdec269015fbdd">DS_insert_last</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root, const void *data)</td></tr>
+<tr class="memdesc:a75725b5a9e0b4a7786cdec269015fbdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert data at the end of a DS_list. <br /></td></tr>
+<tr class="separator:a75725b5a9e0b4a7786cdec269015fbdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a877da7a87a9b87a69e2153a97abab91a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a877da7a87a9b87a69e2153a97abab91a"></a>
 const void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a877da7a87a9b87a69e2153a97abab91a">DS_remove</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
 <tr class="memdesc:a877da7a87a9b87a69e2153a97abab91a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the node at the <em>current position</em> and returns its data. <br /></td></tr>
@@ -212,7 +208,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A generic data structures library for C development. </p>
 <h2>The Current Position</h2>
-<p>An important concept for each of these structures is the <b>current position</b>. When data is added to the structure the current position will be set to that new data. The current position can be changed with the various traversal functions. Functions such as <a class="el" href="data_8h.html#a877da7a87a9b87a69e2153a97abab91a" title="Removes the node at the current position and returns its data. ">DS_remove()</a> and <a class="el" href="data_8h.html#a76bbc7e7efc4e048596fca5b59fca342" title="Inserts a new node at the current position ">DS_insert()</a> implicitly act on the current position.</p>
+<p>An important concept for each of these structures is the <b>current position</b>. When data is added to the structure the current position will be set to that new data. The current position can be changed with the various traversal functions. Functions such as <a class="el" href="data_8h.html#a877da7a87a9b87a69e2153a97abab91a" title="Removes the node at the current position and returns its data. ">DS_remove()</a> and <a class="el" href="data_8h.html#a5390b657446b15f8397eb9705af3ca4a" title="Insert data into the structure. ">DS_insert()</a> implicitly act on the current position.</p>
 <h2>Structure Types Availible</h2>
 <p>Data structure types include:</p><ul>
 <li>list: a general list that is also used to implement stacks and queues circular list</li>
@@ -242,9 +238,9 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
 </ul>
 <h3>Lists</h3>
 <ul>
-<li><a class="el" href="data_8h.html#a76bbc7e7efc4e048596fca5b59fca342" title="Inserts a new node at the current position ">DS_insert()</a></li>
-<li><a class="el" href="data_8h.html#ad0a7806c31fdf410a72664dea0c9ebba" title="Insert data at the beginning of a DS_list. ">DS_insert_first()</a></li>
-<li><a class="el" href="data_8h.html#a565539fe84b95b2e749da52ac9a4f301" title="Insert data at the end of a DS_list. ">DS_insert_last()</a></li>
+<li><a class="el" href="data_8h.html#a5390b657446b15f8397eb9705af3ca4a" title="Insert data into the structure. ">DS_insert()</a></li>
+<li><a class="el" href="data_8h.html#aa3f00b82568d5c0bb7b43d79c3b35c62" title="Insert data at the beginning of a DS_list. ">DS_insert_first()</a></li>
+<li><a class="el" href="data_8h.html#a75725b5a9e0b4a7786cdec269015fbdd" title="Insert data at the end of a DS_list. ">DS_insert_last()</a></li>
 <li><a class="el" href="data_8h.html#a877da7a87a9b87a69e2153a97abab91a" title="Removes the node at the current position and returns its data. ">DS_remove()</a></li>
 <li><a class="el" href="data_8h.html#a8d5e4bcac50816790fddd053549e5d17" title="Remove the first node of a DS_list or DS_bst. ">DS_remove_first()</a></li>
 <li><a class="el" href="data_8h.html#ab06d25e611009bd3469bd2cef9999583" title="Remove the last node of a DS_list or DS_bst. ">DS_remove_last()</a></li>
@@ -267,7 +263,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
 </ul>
 <h3>Circular Lists</h3>
 <ul>
-<li><a class="el" href="data_8h.html#a76bbc7e7efc4e048596fca5b59fca342" title="Inserts a new node at the current position ">DS_insert()</a></li>
+<li><a class="el" href="data_8h.html#a5390b657446b15f8397eb9705af3ca4a" title="Insert data into the structure. ">DS_insert()</a></li>
 <li><a class="el" href="data_8h.html#a877da7a87a9b87a69e2153a97abab91a" title="Removes the node at the current position and returns its data. ">DS_remove()</a></li>
 <li><a class="el" href="data_8h.html#a380ec859ac582b8fb874a16dfdd2d707" title="visit the next in-order node ">DS_next()</a></li>
 <li><a class="el" href="data_8h.html#a2d268d31c093b31b9afd3750df701125" title="visit the previous in-order node ">DS_previous()</a></li>
@@ -276,7 +272,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
 <h3>Binary Search Trees</h3>
 <ul>
 <li><a class="el" href="data_8h.html#a60a14d170726a82c38b1ccc24044c851" title="is the current position a leaf ">DS_isleaf()</a></li>
-<li><a class="el" href="data_8h.html#a1a131827091bdacd3b084a9a9c840693" title="Insert data into the structure in sorted order. ">DS_sort()</a></li>
+<li>DS_sort()</li>
 <li><a class="el" href="data_8h.html#a877da7a87a9b87a69e2153a97abab91a" title="Removes the node at the current position and returns its data. ">DS_remove()</a></li>
 <li><a class="el" href="data_8h.html#a8d5e4bcac50816790fddd053549e5d17" title="Remove the first node of a DS_list or DS_bst. ">DS_remove_first()</a></li>
 <li><a class="el" href="data_8h.html#ab06d25e611009bd3469bd2cef9999583" title="Remove the last node of a DS_list or DS_bst. ">DS_remove_last()</a></li>
@@ -297,7 +293,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">A</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="data_8h.html#ab06d25e611009bd3469bd2cef9999583">DS_remove_last</a>(A)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="data_8h.html#a8d5e4bcac50816790fddd053549e5d17">DS_remove_first</a>(A)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -329,7 +325,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="data_8h.html#ad0a7806c31fdf410a72664dea0c9ebba">DS_insert_first</a>(A,B)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="data_8h.html#a75725b5a9e0b4a7786cdec269015fbdd">DS_insert_last</a>(A,B)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -383,7 +379,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="data_8h.html#ad0a7806c31fdf410a72664dea0c9ebba">DS_insert_first</a>(A,B)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="data_8h.html#aa3f00b82568d5c0bb7b43d79c3b35c62">DS_insert_first</a>(A,B)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -466,6 +462,37 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
 
 </div>
 </div>
+<a class="anchor" id="a5390b657446b15f8397eb9705af3ca4a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* DS_insert </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td>
+          <td class="paramname"><em>root</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insert data into the structure. </p>
+<p>For sorted structures <a class="el" href="data_8h.html#a5390b657446b15f8397eb9705af3ca4a" title="Insert data into the structure. ">DS_insert()</a> will insert the data in sort order. For other structures the data will be inserted at the <em>current position</em>.</p>
+<h2>Results</h2>
+<p>Returns NULL on failure. Otherwise it returns a pointer to the data in its new location. This call will fail on a sorted structure if a duplicate key is found and duplicates are not allowed. </p>
+
+</div>
+</div>
 <a class="anchor" id="abf625da535528141938be3378f8e4bfe"></a>
 <div class="memitem">
 <div class="memproto">
@@ -524,36 +551,6 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
 </ul>
 <h2>Results:</h2>
 <p>Returns NULL on failure </p>
-
-</div>
-</div>
-<a class="anchor" id="a1a131827091bdacd3b084a9a9c840693"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DS_sort </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td>
-          <td class="paramname"><em>root</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Insert data into the structure in sorted order. </p>
-<h2>Results</h2>
-<p>Returns 0 on sucess. This call will fail if a duplicate key is found and duplicates are not allowed. </p>
 
 </div>
 </div>
