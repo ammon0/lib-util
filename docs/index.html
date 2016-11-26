@@ -96,14 +96,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </ul>
 <p>Each function returns a dynamically sized string that must be freed by the caller. All will return <b>NULL</b> on an error or the end of input.</p>
 <h3><a class="el" href="data_8h.html" title="A generic data structures library for C development. ">data.h</a> : Quick Data Structures</h3>
-<p>A C library implementing of some of the most common data structures with an easy-to-use interface. It works with any data type because data is stored as ()void*). This will require you to recast some pointers returned by <a class="el" href="data_8h.html" title="A generic data structures library for C development. ">data.h</a> to the correct data type.</p>
+<p>A C library implementing of some of the most common data structures with an easy-to-use interface. It works with any data type because data is stored in a generic byte array. This will require you to recast some pointers returned by <a class="el" href="data_8h.html" title="A generic data structures library for C development. ">data.h</a> to the correct data type.</p>
 <p>Each data structure keeps track of the "current working position", and most of the function calls operate at, or modify the current position. The <em><a class="el" href="data_8h.html" title="A generic data structures library for C development. ">data.h</a></em> header contains details for the use of each function.</p>
 <p>Data structure types include:</p><ul>
 <li>List: a general list that is also used to implement stacks and queues</li>
 <li>Circular List</li>
 <li>Binary Search Tree</li>
 </ul>
-<p>Future Plans include:</p><ul>
+<p>Future plans include:</p><ul>
 <li>Splay Trees</li>
 <li>k Trees</li>
 <li>General Trees</li>

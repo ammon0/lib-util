@@ -22,7 +22,7 @@ Functions include:
 Each function returns a dynamically sized string that must be freed by the caller. All will return __NULL__ on an error or the end of input.
 
 ### data.h : Quick Data Structures
-A C library implementing of some of the most common data structures with an easy-to-use interface. It works with any data type because data is stored as ()void*). This will require you to recast some pointers returned by data.h to the correct data type.
+A C library implementing of some of the most common data structures with an easy-to-use interface. It works with any data type because data is stored in a generic byte array. This will require you to recast some pointers returned by data.h to the correct data type.
 
 Each data structure keeps track of the "current working position", and most of the function calls operate at, or modify the current position. The _data.h_ header contains details for the use of each function.
 
@@ -31,7 +31,7 @@ Data structure types include:
 *	Circular List
 *	Binary Search Tree
 
-Future Plans include:
+Future plans include:
 *	Splay Trees
 *	k Trees
 *	General Trees
