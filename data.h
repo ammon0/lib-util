@@ -127,12 +127,6 @@ typedef struct _root* DS;
 typedef enum {DS_list, DS_circular_list, DS_bst, DS_hash} DS_type;
 
 
-#define DS_DUPS    (unsigned int) (1<<0)
-#define DS_NO_DUPS (unsigned int) (0<<0)
-
-// hash key size
-// hash table size
-
 /******************************************************************************/
 //                     COMMANDS FOR ALL DATA STRUCTURES
 /******************************************************************************/
@@ -148,21 +142,25 @@ typedef enum {DS_list, DS_circular_list, DS_bst, DS_hash} DS_type;
  *	### type
  *	* Required for all data structures
  *	* Must be one of the enumerated DS_type
+ *
  *	### data_size
  *	* Required for all data structures
  *	* The size in bytes of the data being stored in this structure.
  *	* If you need to store variable length data you should store pointers in the
  *		data structure.
+ *
  *	### option
  *	* For DS_bst: Non-zero if duplicate keys are allowed, zero otherwise.
  *	* For DS_hash: indicates the size of the hash table. If set to 0 a default
  *		value will be used.
  *	* Ignored for other DS_types
- *	### key()
+ *
+ *	### key(const void * data)
  *	* is used to extract a sort key from the data passed into the structure.
  *	* Required for DS_bst, and DS_hash
  *	* Ignored for other DS_types
- *	### cmp_key()
+ *
+ *	### cmp_key(const void * left , const void * right)
  *	* A function to compare keys extracted by key()
  *	* It must return <0 if left is ordered before right, >0 if left is
  *		ordered after right, and 0 if they are the same.
@@ -191,6 +189,7 @@ DS DS_new(
 //DS DS_new_hash(
 //	size_t   data_size,
 //	size_t   key_size,
+//	size_t   table_size,
 //	bool     duplicates_allowed,
 //	void   * (*key)(const void * data),
 //	int      (*cmp_keys)(const void * left , const void * right)

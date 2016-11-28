@@ -13,7 +13,7 @@ var searchData=
   ['ds_5fisempty',['DS_isempty',['../data_8h.html#a37b448842fea9b7997425d0b23d9f405',1,'data.h']]],
   ['ds_5fisleaf',['DS_isleaf',['../data_8h.html#a60a14d170726a82c38b1ccc24044c851',1,'data.h']]],
   ['ds_5flast',['DS_last',['../data_8h.html#a62d6c18761a826c59622d25a4e435854',1,'data.h']]],
-  ['ds_5fnew',['DS_new',['../data_8h.html#a8da980ddc2598bf9c6e02a249253d458',1,'data.h']]],
+  ['ds_5fnew',['DS_new',['../data_8h.html#a4d1e2ad67f6c5e34ce18c8932805434d',1,'data.h']]],
   ['ds_5fnext',['DS_next',['../data_8h.html#a380ec859ac582b8fb874a16dfdd2d707',1,'data.h']]],
   ['ds_5fposition',['DS_position',['../data_8h.html#a662883fc71ed5030358e99b700a5ed94',1,'data.h']]],
   ['ds_5fprevious',['DS_previous',['../data_8h.html#a2d268d31c093b31b9afd3750df701125',1,'data.h']]],
