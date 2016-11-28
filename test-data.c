@@ -8,6 +8,11 @@ static inline int cmp(const void * left, const void * right){
 	return strcmp((char*) left, (char*) right);
 }
 
+// the data is just a character string, nothing to extract
+static inline void * key(const void * data) {
+	return data;
+}
+
 int main(void){
 	char * temp;
 	const char *first = "AAAA",
@@ -17,8 +22,8 @@ int main(void){
 	
 	DS list    = DS_new(DS_list         , sizeof(char*), true , NULL, NULL);
 	DS circle  = DS_new(DS_circular_list, sizeof(char*), true , NULL, NULL);
-	DS dup_bst = DS_new(DS_bst          , sizeof(char*), true , &cmp, &cmp);
-	DS ex_bst  = DS_new(DS_bst          , sizeof(char*), false, &cmp, &cmp);
+	DS dup_bst = DS_new(DS_bst          , sizeof(char*), true , &key, &cmp);
+	DS ex_bst  = DS_new(DS_bst          , sizeof(char*), false, &key, &cmp);
 	
 	printf("Size of (void*)       : %lu\n", sizeof(void*)  );
 	printf("Size of (int)         : %lu\n", sizeof(int)    );

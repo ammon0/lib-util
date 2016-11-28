@@ -46,8 +46,8 @@ struct _root {
 	_node_pt tail;
 	_node_pt current;
 	_node_pt freelist;
-	int      (*cmp_data)(const void * left, const void * right);
-	int      (*cmp_key) (const void * key , const void * data );
+	void *   (*key)(const void * data);
+	int      (*cmp_keys) (const void * left, const void * right);
 	size_t   data_size;
 	DS_type  type;
 	uint     count;  // number of nodes in the structure
@@ -62,6 +62,7 @@ const char* _e_mem    ="ERROR: Could not allocate more memory";
 const char* _e_repeat ="ERROR: Attempt to insert duplicate data when duplicates are not allowed";
 const char* _e_nsense ="ERROR: Nonsensical action for given structure type";
 const char* _e_null   ="ERROR: the DS pointer is NULL";
+const char* _e_nimp   ="ERROR: that feature is not implemented";
 const char* _n_empty  ="NOTICE: The data structure is empty";
 
 
@@ -79,8 +80,9 @@ inline static _node_pt _new_node(const DS const root){
 	_node_pt new_node; // will return null on failure
 	
 	switch(root->type){
-	case DS_list:
+	case DS_list         :
 	case DS_circular_list:
+	case DS_hash         :
 		if (root->freelist.l){ // check the freelist first
 			new_node = root->freelist;
 			root->freelist.l = root->freelist.l->prev;
@@ -165,11 +167,11 @@ inline static _tnode_pt _remove_least_in_tree(_tnode_pt * parent_pt){
 
 // Make a new data structure
 DS DS_new(
-	DS_type type,
-	size_t  data_size,
-	int     option,
-	int     (*cmp_data)(const void * left, const void * right),
-	int     (*cmp_key )(const void * key , const void * data)
+	DS_type      type,
+	size_t       data_size,
+	unsigned int option,
+	void      *  (*key)(const void * data),
+	int          (*cmp_keys)(const void * left , const void * right)
 ){
 	DS new_structure;
 	
@@ -185,16 +187,27 @@ DS DS_new(
 	case DS_list         :
 	case DS_circular_list: break;
 	case DS_bst:
-		if (!cmp_data || !cmp_key){
+		if (!key || !cmp_keys){
 			_error(_e_nsense);
 			return NULL;
 		}
-		new_structure->cmp_data = cmp_data;
-		new_structure->cmp_key  = cmp_key ;
+		new_structure->key      = key;
+		new_structure->cmp_keys = cmp_keys;
 		
 		if(option) new_structure->dups = true;
 		else new_structure->dups = false;
 		break;
+		
+		
+	case DS_hash:
+		if (!key || !cmp_keys){
+			_error(_e_nsense);
+			return NULL;
+		}
+		new_structure->key      = key;
+		new_structure->cmp_keys = cmp_keys;
+		_error(_e_nimp);
+		return NULL;
 		
 	default:
 		_error(_e_invtype);
@@ -242,6 +255,8 @@ void DS_flush (DS root){
 		}
 		return;
 	
+	case DS_hash: _error(_e_nimp); return;
+	
 	default: _error(_e_invtype); return;
 	}
 }
@@ -273,6 +288,7 @@ bool DS_isleaf (const DS root){
 
 	switch (root->type){
 	case DS_bst          : break;
+	case DS_hash         :
 	case DS_list         :
 	case DS_circular_list: _error(_e_nsense); return false;
 	default: _error(_e_invtype); return false;
@@ -316,6 +332,9 @@ void DS_dump (const DS root){
 		_print_node(root->head.t, 0);
 	
 	break;
+	
+	case DS_hash: _error(_e_nimp); return;
+	
 	default:
 		_error(_e_invtype);
 	}
@@ -389,7 +408,10 @@ void * DS_insert (DS root, const void * data){
 		position = &(root->head.t);
 		while (*position){
 			root->current.t = *position;
-			result=root->cmp_data(data, root->current.t->data);
+			result=root->cmp_keys(
+				root->key(data),
+				root->key(root->current.t->data)
+			);
 			if      (result <0) position = &(root->current.t->left);
 			else if (result >0) position = &(root->current.t->right);
 			else { // result is 0
@@ -417,6 +439,7 @@ void * DS_insert (DS root, const void * data){
 		memcpy(new_node.t->data, data, root->data_size);
 		return new_node.t->data;
 	
+	case DS_hash: _error(_e_nimp); return NULL;
 	
 	default: _error(_e_invtype); return NULL;
 	}
@@ -432,6 +455,7 @@ void * DS_insert_first(DS root, const void * data){
 	
 	switch (root->type){
 	case DS_list         : break;
+	case DS_hash         :
 	case DS_circular_list:
 	case DS_bst          : _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
@@ -467,6 +491,7 @@ void * DS_insert_last (DS root, const void * data){
 	
 	switch (root->type){
 	case DS_list         : break;
+	case DS_hash         :
 	case DS_circular_list:
 	case DS_bst          : _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
@@ -576,7 +601,9 @@ const void * DS_remove(DS root){
 		
 		root->current.l = root->current.l->next;
 		break;
-		
+	
+	case DS_hash: _error(_e_nimp); return NULL;
+	
 	default: _error(_e_invtype); return NULL;
 	}
 	
@@ -647,6 +674,7 @@ const void * DS_remove_first(DS root){
 		
 		break;
 		
+	case DS_hash         :
 	case DS_circular_list: _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
 	}
@@ -711,6 +739,8 @@ const void * DS_remove_last (DS root){
 				root->current.t = root->current.t->right;
 		
 		break;
+	
+	case DS_hash         :
 	case DS_circular_list: _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
 	}
@@ -719,36 +749,6 @@ const void * DS_remove_last (DS root){
 	root->count--;
 	return data;
 }
-
-/************************* CHANGE DATA IN STRUCTURE ***************************/
-
-// set the data at the current position
-//bool DS_set_data(const DS root, const void * data){
-//	if (!root){
-//		_error(_e_null);
-//		return EXIT_FAILURE;
-//	}
-//	
-//	if (root->current.l == NULL){
-//		_error(_n_empty);
-//		return EXIT_FAILURE;
-//	}
-//	
-//	switch (root->type){
-//	case DS_bst:
-//		root->current.t->data = data;
-//		break;
-//		
-//	case DS_list:
-//	case DS_circular_list:
-//		root->current.l->data = data;
-//		break;
-//		
-//	default: _error(_e_invtype); return EXIT_FAILURE;
-//	}
-//	
-//	return EXIT_SUCCESS;
-//}
 
 /********************** VIEW RECORD IN DATA STRUCTURE *************************/
 
@@ -768,6 +768,7 @@ void * DS_find(const DS root, const void * key){
 	
 	switch (root->type){
 	case DS_bst: break;
+	case DS_hash: _error(_e_nimp); return NULL;
 	case DS_list:
 	case DS_circular_list: _error(_e_nsense); return NULL;
 	default: _error(_e_invtype); return NULL;
@@ -775,7 +776,7 @@ void * DS_find(const DS root, const void * key){
 	
 	node = root->head.t;
 	while (node != NULL){
-		result=root->cmp_key(key, node->data);
+		result=root->cmp_keys(key, root->key(node->data));
 		
 		if      (result>0) node=node->right;
 		else if (result<0) node=node->left;
@@ -812,7 +813,8 @@ void * DS_first(const DS root){ // visit the first node
 	case DS_list:
 		root->current=root->head;
 		return root->current.l->data;
-		
+	
+	case DS_hash         :
 	case DS_circular_list: _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
 	}
@@ -835,11 +837,12 @@ void * DS_last(const DS root){ // visit the last node
 		while(root->current.t->right)
 			root->current.t=root->current.t->right;
 		return root->current.t->data;
-		
+	
 	case DS_list:
 		root->current=root->tail;
 		return root->current.l->data;
-		
+	
+	case DS_hash         :
 	case DS_circular_list: _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
 	}
@@ -883,13 +886,14 @@ void * DS_next(const DS root){ // visit the next in-order node
 		}
 		
 		return root->current.t->data;
-		
+	
 	case DS_list:
 	case DS_circular_list:
 		root->current.l=root->current.l->next;
 		return root->current.l->data;
-		
-	default: _error(_e_invtype); return NULL;
+	
+	case DS_hash: _error(_e_nsense); return NULL;
+	default     : _error(_e_invtype); return NULL;
 	}
 }
 
@@ -934,8 +938,9 @@ void * DS_previous(const DS root){ // visit the previous in-order node
 	case DS_circular_list:
 		root->current.l=root->current.l->prev;
 		return root->current.l->data;
-		
-	default: _error(_e_invtype); return NULL;
+	
+	case DS_hash: _error(_e_nsense); return NULL;
+	default     : _error(_e_invtype); return NULL;
 	}
 }
 
@@ -954,6 +959,7 @@ void * DS_current (const DS root){ // visit the current node
 	case DS_bst          : return root->current.t->data;
 	case DS_list         :
 	case DS_circular_list: return root->current.l->data;
+	case DS_hash: _error(_e_nimp); return NULL;
 	default              : _error(_e_invtype); return NULL;
 	}
 }
@@ -973,6 +979,7 @@ void * DS_position(const DS root, const unsigned int position){
 	switch (root->type){
 	case DS_list         : break;
 	case DS_bst          :
+	case DS_hash         :
 	case DS_circular_list: _error(_e_nsense); return NULL;
 	default              : _error(_e_invtype); return NULL;
 	}

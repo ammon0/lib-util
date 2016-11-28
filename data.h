@@ -106,6 +106,12 @@
  *	*	DS_previous()
  *	*	DS_current()
  *
+ *	### Hash Tables
+ *	*	DS_insert()
+ *	*	DS_remove()
+ *	*	DS_find()
+ *	*	DS_current()
+ *
  ******************************************************************************/
 
 
@@ -118,8 +124,14 @@
 typedef struct _root* DS;
 
 /// These are types of data structures availible
-typedef enum {DS_list, DS_circular_list, DS_bst } DS_type;
+typedef enum {DS_list, DS_circular_list, DS_bst, DS_hash} DS_type;
 
+
+#define DS_DUPS    (unsigned int) (1<<0)
+#define DS_NO_DUPS (unsigned int) (0<<0)
+
+// hash key size
+// hash table size
 
 /******************************************************************************/
 //                     COMMANDS FOR ALL DATA STRUCTURES
@@ -133,31 +145,56 @@ typedef enum {DS_list, DS_circular_list, DS_bst } DS_type;
  *	are ignored for other types.
  *
  *	##Parameters
- *	### Requried
- *	* type: Must be one of the enumerated DS_type
- *	* data_size: The size in bytes of the data being stored in this structure.
- *		If you need to store variable length data you should store pointers in
- *		the data structure.
- *
- *	###Sorted Structures Only: BST
- *	* option: Non-zero if duplicate keys are allowed, zero otherwise.
- *	* cmp_data: Is used when inserting data. data.h will pass two data entries
- *		to this function. It must return <0 if left is ordered before right, >0
- *		if left is ordered after right, and 0 if they are the same.
- *	* cmp_key: Similar to cmp_data() except that the first entry will be just a
- *		key.
+ *	### type
+ *	* Required for all data structures
+ *	* Must be one of the enumerated DS_type
+ *	### data_size
+ *	* Required for all data structures
+ *	* The size in bytes of the data being stored in this structure.
+ *	* If you need to store variable length data you should store pointers in the
+ *		data structure.
+ *	### option
+ *	* For DS_bst: Non-zero if duplicate keys are allowed, zero otherwise.
+ *	* For DS_hash: indicates the size of the hash table. If set to 0 a default
+ *		value will be used.
+ *	* Ignored for other DS_types
+ *	### key()
+ *	* is used to extract a sort key from the data passed into the structure.
+ *	* Required for DS_bst, and DS_hash
+ *	* Ignored for other DS_types
+ *	### cmp_key()
+ *	* A function to compare keys extracted by key()
+ *	* It must return <0 if left is ordered before right, >0 if left is
+ *		ordered after right, and 0 if they are the same.
+ *	* Required for DS_bst, and DS_hash
+ *	* Ignored for other DS_types
  *
  *	##Results:
  *	Returns NULL on failure
  */
 DS DS_new(
-	DS_type type,
-	size_t  data_size,
-	int     option,
-	int     (*cmp_data)(const void * left, const void * right),
-	int     (*cmp_key )(const void * key , const void * data)
+	DS_type      type,
+	size_t       data_size,
+	unsigned int option,
+	void      *  (*key)(const void * data),
+	int          (*cmp_keys)(const void * left , const void * right)
 );
 
+//DS DS_new_list(DS_type, size_t data_size);
+//DS DS_new_tree(
+//	DS_type   type,
+//	size_t    data_size,
+//	bool      duplicates_allowed,
+//	void    * (*key)(const void * data),
+//	int       (*cmp_keys)(const void * left , const void * right)
+//);
+//DS DS_new_hash(
+//	size_t   data_size,
+//	size_t   key_size,
+//	bool     duplicates_allowed,
+//	void   * (*key)(const void * data),
+//	int      (*cmp_keys)(const void * left , const void * right)
+//);
 
 /** Delete the entire contents of a data structure and free its memory.
  */
