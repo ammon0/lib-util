@@ -20,6 +20,13 @@ int main(void){
 	DS dup_bst = DS_new(DS_bst          , sizeof(char*), true , &cmp, &cmp);
 	DS ex_bst  = DS_new(DS_bst          , sizeof(char*), false, &cmp, &cmp);
 	
+	printf("Size of (void*)       : %lu\n", sizeof(void*)  );
+	printf("Size of (int)         : %lu\n", sizeof(int)    );
+	printf("Size of (unsigned int): %lu\n", sizeof(unsigned int));
+	printf("Size of (DS_type)     : %lu\n", sizeof(DS_type));
+	printf("Size of (size_t)      : %lu\n", sizeof(size_t) );
+	printf("Size of (bool)        : %lu\n", sizeof(bool)   );
+	
 	puts("");
 	
 	/*************************** CIRCULAR TESTS *******************************/
@@ -34,8 +41,9 @@ int main(void){
 	if(DS_isempty(circle)) puts("ERROR: circle misreports empty");
 	if(DS_count(circle) != 4) puts("ERROR: circle insert miscount");
 	
-	if(strcmp(DS_next(circle), third)) puts("ERROR: not back at the beginning");
-	if(strcmp(DS_previous(circle), fourth))
+	if(strcmp((char*)DS_next(circle), third))
+		puts("ERROR: not back at the beginning");
+	if(strcmp((char*)DS_previous(circle), fourth))
 		puts("ERROR: not back at the beginning");
 	
 	puts("Dumping circle:");
@@ -69,7 +77,7 @@ int main(void){
 	if(DS_insert(ex_bst, third )) puts("ERROR: inserted dup third");
 	if(DS_insert(ex_bst, fourth)) puts("ERROR: inserted dup fourth");
 	
-	temp=DS_find(ex_bst, second);
+	temp=(char*) DS_find(ex_bst, second);
 	if(!temp || strcmp(second, temp)) puts("ERROR: find failed");
 	
 	puts("Dumping ex_bst:");
@@ -98,20 +106,20 @@ int main(void){
 	
 	// Test in-order traversal
 	printf("First in-order node: %s\n", (char*) DS_first(dup_bst));
-	while((temp = DS_next(dup_bst)))
+	while((temp = (char*) DS_next(dup_bst)))
 		printf("Next: %s\n", temp);
 		
 	printf("Current is: %s\n", (char*) DS_current(dup_bst));
 	
-	while((temp = DS_previous(dup_bst)))
+	while((temp =(char*) DS_previous(dup_bst)))
 		printf("Previous: %s\n", temp);
 	printf("Last in-order node: %s\n", (char*) DS_last(dup_bst));
 	
 	printf("Current is: %s\n", (char*) DS_current(dup_bst));
 	
-	temp=DS_find(dup_bst, second);
+	temp= (char*) DS_find(dup_bst, second);
 	if(!temp || strcmp(second, temp)) puts("ERROR: find failed");
-	temp=DS_find(dup_bst, third);
+	temp= (char*) DS_find(dup_bst, third);
 	if(!temp || strcmp(third, temp)) puts("ERROR: find failed");
 	
 	puts("Dumping dup_bst:");

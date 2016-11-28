@@ -16,13 +16,20 @@ INCDIR:=$(INSTALLDIR)/include
 
 # My code builds without warnings--ALWAYS
 CWARNINGS:=	-Wall -Wextra -pedantic \
-	-Wmissing-prototypes -Wstrict-prototypes \
-	-Wmissing-declarations -Wredundant-decls -Wnested-externs -Wshadow \
-	-Wpointer-arith -Wcast-align \
-	-Wuninitialized -Wmaybe-uninitialized \
-	-Winline -Wno-long-long -Wwrite-strings \
-	-Wconversion \
-	-Wno-discarded-qualifiers
+	-Wmissing-prototypes -Wstrict-prototypes -Wmissing-declarations \
+	-Wredundant-decls -Werror=implicit-function-declaration -Wnested-externs \
+	-Wshadow -Wbad-function-cast \
+	-Wcast-align \
+	-Wdeclaration-after-statement -Werror=uninitialized \
+	-Winline \
+	-Wswitch-default -Wswitch-enum \
+	-Wsuggest-attribute=pure -Wsuggest-attribute=const \
+	-Wsuggest-attribute=noreturn -Wsuggest-attribute=format \
+	-Wtrampolines -Wstack-protector \
+	-Wwrite-strings -Wno-discarded-qualifiers \
+	-Wc++-compat \
+	 -Wconversion -Wdisabled-optimization \
+	#-Wno-long-long -Wpadded
 
 CFLAGS:= $(CWARNINGS) --std=c11
 

@@ -48,10 +48,10 @@ struct _root {
 	_node_pt freelist;
 	int      (*cmp_data)(const void * left, const void * right);
 	int      (*cmp_key) (const void * key , const void * data );
-	DS_type  type;
 	size_t   data_size;
-	bool     dups;  // duplicate data allowed
+	DS_type  type;
 	uint     count;  // number of nodes in the structure
+	bool     dups;  // duplicate data allowed
 };
 
 /********************************* MESSAGES ***********************************/
@@ -86,7 +86,7 @@ inline static _node_pt _new_node(const DS const root){
 			root->freelist.l = root->freelist.l->prev;
 		}
 		else {
-			new_node.l = malloc(sizeof(struct _list_node)+root->data_size);
+			new_node.l=(_lnode_pt) malloc(sizeof(struct _list_node)+root->data_size);
 			if (!new_node.l) _error(_e_mem);
 		}
 		
@@ -102,7 +102,7 @@ inline static _node_pt _new_node(const DS const root){
 			root->freelist.t = root->freelist.t->left;
 		}
 		else{
-			new_node.t = malloc(sizeof(struct _tree_node)+root->data_size);
+			new_node.t=(_tnode_pt) malloc(sizeof(struct _tree_node)+root->data_size);
 			if (!new_node.t) _error(_e_mem);
 		}
 		
@@ -155,11 +155,6 @@ inline static _tnode_pt _remove_least_in_tree(_tnode_pt * parent_pt){
 	return node;
 }
 
-//inline static _tnode_pt * _find_greatest_in_tree(_tnode_pt * parent_pt){
-//	while((*parent_pt)->right) parent_pt = &(*parent_pt)->right;
-//	return parent_pt;
-//}
-
 
 /******************************************************************************/
 //                       PUBLIC FUNCTION DEFINITIONS
@@ -179,7 +174,7 @@ DS DS_new(
 	DS new_structure;
 	
 	// Allocate space
-	new_structure=calloc(1, sizeof(struct _root));
+	new_structure= (DS) calloc(1, sizeof(struct _root));
 	if (new_structure == NULL) {
 		_error(_e_mem);
 		return NULL;
