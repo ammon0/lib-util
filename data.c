@@ -21,6 +21,8 @@
 /******************************************************************************/
 
 
+typedef enum {DS_list, DS_circular_list, DS_bst, DS_hash} DS_type;
+
 typedef unsigned int uint;
 
 typedef struct _list_node {
@@ -63,7 +65,12 @@ const char* _e_repeat ="ERROR: Attempt to insert duplicate data when duplicates 
 const char* _e_nsense ="ERROR: Nonsensical action for given structure type";
 const char* _e_null   ="ERROR: the DS pointer is NULL";
 const char* _e_nimp   ="ERROR: that feature is not implemented";
+
 const char* _n_empty  ="NOTICE: The data structure is empty";
+const char* _n_nprev  ="NOTICE: This node has no previous sibling";
+const char* _n_nnext  ="NOTICE: This node has no next sibling";
+const char* _n_nchld  ="NOTICE: This node has no child";
+const char* _n_nprnt  ="NOTICE: This node has no parent";
 
 
 /******************************************************************************/

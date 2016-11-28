@@ -106,6 +106,21 @@
  *	*	DS_previous()
  *	*	DS_current()
  *
+ *	### General Trees
+ *	*	DS_isleaf()
+ *	*	DS_insert_sibling()
+ *	*	DS_insert_first_child()
+ *	*	DS_insert_last_child()
+ *	*	DS_insert_nth_child()
+ *	*	DS_remove()
+ *	*	DS_next_sibling()
+ *	*	DS_previous_sibling()
+ *	*	DS_parent()
+ *	*	DS_first_child()
+ *	*	DS_last_child()
+ *	*	DS_nth_child()
+ *	*	DS_current()
+ *
  *	### Hash Tables
  *	*	DS_insert()
  *	*	DS_remove()
@@ -123,14 +138,10 @@
 /// All data structures are represented in the caller's code as type DS
 typedef struct _root* DS;
 
-/// These are types of data structures availible
-typedef enum {DS_list, DS_circular_list, DS_bst, DS_hash} DS_type;
-
 
 /******************************************************************************/
-//                     COMMANDS FOR ALL DATA STRUCTURES
+//                          CREATE A NEW STRUCTURE
 /******************************************************************************/
-
 
 /**	CREATE A NEW DATA STRUCTURE
  *
@@ -170,30 +181,117 @@ typedef enum {DS_list, DS_circular_list, DS_bst, DS_hash} DS_type;
  *	##Results:
  *	Returns NULL on failure
  */
-DS DS_new(
-	DS_type      type,
+//DS DS_new(
+//	DS_type      type,
+//	size_t       data_size,
+//	unsigned int option,
+//	void      *  (*key)(const void * data),
+//	int          (*cmp_keys)(const void * left , const void * right)
+//);
+
+/**	Create a new straight list
+ *	##Parameters
+ *	### data_size
+ *	* The size in bytes of the data being stored in this structure.
+ *	* If you need to store variable length data you should store pointers in the
+ *		data structure.
+ *
+ *	##Results:
+ *	Returns NULL on failure
+ */
+DS DS_new_list(size_t data_size);
+
+/**	Create a new circular list
+ *	##Parameters
+ *	### data_size
+ *	* The size in bytes of the data being stored in this structure.
+ *	* If you need to store variable length data you should store pointers in the
+ *		data structure.
+ *
+ *	##Results:
+ *	Returns NULL on failure
+ */
+DS DS_new_circular(size_t data_size);
+
+
+/**	Create a new binary search tree
+ *	##Parameters
+ *	### data_size
+ *	* The size in bytes of the data being stored in this structure.
+ *	* If you need to store variable length data you should store pointers in the
+ *		data structure.
+ *
+ *	### duplicates_allowed
+ *	Non-zero if duplicate keys are allowed, zero otherwise.
+ *
+ *	### key(const void * data)
+ *	Is used to extract a sort key from the data passed into the structure.
+ *
+ *	### cmp_key(const void * left , const void * right)
+ *	* A function to compare keys extracted by key()
+ *	* It must return <0 if left is ordered before right, >0 if left is
+ *		ordered after right, and 0 if they are the same.
+ *
+ *	##Results:
+ *	Returns NULL on failure
+ */
+DS DS_new_bst(
 	size_t       data_size,
-	unsigned int option,
-	void      *  (*key)(const void * data),
+	bool         duplicates_allowed,
+	void       * (*key)(const void * data),
 	int          (*cmp_keys)(const void * left , const void * right)
 );
 
-//DS DS_new_list(DS_type, size_t data_size);
+
+/**	Create a new hash table
+ *	##Parameters
+ *	### data_size
+ *	* The size in bytes of the data being stored in this structure.
+ *	* If you need to store variable length data you should store pointers in the
+ *		data structure.
+ *
+ *	### key_size
+ *	*	0 indicates that the key is null terminated
+ *	*	Otherwise indicates the size of the key.
+ *
+ *	### table_size
+ *	*	0 indicates the default size
+ *	*	Otherwise indicates the size of the hash table
+ *
+ *	### duplicates_allowed
+ *	Non-zero if duplicate keys are allowed, zero otherwise.
+ *
+ *	### key(const void * data)
+ *	Is used to extract a sort key from the data passed into the structure.
+ *
+ *	### cmp_key(const void * left , const void * right)
+ *	* A function to compare keys extracted by key()
+ *	* It must return <0 if left is ordered before right, >0 if left is
+ *		ordered after right, and 0 if they are the same.
+ *
+ *	##Results:
+ *	Returns NULL on failure
+ */
+DS DS_new_hash(
+	size_t   data_size,
+	size_t   key_size,
+	size_t   table_size,
+	bool     duplicates_allowed,
+	void   * (*key)(const void * data),
+	int      (*cmp_keys)(const void * left , const void * right)
+);
+
+
 //DS DS_new_tree(
-//	DS_type   type,
-//	size_t    data_size,
-//	bool      duplicates_allowed,
-//	void    * (*key)(const void * data),
-//	int       (*cmp_keys)(const void * left , const void * right)
+//	unsigned int children,
+//	size_t       data_size
 //);
-//DS DS_new_hash(
-//	size_t   data_size,
-//	size_t   key_size,
-//	size_t   table_size,
-//	bool     duplicates_allowed,
-//	void   * (*key)(const void * data),
-//	int      (*cmp_keys)(const void * left , const void * right)
-//);
+
+
+/******************************************************************************/
+//                     COMMANDS FOR ALL DATA STRUCTURES
+/******************************************************************************/
+
 
 /** Delete the entire contents of a data structure and free its memory.
  */

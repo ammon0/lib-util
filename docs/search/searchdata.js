@@ -5,8 +5,7 @@ var indexSectionsWithContent =
   2: "dg",
   3: "d",
   4: "d",
-  5: "d",
-  6: "l"
+  5: "l"
 };
 
 var indexSectionNames =
@@ -15,9 +14,8 @@ var indexSectionNames =
   1: "files",
   2: "functions",
   3: "typedefs",
-  4: "enums",
-  5: "defines",
-  6: "pages"
+  4: "defines",
+  5: "pages"
 };
 
 var indexSectionLabels =
@@ -26,8 +24,7 @@ var indexSectionLabels =
   1: "Files",
   2: "Functions",
   3: "Typedefs",
-  4: "Enumerations",
-  5: "Macros",
-  6: "Pages"
+  4: "Macros",
+  5: "Pages"
 };
 
