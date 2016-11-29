@@ -48,10 +48,10 @@
  *	after the next call to the data structure.
  *
  *	## Visiting & Modifications
- *	Data accesed through any of the various visiting functions may be
+ *	Data accessed through any of the various visiting functions may be
  *	directly modified through the returned pointer. Obviously, do not modify the
  *	sort key in a sorted data structure as it will result in unpredictable
- *	behaviour and possible data loss.
+ *	behavior and possible data loss.
  *
  *	## Errors
  *	Errors are reported on `stderr`.
@@ -263,7 +263,7 @@ DS DS_new_bst(
  *
  *	### key(const void * data)
  *	Is used to extract a sort key from the data passed into the structure.
- *lumina-el-mundo?play=hero
+ *
  *	### cmp_key(const void * left , const void * right)
  *	* A function to compare keys extracted by key()
  *	* It must return <0 if left is ordered before right, >0 if left is
