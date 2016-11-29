@@ -3,7 +3,7 @@
  *	lib-util : A Utility Library
  *
  *	Copyright (c) 2016 Ammon Dodson
- *	You should have received a copy of the licence terms with this software. If
+ *	You should have received a copy of the license terms with this software. If
  *	not, please visit the project homepage at:
  *	https://github.com/ammon0/lib-util
  *
@@ -20,7 +20,7 @@
  *	traversal functions. Functions such as DS_remove() and DS_insert()
  *	implicitly act on the current position.
  *
- *	##Structure Types Availible
+ *	##Structure Types Available
  *	Data structure types include:
  *	*	list: a general list that is also used to implement stacks and queues
  *		circular list
@@ -54,7 +54,7 @@
  *	behaviour and possible data loss.
  *
  *	## Errors
- *	Errors are reported on stderr.
+ *	Errors are reported on `stderr`.
  *
  *	## Acceptable Actions For Each Structure Type ##
  *
@@ -263,7 +263,7 @@ DS DS_new_bst(
  *
  *	### key(const void * data)
  *	Is used to extract a sort key from the data passed into the structure.
- *
+ *lumina-el-mundo?play=hero
  *	### cmp_key(const void * left , const void * right)
  *	* A function to compare keys extracted by key()
  *	* It must return <0 if left is ordered before right, >0 if left is

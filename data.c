@@ -1,5 +1,13 @@
 /*******************************************************************************
  *
+ *	lib-util : A Utility Library
+ *
+ *	Copyright (c) 2016 Ammon Dodson
+ *	You should have received a copy of the license terms with this software. If
+ *	not, please visit the project homepage at:
+ *	https://github.com/ammon0/lib-util
+ *
+ *
  *	Welcome to pointer HELL >:D
  *
  ******************************************************************************/
@@ -20,6 +28,7 @@
 //                          PRIVATE TYPE DEFINITIONS
 /******************************************************************************/
 
+#define DS_DEFAULT_TABLE_SZ 1023
 
 typedef enum {DS_list, DS_circular_list, DS_bst, DS_hash} DS_type;
 
@@ -51,6 +60,8 @@ struct _root {
 	void *   (*key)(const void * data);
 	int      (*cmp_keys) (const void * left, const void * right);
 	size_t   data_size;
+	size_t   key_size;
+	size_t   table_size;
 	DS_type  type;
 	uint     count;  // number of nodes in the structure
 	bool     dups;  // duplicate data allowed
@@ -66,6 +77,7 @@ const char* _e_nsense ="ERROR: Nonsensical action for given structure type";
 const char* _e_null   ="ERROR: the DS pointer is NULL";
 const char* _e_nimp   ="ERROR: that feature is not implemented";
 
+// NOTICES
 const char* _n_empty  ="NOTICE: The data structure is empty";
 const char* _n_nprev  ="NOTICE: This node has no previous sibling";
 const char* _n_nnext  ="NOTICE: This node has no next sibling";
@@ -170,16 +182,9 @@ inline static _tnode_pt _remove_least_in_tree(_tnode_pt * parent_pt){
 /******************************************************************************/
 
 
-/********************** ACTIONS ON WHOLE DATA STRUCTURE ***********************/
+/****************************** NEW STRUCTURE *********************************/
 
-// Make a new data structure
-DS DS_new(
-	DS_type      type,
-	size_t       data_size,
-	unsigned int option,
-	void      *  (*key)(const void * data),
-	int          (*cmp_keys)(const void * left , const void * right)
-){
+DS DS_new_list(size_t data_size){
 	DS new_structure;
 	
 	// Allocate space
@@ -189,49 +194,164 @@ DS DS_new(
 		return NULL;
 	}
 	
-	// Checks if any
-	switch (type){
-	case DS_list         :
-	case DS_circular_list: break;
-	case DS_bst:
-		if (!key || !cmp_keys){
-			_error(_e_nsense);
-			return NULL;
-		}
-		new_structure->key      = key;
-		new_structure->cmp_keys = cmp_keys;
-		
-		if(option) new_structure->dups = true;
-		else new_structure->dups = false;
-		break;
-		
-		
-	case DS_hash:
-		if (!key || !cmp_keys){
-			_error(_e_nsense);
-			return NULL;
-		}
-		new_structure->key      = key;
-		new_structure->cmp_keys = cmp_keys;
-		_error(_e_nimp);
-		return NULL;
-		
-	default:
-		_error(_e_invtype);
-		return NULL;
-	}
-	
-	// Common
-	new_structure->head.l     = NULL     ;
-	new_structure->tail.l     = NULL     ;
-	new_structure->current.l  = NULL     ;
-	new_structure->freelist.l = NULL     ;
-	new_structure->type       = type     ;
+	new_structure->type       = DS_list;
 	new_structure->data_size  = data_size;
 	new_structure->count      = 0        ;
 	
 	return new_structure;
 }
+
+
+DS DS_new_circular(size_t data_size){
+	DS new_structure;
+	
+	// Allocate space
+	new_structure= (DS) calloc(1, sizeof(struct _root));
+	if (new_structure == NULL) {
+		_error(_e_mem);
+		return NULL;
+	}
+	
+	new_structure->type       = DS_circular_list;
+	new_structure->data_size  = data_size;
+	new_structure->count      = 0        ;
+	
+	return new_structure;
+}
+
+
+DS DS_new_bst(
+	size_t       data_size,
+	bool         duplicates_allowed,
+	void       * (*key)(const void * data),
+	int          (*cmp_keys)(const void * left , const void * right)
+){
+	DS new_structure;
+	
+	if (!key || !cmp_keys){
+		_error(_e_nsense);
+		return NULL;
+	}
+	
+	// Allocate space
+	new_structure= (DS) calloc(1, sizeof(struct _root));
+	if (new_structure == NULL) {
+		_error(_e_mem);
+		return NULL;
+	}
+	
+	new_structure->key      = key;
+	new_structure->cmp_keys = cmp_keys;
+	
+	new_structure->type       = DS_bst;
+	new_structure->data_size  = data_size;
+	new_structure->count      = 0        ;
+	new_structure->dups       = duplicates_allowed;
+	
+	return new_structure;
+}
+
+
+DS DS_new_hash(
+	size_t   data_size,
+	size_t   key_size,
+	size_t   table_size,
+	bool     duplicates_allowed,
+	void   * (*key)(const void * data),
+	int      (*cmp_keys)(const void * left , const void * right)
+){
+	DS new_structure;
+	
+	if (!key || !cmp_keys){
+		_error(_e_nsense);
+		return NULL;
+	}
+	
+	// Allocate space
+	new_structure= (DS) calloc(1, sizeof(struct _root));
+	if (new_structure == NULL) {
+		_error(_e_mem);
+		return NULL;
+	}
+	
+	new_structure->key_size   = key_size;
+	new_structure->key      = key;
+	new_structure->cmp_keys = cmp_keys;
+	
+	if(!table_size) new_structure->table_size = DS_DEFAULT_TABLE_SZ;
+	new_structure->table_size = table_size;
+	
+	
+	new_structure->type       = DS_hash;
+	new_structure->data_size  = data_size;
+	new_structure->count      = 0        ;
+	new_structure->dups       = duplicates_allowed;
+	
+	return new_structure;
+}
+
+/********************** ACTIONS ON WHOLE DATA STRUCTURE ***********************/
+
+// Make a new data structure
+//DS DS_new(
+//	DS_type      type,
+//	size_t       data_size,
+//	unsigned int option,
+//	void      *  (*key)(const void * data),
+//	int          (*cmp_keys)(const void * left , const void * right)
+//){
+//	DS new_structure;
+//	
+//	// Allocate space
+//	new_structure= (DS) calloc(1, sizeof(struct _root));
+//	if (new_structure == NULL) {
+//		_error(_e_mem);
+//		return NULL;
+//	}
+//	
+//	// Checks if any
+//	switch (type){
+//	case DS_list         :
+//	case DS_circular_list: break;
+//	case DS_bst:
+//		if (!key || !cmp_keys){
+//			_error(_e_nsense);
+//			return NULL;
+//		}
+//		new_structure->key      = key;
+//		new_structure->cmp_keys = cmp_keys;
+//		
+//		if(option) new_structure->dups = true;
+//		else new_structure->dups = false;
+//		break;
+//		
+//		
+//	case DS_hash:
+//		if (!key || !cmp_keys){
+//			_error(_e_nsense);
+//			return NULL;
+//		}
+//		new_structure->key      = key;
+//		new_structure->cmp_keys = cmp_keys;
+//		_error(_e_nimp);
+//		return NULL;
+//		
+//	default:
+//		_error(_e_invtype);
+//		return NULL;
+//	}
+//	
+//	// Common
+//	new_structure->head.l     = NULL     ;
+//	new_structure->tail.l     = NULL     ;
+//	new_structure->current.l  = NULL     ;
+//	new_structure->freelist.l = NULL     ;
+//	new_structure->type       = type     ;
+//	new_structure->data_size  = data_size;
+//	new_structure->count      = 0        ;
+//	
+//	return new_structure;
+//}
 
 void DS_delete(DS root){
 	

@@ -20,15 +20,15 @@ int main(void){
 		*third  = "CCCC",
 		*fourth = "DDDD";
 	
-	DS list    = DS_new(DS_list         , sizeof(char*), true , NULL, NULL);
-	DS circle  = DS_new(DS_circular_list, sizeof(char*), true , NULL, NULL);
-	DS dup_bst = DS_new(DS_bst          , sizeof(char*), true , &key, &cmp);
-	DS ex_bst  = DS_new(DS_bst          , sizeof(char*), false, &key, &cmp);
+	DS list    = DS_new_list    (sizeof(char*)                   );
+	DS circle  = DS_new_circular(sizeof(char*)                   );
+	DS dup_bst = DS_new_bst     (sizeof(char*), true , &key, &cmp);
+	DS ex_bst  = DS_new_bst     (sizeof(char*), false, &key, &cmp);
 	
 	printf("Size of (void*)       : %lu\n", sizeof(void*)  );
 	printf("Size of (int)         : %lu\n", sizeof(int)    );
 	printf("Size of (unsigned int): %lu\n", sizeof(unsigned int));
-	printf("Size of (DS_type)     : %lu\n", sizeof(DS_type));
+	//printf("Size of (DS_type)     : %lu\n", sizeof(enum{}));
 	printf("Size of (size_t)      : %lu\n", sizeof(size_t) );
 	printf("Size of (bool)        : %lu\n", sizeof(bool)   );
 	

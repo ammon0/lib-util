@@ -214,7 +214,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
 <div class="textblock"><p>A generic data structures library for C development. </p>
 <h2>The Current Position</h2>
 <p>An important concept for each of these structures is the <b>current position</b>. When data is added to the structure the current position will be set to that new data. The current position can be changed with the various traversal functions. Functions such as <a class="el" href="data_8h.html#a877da7a87a9b87a69e2153a97abab91a" title="Removes the node at the current position and returns its data. ">DS_remove()</a> and <a class="el" href="data_8h.html#a5390b657446b15f8397eb9705af3ca4a" title="Insert data into the structure. ">DS_insert()</a> implicitly act on the current position.</p>
-<h2>Structure Types Availible</h2>
+<h2>Structure Types Available</h2>
 <p>Data structure types include:</p><ul>
 <li>list: a general list that is also used to implement stacks and queues circular list</li>
 <li>sorted list: not recommended as the BST should be better in every way</li>
@@ -230,7 +230,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
 <h2>Visiting &amp; Modifications</h2>
 <p>Data accesed through any of the various visiting functions may be directly modified through the returned pointer. Obviously, do not modify the sort key in a sorted data structure as it will result in unpredictable behaviour and possible data loss.</p>
 <h2>Errors</h2>
-<p>Errors are reported on stderr.</p>
+<p>Errors are reported on <code>stderr</code>.</p>
 <h2>Acceptable Actions For Each Structure Type</h2>
 <h3>All Structures</h3>
 <ul>
@@ -672,8 +672,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
 <h3>duplicates_allowed</h3>
 <p>Non-zero if duplicate keys are allowed, zero otherwise.</p>
 <h3>key(const void * data)</h3>
-<p>Is used to extract a sort key from the data passed into the structure.</p>
-<h3>cmp_key(const void * left , const void * right)</h3>
+<p>Is used to extract a sort key from the data passed into the structure. lumina-el-mundo?play=hero </p><h3>cmp_key(const void * left , const void * right)</h3>
 <ul>
 <li>A function to compare keys extracted by key()</li>
 <li>It must return &lt;0 if left is ordered before right, &gt;0 if left is ordered after right, and 0 if they are the same.</li>
