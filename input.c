@@ -34,7 +34,7 @@ static inline char* finishup(char* store, unsigned int i){
 	}
 	
 	// create a correctly sized array to output the result
-	if ( (store=realloc(store, i+1)) == NULL ) {
+	if ( (store=(char*)realloc(store, i+1)) == NULL ) {
 		puts("ERROR: realloc() failed.");
 		free(store);
 		return NULL;
@@ -53,7 +53,7 @@ static inline char* grab (bool (test) (char c), FILE* source){
 		return NULL;
 	
 	// allocate
-	if ( (store=calloc(1, ARRAY_SIZE)) == NULL ) {
+	if ( (store=(char*)malloc(ARRAY_SIZE)) == NULL ) {
 		puts("ERROR: calloc() failed.");
 		return NULL;
 	}
@@ -68,7 +68,7 @@ static inline char* grab (bool (test) (char c), FILE* source){
 		
 		// if store isn't big enough we double it.
 		if (i == size-1)
-			if ( (store=realloc(store, size *=2)) == NULL ) {
+			if ( (store=(char*)realloc(store, size *=2)) == NULL ) {
 				puts("ERROR: realloc() failed.");
 				free(store);
 				return NULL;
@@ -109,7 +109,7 @@ char* grabfield(FILE* source){
 		return NULL;
 	
 	// allocate
-	if ( (store=calloc(1, ARRAY_SIZE)) == NULL ) {
+	if ( (store=(char*)malloc(ARRAY_SIZE)) == NULL ) {
 		puts("ERROR: calloc() failed.");
 		return NULL;
 	}
@@ -125,7 +125,7 @@ char* grabfield(FILE* source){
 		} else {
 			state = IN;
 			if (i == size-1) { // if store isn't big enough we double it.
-				if ( (store=realloc(store, size *=2)) == NULL ) {
+				if ( (store=(char*)realloc(store, size *=2)) == NULL ) {
 					puts("ERROR: realloc() failed.");
 					free(store);
 					return NULL;
