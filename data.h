@@ -3,7 +3,7 @@
  *	lib-util : A Utility Library
  *
  *	Copyright (c) 2016 Ammon Dodson
- *	You should have received a copy of the licence terms with this software. If
+ *	You should have received a copy of the license terms with this software. If
  *	not, please visit the project homepage at:
  *	https://github.com/ammon0/lib-util
  *
@@ -20,7 +20,7 @@
  *	traversal functions. Functions such as DS_remove() and DS_insert()
  *	implicitly act on the current position.
  *
- *	##Structure Types Availible
+ *	##Structure Types Available
  *	Data structure types include:
  *	*	list: a general list that is also used to implement stacks and queues
  *		circular list
@@ -48,10 +48,10 @@
  *	after the next call to the data structure.
  *
  *	## Visiting & Modifications
- *	Data accesed through any of the various visiting functions may be
+ *	Data accessed through any of the various visiting functions may be
  *	directly modified through the returned pointer. Obviously, do not modify the
  *	sort key in a sorted data structure as it will result in unpredictable
- *	behaviour and possible data loss.
+ *	behavior and possible data loss.
  *
  *	## Errors
  *	Errors are reported on stderr.
@@ -133,7 +133,7 @@ typedef enum {DS_list, DS_circular_list, DS_bst } DS_type;
  *	are ignored for other types.
  *
  *	##Parameters
- *	### Requried
+ *	### Required
  *	* type: Must be one of the enumerated DS_type
  *	* data_size: The size in bytes of the data being stored in this structure.
  *		If you need to store variable length data you should store pointers in
@@ -214,7 +214,7 @@ bool DS_insert_last (DS root, const void * data);
 /**	Insert data into the structure in sorted order.
  *	
  *	##Results
- *	Returns 0 on sucess. This call will fail if a duplicate key is found and
+ *	Returns 0 on success. This call will fail if a duplicate key is found and
  *	duplicates are not allowed.
  */
 bool DS_sort(DS root, const void * data);
