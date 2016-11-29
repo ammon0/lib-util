@@ -9,7 +9,7 @@ static inline int cmp(const void * left, const void * right){
 }
 
 // the data is just a character string, nothing to extract
-static inline void * key(const void * data) {
+static inline const void * key(const void * data) {
 	return data;
 }
 

@@ -53,18 +53,18 @@ typedef union {
 } _node_pt;
 
 struct _root {
-	_node_pt head;
-	_node_pt tail;
-	_node_pt current;
-	_node_pt freelist;
-	void *   (*key)(const void * data);
-	int      (*cmp_keys) (const void * left, const void * right);
-	size_t   data_size;
-	size_t   key_size;
-	size_t   table_size;
-	DS_type  type;
-	uint     count;  // number of nodes in the structure
-	bool     dups;  // duplicate data allowed
+	_node_pt     head;
+	_node_pt     tail;
+	_node_pt     current;
+	_node_pt     freelist;
+	const void * (*key)(const void * data);
+	int          (*cmp_keys) (const void * left, const void * right);
+	size_t       data_size;
+	size_t       key_size;
+	size_t       table_size;
+	DS_type      type;
+	uint         count;  // number of nodes in the structure
+	bool         dups;  // duplicate data allowed
 };
 
 /********************************* MESSAGES ***********************************/
@@ -223,7 +223,7 @@ DS DS_new_circular(size_t data_size){
 DS DS_new_bst(
 	size_t       data_size,
 	bool         duplicates_allowed,
-	void       * (*key)(const void * data),
+	const void * (*key)(const void * data),
 	int          (*cmp_keys)(const void * left , const void * right)
 ){
 	DS new_structure;
@@ -253,12 +253,12 @@ DS DS_new_bst(
 
 
 DS DS_new_hash(
-	size_t   data_size,
-	size_t   key_size,
-	size_t   table_size,
-	bool     duplicates_allowed,
-	void   * (*key)(const void * data),
-	int      (*cmp_keys)(const void * left , const void * right)
+	size_t       data_size,
+	size_t       key_size,
+	size_t       table_size,
+	bool         duplicates_allowed,
+	const void * (*key)(const void * data),
+	int          (*cmp_keys)(const void * left , const void * right)
 ){
 	DS new_structure;
 	

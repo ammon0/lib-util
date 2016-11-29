@@ -238,7 +238,7 @@ DS DS_new_circular(size_t data_size);
 DS DS_new_bst(
 	size_t       data_size,
 	bool         duplicates_allowed,
-	void       * (*key)(const void * data),
+	const void * (*key)(const void * data),
 	int          (*cmp_keys)(const void * left , const void * right)
 );
 
@@ -273,12 +273,12 @@ DS DS_new_bst(
  *	Returns NULL on failure
  */
 DS DS_new_hash(
-	size_t   data_size,
-	size_t   key_size,
-	size_t   table_size,
-	bool     duplicates_allowed,
-	void   * (*key)(const void * data),
-	int      (*cmp_keys)(const void * left , const void * right)
+	size_t       data_size,
+	size_t       key_size,
+	size_t       table_size,
+	bool         duplicates_allowed,
+	const void * (*key)(const void * data),
+	int          (*cmp_keys)(const void * left , const void * right)
 );
 
 

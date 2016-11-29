@@ -26,10 +26,10 @@ CWARNINGS:=	-Wall -Wextra -pedantic \
 	-Wsuggest-attribute=pure -Wsuggest-attribute=const \
 	-Wsuggest-attribute=noreturn -Wsuggest-attribute=format \
 	-Wtrampolines -Wstack-protector \
-	-Wwrite-strings -Wno-discarded-qualifiers \
+	-Wwrite-strings \
 	-Wc++-compat \
 	 -Wconversion -Wdisabled-optimization \
-	#-Wno-long-long -Wpadded
+	#-Wno-discarded-qualifiers -Wpadded
 
 CFLAGS:= $(CWARNINGS) --std=c11
 
