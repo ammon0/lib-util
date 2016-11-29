@@ -143,53 +143,9 @@ typedef struct _root* DS;
 //                          CREATE A NEW STRUCTURE
 /******************************************************************************/
 
-/**	CREATE A NEW DATA STRUCTURE
- *
- *	Not all parameters are meaningful for all structure types. `duplicates`,
- *	`cmp_data`, and `cmp_key` are only used by the BST type. They
- *	are ignored for other types.
- *
- *	##Parameters
- *	### type
- *	* Required for all data structures
- *	* Must be one of the enumerated DS_type
- *
- *	### data_size
- *	* Required for all data structures
- *	* The size in bytes of the data being stored in this structure.
- *	* If you need to store variable length data you should store pointers in the
- *		data structure.
- *
- *	### option
- *	* For DS_bst: Non-zero if duplicate keys are allowed, zero otherwise.
- *	* For DS_hash: indicates the size of the hash table. If set to 0 a default
- *		value will be used.
- *	* Ignored for other DS_types
- *
- *	### key(const void * data)
- *	* is used to extract a sort key from the data passed into the structure.
- *	* Required for DS_bst, and DS_hash
- *	* Ignored for other DS_types
- *
- *	### cmp_key(const void * left , const void * right)
- *	* A function to compare keys extracted by key()
- *	* It must return <0 if left is ordered before right, >0 if left is
- *		ordered after right, and 0 if they are the same.
- *	* Required for DS_bst, and DS_hash
- *	* Ignored for other DS_types
- *
- *	##Results:
- *	Returns NULL on failure
- */
-//DS DS_new(
-//	DS_type      type,
-//	size_t       data_size,
-//	unsigned int option,
-//	void      *  (*key)(const void * data),
-//	int          (*cmp_keys)(const void * left , const void * right)
-//);
 
-/**	Create a new straight list
+/**	Create a new straight list.
+ *
  *	##Parameters
  *	### data_size
  *	* The size in bytes of the data being stored in this structure.
@@ -201,7 +157,8 @@ typedef struct _root* DS;
  */
 DS DS_new_list(size_t data_size);
 
-/**	Create a new circular list
+/**	Create a new circular list.
+ *
  *	##Parameters
  *	### data_size
  *	* The size in bytes of the data being stored in this structure.
@@ -214,7 +171,8 @@ DS DS_new_list(size_t data_size);
 DS DS_new_circular(size_t data_size);
 
 
-/**	Create a new binary search tree
+/**	Create a new binary search tree.
+ *
  *	##Parameters
  *	### data_size
  *	* The size in bytes of the data being stored in this structure.
@@ -243,7 +201,8 @@ DS DS_new_bst(
 );
 
 
-/**	Create a new hash table
+/**	Create a new hash table.
+ *
  *	##Parameters
  *	### data_size
  *	* The size in bytes of the data being stored in this structure.
