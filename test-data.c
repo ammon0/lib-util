@@ -156,6 +156,22 @@ int main(void){
 	if(!DS_push(list, third)) puts("ERROR: failed push third");
 	if(!DS_push(list, fourth)) puts("ERROR: failed push fourth");
 	
+	puts("dumping list");
+	DS_dump(list);
+	
+	DS_delete(list);
+	list = DS_new_list(sizeof(char*));
+	
+	if(!DS_nq(list, first)) puts("ERROR: failed push first");
+	if(!DS_nq(list, second)) puts("ERROR: failed push second");
+	if(!DS_nq(list, third)) puts("ERROR: failed push third");
+	if(!DS_nq(list, fourth)) puts("ERROR: failed push fourth");
+	
+	puts("dumping list");
+	DS_dump(list);
+	
+	while(DS_count(list)) DS_remove_last(list);
+	
 	DS_delete(list);
 	
 	printf("\nEND LIST TESTS\n\n");

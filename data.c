@@ -355,7 +355,7 @@ DS DS_new_hash(
 
 void DS_delete(DS root){
 	
-	while (root->count) DS_remove_last(root);
+	while (DS_remove(root));
 	DS_flush(root); // clear the freelist
 	
 	free(root);
