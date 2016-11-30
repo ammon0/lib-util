@@ -598,13 +598,13 @@ void * DS_insert_first(DS root, const void * data){
 		new_node.l->next = root->head.l;
 		root->head.l->prev = new_node.l;
 	}
-	
+	root->current=new_node;
+	root->head   =new_node;
 	root->count++;
 	
 	// assign data
 	memcpy(new_node.l->data, data, root->data_size);
-	root->current=new_node;
-	root->head   =new_node;
+	
 	return new_node.l->data;
 }
 
@@ -635,12 +635,13 @@ void * DS_insert_last (DS root, const void * data){
 		root->tail.l->next = new_node.l;
 	}
 	
+	root->current=new_node;
+	root->tail   =new_node;
 	root->count++;
 	
 	// assign data
 	memcpy(new_node.l->data, data, root->data_size);
-	root->current=new_node;
-	root->tail   =new_node;
+	
 	return new_node.l->data;
 }
 
@@ -1017,6 +1018,7 @@ void * DS_next(const DS root){ // visit the next in-order node
 	case DS_list:
 	case DS_circular_list:
 		root->current.l=root->current.l->next;
+		if(!root->current.l) return NULL;
 		return root->current.l->data;
 	
 	case DS_hash: _error(_e_nsense); return NULL;
@@ -1064,6 +1066,7 @@ void * DS_previous(const DS root){ // visit the previous in-order node
 	case DS_list:
 	case DS_circular_list:
 		root->current.l=root->current.l->prev;
+		if(!root->current.l) return NULL;
 		return root->current.l->data;
 	
 	case DS_hash: _error(_e_nsense); return NULL;

@@ -62,6 +62,7 @@
  *	*	DS_new()
  *	*	DS_flush()
  *	*	DS_delete()
+ *	*	DS_empty()
  *	*	DS_count()
  *	*	DS_isempty()
  *	*	DS_dump()
@@ -263,6 +264,8 @@ void DS_delete(DS root);
  */
 void DS_flush (DS root);
 
+/// Remove all items from a data structure
+void DS_empty (DS root);
 
 /** Return the number of nodes in the structure.
  */
