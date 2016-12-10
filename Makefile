@@ -34,13 +34,13 @@ CWARNINGS:=	-Wall -Wextra -pedantic \
 CFLAGS:= $(CWARNINGS) --std=c11
 
 ALLFILES:= data.c data.h test-data.c input.h input.c test-input.c
-CLEANFILES:= data.o input.o libinput.a libdata.a test-data test-input
+CLEANFILES:= *.o *.a test-data test-input
 
 
-.PHONEY: install debug-data debug-input all
+.PHONEY: install debug-data debug-input release
 
-all: CFLAGS += -O2
-all: libdata.a libinput.a
+release: CFLAGS += -O2 -g
+release: libdata.a libinput.a
 
 debug-data: CFLAGS += -DDEBUG -g
 debug-data: test-data

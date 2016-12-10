@@ -404,7 +404,7 @@ inline bool DS_isempty (const DS root) {
 		_error(_e_null);
 		return true;
 	}
-	return !(root->count);
+	return !root->count;
 }
 
 bool DS_isleaf (const DS root){
@@ -1018,8 +1018,11 @@ void * DS_next(const DS root){ // visit the next in-order node
 	case DS_list:
 	case DS_circular_list:
 		root->current.l=root->current.l->next;
-		if(!root->current.l) return NULL;
-		return root->current.l->data;
+		if(!root->current.l) {
+			root->current=root->tail;
+			return NULL;
+		}
+		else return root->current.l->data;
 	
 	case DS_hash: _error(_e_nsense); return NULL;
 	default     : _error(_e_invtype); return NULL;
@@ -1066,8 +1069,11 @@ void * DS_previous(const DS root){ // visit the previous in-order node
 	case DS_list:
 	case DS_circular_list:
 		root->current.l=root->current.l->prev;
-		if(!root->current.l) return NULL;
-		return root->current.l->data;
+		if(!root->current.l){
+			root->current = root->tail;
+			return NULL;
+		}
+		else return root->current.l->data;
 	
 	case DS_hash: _error(_e_nsense); return NULL;
 	default     : _error(_e_invtype); return NULL;

@@ -4,6 +4,7 @@ var searchData=
   ['ds_5fcurrent',['DS_current',['../data_8h.html#a194c805eef343bcfb53ff27198839bc4',1,'data.h']]],
   ['ds_5fdelete',['DS_delete',['../data_8h.html#a06279ab0d94e5b3f2b16e48c30de8729',1,'data.h']]],
   ['ds_5fdump',['DS_dump',['../data_8h.html#afa5865b5c5c30cf28f9a71780227cd49',1,'data.h']]],
+  ['ds_5fempty',['DS_empty',['../data_8h.html#ab32b9061275f94450b5f1601ffa3b63d',1,'data.h']]],
   ['ds_5ffind',['DS_find',['../data_8h.html#ac33b13e61fd47f989f61940fbb50d706',1,'data.h']]],
   ['ds_5ffirst',['DS_first',['../data_8h.html#a6cc7722834e766ed57895f1d1460ac60',1,'data.h']]],
   ['ds_5fflush',['DS_flush',['../data_8h.html#a05b9db783e9d4b021355fa6a9856c75b',1,'data.h']]],
