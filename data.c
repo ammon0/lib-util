@@ -259,6 +259,15 @@ DS DS_new_hash(
 	bool         duplicates_allowed,
 	const void * (*key)(const void * data),
 	int          (*cmp_keys)(const void * left , const void * right)
+);
+
+DS DS_new_hash(
+	size_t       data_size,
+	size_t       key_size,
+	size_t       table_size,
+	bool         duplicates_allowed,
+	const void * (*key)(const void * data),
+	int          (*cmp_keys)(const void * left , const void * right)
 ){
 	DS new_structure;
 	
@@ -292,76 +301,17 @@ DS DS_new_hash(
 
 /********************** ACTIONS ON WHOLE DATA STRUCTURE ***********************/
 
-// Make a new data structure
-//DS DS_new(
-//	DS_type      type,
-//	size_t       data_size,
-//	unsigned int option,
-//	void      *  (*key)(const void * data),
-//	int          (*cmp_keys)(const void * left , const void * right)
-//){
-//	DS new_structure;
-//	
-//	// Allocate space
-//	new_structure= (DS) calloc(1, sizeof(struct _root));
-//	if (new_structure == NULL) {
-//		_error(_e_mem);
-//		return NULL;
-//	}
-//	
-//	// Checks if any
-//	switch (type){
-//	case DS_list         :
-//	case DS_circular_list: break;
-//	case DS_bst:
-//		if (!key || !cmp_keys){
-//			_error(_e_nsense);
-//			return NULL;
-//		}
-//		new_structure->key      = key;
-//		new_structure->cmp_keys = cmp_keys;
-//		
-//		if(option) new_structure->dups = true;
-//		else new_structure->dups = false;
-//		break;
-//		
-//		
-//	case DS_hash:
-//		if (!key || !cmp_keys){
-//			_error(_e_nsense);
-//			return NULL;
-//		}
-//		new_structure->key      = key;
-//		new_structure->cmp_keys = cmp_keys;
-//		_error(_e_nimp);
-//		return NULL;
-//		
-//	default:
-//		_error(_e_invtype);
-//		return NULL;
-//	}
-//	
-//	// Common
-//	new_structure->head.l     = NULL     ;
-//	new_structure->tail.l     = NULL     ;
-//	new_structure->current.l  = NULL     ;
-//	new_structure->freelist.l = NULL     ;
-//	new_structure->type       = type     ;
-//	new_structure->data_size  = data_size;
-//	new_structure->count      = 0        ;
-//	
-//	return new_structure;
-//}
-
-void DS_delete(DS root){
-	
-	while (DS_remove(root));
+inline void DS_delete(DS root){
+	DS_empty(root);
 	DS_flush(root); // clear the freelist
-	
-	free(root);
+	free    (root);
 }
 
-void DS_flush (DS root){
+inline void DS_empty (DS root){
+	while (DS_remove(root));
+}
+
+inline void DS_flush (DS root){
 	_node_pt dead_node;
 	
 	switch (root->type){

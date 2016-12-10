@@ -128,9 +128,6 @@ Functions</h2></td></tr>
 <tr class="memitem:adb09ff182fb1bbf39313cf64ed2697f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#adb09ff182fb1bbf39313cf64ed2697f7">DS_new_bst</a> (size_t data_size, bool duplicates_allowed, const void *(*key)(const void *data), int(*cmp_keys)(const void *left, const void *right))</td></tr>
 <tr class="memdesc:adb09ff182fb1bbf39313cf64ed2697f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new binary search tree.  <a href="#adb09ff182fb1bbf39313cf64ed2697f7">More...</a><br /></td></tr>
 <tr class="separator:adb09ff182fb1bbf39313cf64ed2697f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3634814113c1f3c40580008b172ff6f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a3634814113c1f3c40580008b172ff6f6">DS_new_hash</a> (size_t data_size, size_t key_size, size_t table_size, bool duplicates_allowed, const void *(*key)(const void *data), int(*cmp_keys)(const void *left, const void *right))</td></tr>
-<tr class="memdesc:a3634814113c1f3c40580008b172ff6f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new hash table.  <a href="#a3634814113c1f3c40580008b172ff6f6">More...</a><br /></td></tr>
-<tr class="separator:a3634814113c1f3c40580008b172ff6f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06279ab0d94e5b3f2b16e48c30de8729"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a06279ab0d94e5b3f2b16e48c30de8729"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a06279ab0d94e5b3f2b16e48c30de8729">DS_delete</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
 <tr class="memdesc:a06279ab0d94e5b3f2b16e48c30de8729"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete the entire contents of a data structure and free its memory. <br /></td></tr>
@@ -211,24 +208,24 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A generic data structures library for C development. </p>
 <h2>The Current Position</h2>
-<p>An important concept for each of these structures is the <b>current position</b>. When data is added to the structure the current position will be set to that new data. The current position can be changed with the various traversal functions. Functions such as <a class="el" href="data_8h.html#a877da7a87a9b87a69e2153a97abab91a" title="Removes the node at the current position and returns its data. ">DS_remove()</a> and <a class="el" href="data_8h.html#a5390b657446b15f8397eb9705af3ca4a" title="Insert data into the structure. ">DS_insert()</a> implicitly act on the current position.</p>
+<p>An important concept for each of these structures is the <b>current position</b>. When data is added to the structure the current position will be set to that new data. The current position can be changed with the various traversal functions. Functions such as <a class="el" href="data_8h.html#a877da7a87a9b87a69e2153a97abab91a" title="Removes the node at the current position and returns its data. ">DS_remove()</a> and <a class="el" href="data_8h.html#a5390b657446b15f8397eb9705af3ca4a" title="Insert data into the structure. ">DS_insert()</a> implicitly act on the current position. When inserting at the current position, what was previously at the current position will now be at the next from current position.</p>
 <h2>Structure Types Available</h2>
 <p>Data structure types include:</p><ul>
-<li>list: a general list that is also used to implement stacks and queues circular list</li>
-<li>sorted list: not recommended as the BST should be better in every way</li>
+<li>list: a general list that is also used to implement stacks and queues</li>
+<li>circular list</li>
 <li>binary search tree</li>
 </ul>
 <h3>Stacks and Queues</h3>
-<p>Stacks and queues use the DS_list type structure. The caller must limit themselves to only using <a class="el" href="data_8h.html#a49d7a7e7da92af0194d26b9712fa7f3e" title="Push data onto a stack. ">DS_push()</a> &amp; <a class="el" href="data_8h.html#a4ab7d9bd0d57df4279dd3b530136de59" title="Pop data off a stack. ">DS_pop()</a> for stacks, and <a class="el" href="data_8h.html#a6236e7db202987b2a038fe590fbbf55b" title="Enqueue data. ">DS_nq()</a> &amp; <a class="el" href="data_8h.html#a615d393e7e9a90b6bee7b718803be4ce" title="Dequeue data. ">DS_dq()</a> for queues.</p>
+<p>Stacks and queues use the DS_list type structure. The caller must limit themselves to only using <a class="el" href="data_8h.html#a49d7a7e7da92af0194d26b9712fa7f3e" title="Push data onto a stack. ">DS_push()</a> &amp; <a class="el" href="data_8h.html#a4ab7d9bd0d57df4279dd3b530136de59" title="Pop data off a stack. ">DS_pop()</a> for stacks, and <a class="el" href="data_8h.html#a6236e7db202987b2a038fe590fbbf55b" title="Enqueue data. ">DS_nq()</a> &amp; <a class="el" href="data_8h.html#a615d393e7e9a90b6bee7b718803be4ce" title="Dequeue data. ">DS_dq()</a> for queues. For stacks <a class="el" href="data_8h.html#a6cc7722834e766ed57895f1d1460ac60" title="visit the first node ">DS_first()</a> may be used to view the member on the top of the stack without changing the stack. For queues <a class="el" href="data_8h.html#a6cc7722834e766ed57895f1d1460ac60" title="visit the first node ">DS_first()</a> may be used to view the next-out member, and <a class="el" href="data_8h.html#a62d6c18761a826c59622d25a4e435854" title="visit the last node ">DS_last()</a> may be used to view the last-out member.</p>
 <h2>Data Storage Method</h2>
-<p>The caller's data is stored in a generic fixed length byte array. The size of the arrays is set by the caller in DS_new() when the data structure is initialized. All incoming data is copied into the data structure from the pointer location passed by the insert functions.</p>
-<p>If the structure's data needs to be variable length then the caller will have to store pointers in the data structure and manage the memory for the variable data.</p>
+<p>The caller's data is stored in a generic fixed length byte array. The size of the arrays is set by the caller in DS_new_XXX() when the data structure is first initialized. All incoming data is copied into the data structure from the pointer location passed by the insert functions.</p>
+<p>If the structure's data needs to be variable length then the caller will have to store pointers in the data structure and manage the memory for the variable data. Keep in mind that the insert functions expect a pointer to the stored data in this case <code>**data</code>. The traversal and removal functions also return a pointer to the stored data, so again <code>**data</code>.</p>
 <h2>Removal</h2>
 <p><a class="el" href="data_8h.html#a877da7a87a9b87a69e2153a97abab91a" title="Removes the node at the current position and returns its data. ">DS_remove()</a> functions return a pointer to the removed data. The caller must copy that data out as there is no guarantee that it will be preserved after the next call to the data structure.</p>
-<h2>Visiting &amp; Modifications</h2>
-<p>Data accessed through any of the various visiting functions may be directly modified through the returned pointer. Obviously, do not modify the sort key in a sorted data structure as it will result in unpredictable behavior and possible data loss.</p>
+<h2>Traversal &amp; Modifications</h2>
+<p>Data accessed through any of the various traversal functions may be directly modified through the returned pointer. Obviously, do not modify the sort key in a sorted data structure as it will result in unpredictable behavior and possible data loss.</p>
 <h2>Errors</h2>
-<p>Errors are reported on <code>stderr</code>.</p>
+<p>Errors and messages are reported on <code>stderr</code>.</p>
 <h2>Acceptable Actions For Each Structure Type</h2>
 <h3>All Structures</h3>
 <ul>
@@ -597,85 +594,6 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
 <ul>
 <li>The size in bytes of the data being stored in this structure.</li>
 <li>If you need to store variable length data you should store pointers in the data structure.</li>
-</ul>
-<h2>Results:</h2>
-<p>Returns NULL on failure </p>
-
-</div>
-</div>
-<a class="anchor" id="a3634814113c1f3c40580008b172ff6f6"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> DS_new_hash </td>
-          <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>data_size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>key_size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>table_size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>duplicates_allowed</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const void *(*)(const void *data)&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int(*)(const void *left, const void *right)&#160;</td>
-          <td class="paramname"><em>cmp_keys</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create a new hash table. </p>
-<h2>Parameters</h2>
-<h3>data_size</h3>
-<ul>
-<li>The size in bytes of the data being stored in this structure.</li>
-<li>If you need to store variable length data you should store pointers in the data structure.</li>
-</ul>
-<h3>key_size</h3>
-<ul>
-<li>0 indicates that the key is null terminated</li>
-<li>Otherwise indicates the size of the key.</li>
-</ul>
-<h3>table_size</h3>
-<ul>
-<li>0 indicates the default size</li>
-<li>Otherwise indicates the size of the hash table</li>
-</ul>
-<h3>duplicates_allowed</h3>
-<p>Non-zero if duplicate keys are allowed, zero otherwise.</p>
-<h3>key(const void * data)</h3>
-<p>Is used to extract a sort key from the data passed into the structure.</p>
-<h3>cmp_key(const void * left , const void * right)</h3>
-<ul>
-<li>A function to compare keys extracted by key()</li>
-<li>It must return &lt;0 if left is ordered before right, &gt;0 if left is ordered after right, and 0 if they are the same.</li>
 </ul>
 <h2>Results:</h2>
 <p>Returns NULL on failure </p>

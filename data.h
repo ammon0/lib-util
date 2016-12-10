@@ -18,43 +18,49 @@
  *	position**. When data is added to the structure the current position will be
  *	set to that new data. The current position can be changed with the various
  *	traversal functions. Functions such as DS_remove() and DS_insert()
- *	implicitly act on the current position.
+ *	implicitly act on the current position. When inserting at the current
+ *	position, what was previously at the current position will now be at the
+ *	next from current position.
  *
  *	##Structure Types Available
  *	Data structure types include:
  *	*	list: a general list that is also used to implement stacks and queues
- *		circular list
- *	*	sorted list: not recommended as the BST should be better in every way
+ *	*	circular list
  *	*	binary search tree
  *
  *	###Stacks and Queues
  *	Stacks and queues use the DS_list type structure. The caller must limit
  *	themselves to only using DS_push() & DS_pop() for stacks, and DS_nq() &
- *	DS_dq() for queues.
+ *	DS_dq() for queues. For stacks DS_first() may be used to view the member on
+ *	the top of the stack without changing the stack. For queues DS_first() may
+ *	be used to view the next-out member, and DS_last() may be used to view the
+ *	last-out member.
  *
  *	## Data Storage Method
  *	The caller's data is stored in a generic fixed length byte array. The
- *	size of the arrays is set by the caller in DS_new() when the data structure
- *	is initialized. All incoming data is copied into the data structure from the
- *	pointer location passed by the insert functions.
+ *	size of the arrays is set by the caller in DS_new_XXX() when the data
+ *	structure is first initialized. All incoming data is copied into the data
+ *	structure from the pointer location passed by the insert functions.
  *
  *	If the structure's data needs to be variable length then the caller will
  *	have to store pointers in the data structure and manage the memory for the
- *	variable data.
+ *	variable data. Keep in mind that the insert functions expect a pointer to
+ *	the stored data in this case `**data`. The traversal and removal functions
+ *	also return a pointer to the stored data, so again `**data`.
  *
  *	## Removal
  *	DS_remove() functions return a pointer to the removed data. The caller
  *	must copy that data out as there is no guarantee that it will be preserved
  *	after the next call to the data structure.
  *
- *	## Visiting & Modifications
- *	Data accessed through any of the various visiting functions may be
+ *	## Traversal & Modifications
+ *	Data accessed through any of the various traversal functions may be
  *	directly modified through the returned pointer. Obviously, do not modify the
  *	sort key in a sorted data structure as it will result in unpredictable
  *	behavior and possible data loss.
  *
  *	## Errors
- *	Errors are reported on `stderr`.
+ *	Errors and messages are reported on `stderr`.
  *
  *	## Acceptable Actions For Each Structure Type ##
  *
@@ -202,7 +208,7 @@ DS DS_new_bst(
 );
 
 
-/**	Create a new hash table.
+/*	Create a new hash table.
  *
  *	##Parameters
  *	### data_size
@@ -232,14 +238,14 @@ DS DS_new_bst(
  *	##Results:
  *	Returns NULL on failure
  */
-DS DS_new_hash(
-	size_t       data_size,
-	size_t       key_size,
-	size_t       table_size,
-	bool         duplicates_allowed,
-	const void * (*key)(const void * data),
-	int          (*cmp_keys)(const void * left , const void * right)
-);
+//DS DS_new_hash(
+//	size_t       data_size,
+//	size_t       key_size,
+//	size_t       table_size,
+//	bool         duplicates_allowed,
+//	const void * (*key)(const void * data),
+//	int          (*cmp_keys)(const void * left , const void * right)
+//);
 
 
 //DS DS_new_tree(
