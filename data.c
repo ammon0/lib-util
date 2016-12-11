@@ -608,7 +608,7 @@ const void * DS_remove(DS root){
 	}
 	
 	if (root->current.l == NULL){
-		_error(_n_empty);
+		
 		return NULL;
 	}
 	
@@ -705,7 +705,7 @@ const void * DS_remove_first(DS root){
 	}
 	
 	if (root->current.l == NULL){
-		_error(_n_empty);
+		
 		return NULL;
 	}
 	
@@ -772,7 +772,7 @@ const void * DS_remove_last (DS root){
 	}
 	
 	if (root->current.l == NULL){
-		_error(_n_empty);
+		
 		return NULL;
 	}
 	
@@ -840,7 +840,7 @@ void * DS_find(const DS root, const void * key){
 	}
 	
 	if (root->current.l == NULL){
-		_error(_n_empty);
+		
 		return NULL;
 	}
 	
@@ -876,7 +876,7 @@ void * DS_first(const DS root){ // visit the first node
 	}
 	
 	if (root->current.l == NULL){
-		_error(_n_empty);
+		
 		return NULL;
 	}
 	
@@ -905,7 +905,7 @@ void * DS_last(const DS root){ // visit the last node
 	}
 	
 	if (root->current.l == NULL){
-		_error(_n_empty);
+		
 		return NULL;
 	}
 	
@@ -933,7 +933,7 @@ void * DS_next(const DS root){ // visit the next in-order node
 	}
 	
 	if (root->current.l == NULL){
-		_error(_n_empty);
+		
 		return NULL;
 	}
 	
@@ -986,7 +986,7 @@ void * DS_previous(const DS root){ // visit the previous in-order node
 	}
 	
 	if (root->current.l == NULL){
-		_error(_n_empty);
+		
 		return NULL;
 	}
 	
@@ -1037,7 +1037,7 @@ void * DS_current (const DS root){ // visit the current node
 	}
 	
 		if (root->current.l == NULL){
-		_error(_n_empty);
+		
 		return NULL;
 	}
 	
@@ -1058,7 +1058,7 @@ void * DS_position(const DS root, const unsigned int position){
 	}
 	
 	if (root->current.l == NULL){
-		_error(_n_empty);
+		
 		return NULL;
 	}
 	
