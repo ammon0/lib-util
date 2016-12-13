@@ -39,5 +39,6 @@ int main (void){
 		free(string);
 	}
 	
+	fclose(fp);
 	return EXIT_SUCCESS;
 }

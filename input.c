@@ -57,6 +57,7 @@ static inline char* grab (bool (test) (char c), FILE* source){
 		puts("ERROR: calloc() failed.");
 		return NULL;
 	}
+	store[0] = '\0';
 	
 	// get the first character excluding all whitespace
 	while(!isgraph( c = (char) fgetc(source) ) && !feof(source));
@@ -113,6 +114,7 @@ char* grabfield(FILE* source){
 		puts("ERROR: calloc() failed.");
 		return NULL;
 	}
+	store[0] = '\0';
 	
 	// while c is not EOF read it into store
 	do {
