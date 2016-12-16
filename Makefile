@@ -31,7 +31,7 @@ CWARNINGS:=	-Wall -Wextra -pedantic \
 	 -Wconversion -Wdisabled-optimization \
 	#-Wno-discarded-qualifiers -Wpadded
 
-CFLAGS:= $(CWARNINGS) --std=c11
+CFLAGS:= $(CWARNINGS) --std=c11 -g
 
 ALLFILES:= data.c data.h test-data.c input.h input.c test-input.c
 CLEANFILES:= *.o *.a test-data test-input
@@ -39,12 +39,12 @@ CLEANFILES:= *.o *.a test-data test-input
 
 .PHONEY: install debug-data debug-input release
 
-release: CFLAGS += -O2 -g
+release: CFLAGS += -O2
 release: libdata.a libinput.a
 
-debug-data: CFLAGS += -DDEBUG -g
+debug-data: CFLAGS += -DDEBUG
 debug-data: test-data
-debug-input: CFLAGS += -DDEBUG -g
+debug-input: CFLAGS += -DDEBUG
 debug-input: test-input
 
 install: libdata.a data.h libinput.a input.h
