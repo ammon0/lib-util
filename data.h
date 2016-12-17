@@ -382,7 +382,7 @@ void * DS_position (const DS root, const unsigned int);
 
 
 #ifdef __cplusplus
-	};
+	}
 #endif
 
 
