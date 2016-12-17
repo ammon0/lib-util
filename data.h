@@ -146,6 +146,10 @@
 /// All data structures are represented in the caller's code as type DS
 typedef struct _root* DS;
 
+#ifdef __cplusplus
+	extern "C" {
+#endif
+
 
 /******************************************************************************/
 //                          CREATE A NEW STRUCTURE
@@ -375,6 +379,11 @@ void * DS_previous (      DS root); ///< visit the previous in-order node
 void * DS_current  (const DS root); ///< visit the current node
 void * DS_position (const DS root, const unsigned int);
 ///< set the current position to a specific count from the beginning
+
+
+#ifdef __cplusplus
+	};
+#endif
 
 
 #endif // _DATA_H_INCLUDE

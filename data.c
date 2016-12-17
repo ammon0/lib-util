@@ -389,7 +389,7 @@ void DS_dump (const DS root){
 	case DS_list:
 	
 		while(this_node.l != NULL) {
-			printf("%p\n", this_node.l->data);
+			printf("%s\n", (char*) this_node.l->data);
 			this_node.l = this_node.l->next;
 		}
 	
