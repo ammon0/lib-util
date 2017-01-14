@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "data.h"
+#include "my_types.h"
 
 
 /******************************************************************************/
@@ -31,8 +32,6 @@
 #define DS_DEFAULT_TABLE_SZ 1023
 
 typedef enum {DS_list, DS_circular_list, DS_bst, DS_hash} DS_type;
-
-typedef unsigned int uint;
 
 typedef struct _list_node {
 	struct _list_node * next;

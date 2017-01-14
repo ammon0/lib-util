@@ -28,24 +28,18 @@ CWARNINGS:=	-Wall -Wextra -pedantic \
 	-Wtrampolines -Wstack-protector \
 	-Wwrite-strings \
 	-Wc++-compat \
-	 -Wconversion -Wdisabled-optimization \
-	#-Wno-discarded-qualifiers -Wpadded
+	-Wconversion -Wdisabled-optimization \
+	-Wpadded #-Wno-discarded-qualifiers 
 
-CFLAGS:= $(CWARNINGS) --std=c11 -g
+CFLAGS:= $(CWARNINGS) --std=c11 -O3 -g
 
-ALLFILES:= data.c data.h test-data.c input.h input.c test-input.c
+ALLFILES:= data.c data.h test-data.c input.h input.c test-input.c my_types.h
 CLEANFILES:= *.o *.a test-data test-input
 
 
-.PHONEY: install debug-data debug-input release
+.PHONEY: install all
 
-release: CFLAGS += -O2
-release: libdata.a libinput.a
-
-debug-data: CFLAGS += -DDEBUG
-debug-data: test-data
-debug-input: CFLAGS += -DDEBUG
-debug-input: test-input
+all: libdata.a libinput.a
 
 install: libdata.a data.h libinput.a input.h
 	install -d $(LIBDIR) $(INCDIR)
@@ -53,6 +47,7 @@ install: libdata.a data.h libinput.a input.h
 	install -C ./libinput.a $(LIBDIR)
 	install -C ./data.h $(INCDIR)
 	install -C ./input.h $(INCDIR)
+	install -C ./my_types.h $(INCDIR)
 
 test-input: input.h test-input.c input.o
 	$(CC) $(CFLAGS) -o $@ test-input.c input.o

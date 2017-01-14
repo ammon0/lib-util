@@ -25,12 +25,14 @@ int main(void){
 	DS dup_bst = DS_new_bst     (sizeof(char*), true , &key, &cmp);
 	DS ex_bst  = DS_new_bst     (sizeof(char*), false, &key, &cmp);
 	
-	printf("Size of (void*)       : %lu\n", sizeof(void*)  );
-	printf("Size of (int)         : %lu\n", sizeof(int)    );
+	typedef enum {DS_list, DS_circular_list, DS_bst, DS_hash} DS_type;
+	
+	printf("Size of (void*)       : %lu\n", sizeof(void*       ));
+	printf("Size of (size_t)      : %lu\n", sizeof(size_t      ));
+	printf("Size of (int)         : %lu\n", sizeof(int         ));
 	printf("Size of (unsigned int): %lu\n", sizeof(unsigned int));
-	//printf("Size of (DS_type)     : %lu\n", sizeof(enum{}));
-	printf("Size of (size_t)      : %lu\n", sizeof(size_t) );
-	printf("Size of (bool)        : %lu\n", sizeof(bool)   );
+	printf("Size of (DS_type)     : %lu\n", sizeof(DS_type     ));
+	printf("Size of (bool)        : %lu\n", sizeof(bool        ));
 	
 	puts("");
 	
