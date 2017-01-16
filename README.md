@@ -1,6 +1,6 @@
 # lib-util : A Utility Library
 
-A collection of utilities for development in C. Including some basic data structures. and headache free IO functions to replace some of the functionality of `stdio.h`.
+A collection of utilities for development in C and C++. Including some basic data structures. and headache free IO functions to replace some of the functionality of `stdio.h`.
 
 ## Project Pages
 *	[Latest Release](https://github.com/ammon0/lib-util/releases/latest)
