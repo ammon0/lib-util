@@ -47,7 +47,7 @@ install: libdata.a data.h libinput.a input.h
 	install -C ./libinput.a $(LIBDIR)
 	install -C ./data.h $(INCDIR)
 	install -C ./input.h $(INCDIR)
-	install -C ./my_types.h $(INCDIR)
+	install -C ./types.h $(INCDIR)
 
 test-input: input.h test-input.c input.o
 	$(CC) $(CFLAGS) -o $@ test-input.c input.o
@@ -70,7 +70,7 @@ libdata.a: data.o
 ################################## UTILITIES ###################################
 
 .PHONEY: clean todolist docs
-docs: Doxyfile data.h input.h README.md
+docs: Doxyfile data.h input.h types.h README.md
 	doxygen Doxyfile
 
 clean:
