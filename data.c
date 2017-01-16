@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "data.h"
-#include "my_types.h"
+#include "types.h"
 
 
 /******************************************************************************/
