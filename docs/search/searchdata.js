@@ -1,11 +1,13 @@
 var indexSectionsWithContent =
 {
-  0: "dgiltu",
-  1: "dit",
-  2: "dg",
-  3: "diu",
-  4: "diu",
-  5: "l"
+  0: "dfgilmrstuv",
+  1: "dimt",
+  2: "dgm",
+  3: "dilu",
+  4: "mr",
+  5: "fsv",
+  6: "diu",
+  7: "l"
 };
 
 var indexSectionNames =
@@ -14,8 +16,10 @@ var indexSectionNames =
   1: "files",
   2: "functions",
   3: "typedefs",
-  4: "defines",
-  5: "pages"
+  4: "enums",
+  5: "enumvalues",
+  6: "defines",
+  7: "pages"
 };
 
 var indexSectionLabels =
@@ -24,7 +28,9 @@ var indexSectionLabels =
   1: "Files",
   2: "Functions",
   3: "Typedefs",
-  4: "Macros",
-  5: "Pages"
+  4: "Enumerations",
+  5: "Enumerator",
+  6: "Macros",
+  7: "Pages"
 };
 

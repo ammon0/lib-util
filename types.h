@@ -22,14 +22,17 @@
  *	* `uint`, `umax`, and `imax`
  */
 
+
 #ifndef _TYPES_H
 #define _TYPES_H
+
 
 #include <stdint.h>
 #include <limits.h>
 #include <stdbool.h>
 // size_t NULL
 #include <stddef.h>
+
 
 /// The largest signed integer for a given architecture
 typedef long long int imax;
@@ -44,6 +47,13 @@ typedef unsigned int uint; ///< a naturally sized unsigned integer
 
 #define UMAX_MAX ULLONG_MAX ///< the maximum value of `umax`
 // UINT_MAX is defined in limits.h
+
+/// A type to simply indicate success or failure
+typedef enum{
+	success, ///< indicates the function call was successful
+	failure  ///< indicates the function call failed
+} return_t;
+
 
 #endif // _TYPES_H
 
