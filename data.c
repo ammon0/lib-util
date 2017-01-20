@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "data.h"
-#include "types.h"
+#include <types.h>
 
 
 /******************************************************************************/
@@ -57,7 +57,8 @@ struct _root {
 	_node_pt     current;
 	_node_pt     freelist;
 	const void * (*key)(const void * data);
-	int          (*cmp_keys) (const void * left, const void * right);
+	// TODO: return long int
+	imax         (*cmp_keys) (const void * left, const void * right);
 	size_t       data_size;
 	size_t       key_size;
 	size_t       table_size;
@@ -71,7 +72,7 @@ struct _root {
 // ERRORS
 const char* _e_invtype="ERROR: Invalid DS type";
 const char* _e_mem    ="ERROR: Could not allocate more memory";
-const char* _e_repeat ="ERROR: Attempt to insert duplicate data when duplicates are not allowed";
+//const char* _e_repeat ="ERROR: Attempt to insert duplicate data when duplicates are not allowed";
 const char* _e_nsense ="ERROR: Nonsensical action for given structure type";
 const char* _e_null   ="ERROR: the DS pointer is NULL";
 const char* _e_nimp   ="ERROR: that feature is not implemented";
@@ -223,7 +224,7 @@ DS DS_new_bst(
 	size_t       data_size,
 	bool         duplicates_allowed,
 	const void * (*key)(const void * data),
-	int          (*cmp_keys)(const void * left , const void * right)
+	imax         (*cmp_keys)(const void * left , const void * right)
 ){
 	DS new_structure;
 	
@@ -257,7 +258,7 @@ DS DS_new_hash(
 	size_t       table_size,
 	bool         duplicates_allowed,
 	const void * (*key)(const void * data),
-	int          (*cmp_keys)(const void * left , const void * right)
+	imax         (*cmp_keys)(const void * left , const void * right)
 );
 
 DS DS_new_hash(
@@ -266,7 +267,7 @@ DS DS_new_hash(
 	size_t       table_size,
 	bool         duplicates_allowed,
 	const void * (*key)(const void * data),
-	int          (*cmp_keys)(const void * left , const void * right)
+	imax         (*cmp_keys)(const void * left , const void * right)
 ){
 	DS new_structure;
 	
@@ -421,7 +422,7 @@ void DS_dump (const DS root){
 void * DS_insert (DS root, const void * data){
 	_node_pt new_node;
 	_tnode_pt * position;
-		int result;
+	imax result;
 	
 	if (!root){
 		_error(_e_null);
@@ -493,7 +494,7 @@ void * DS_insert (DS root, const void * data){
 			else { // result is 0
 				if(root->dups) position = &(root->current.t->right);
 				else {
-					_error(_e_repeat);
+					//_error(_e_repeat);
 					return NULL;
 				}
 			}
@@ -831,7 +832,7 @@ const void * DS_remove_last (DS root){
 
 void * DS_find(const DS root, const void * key){
 	_tnode_pt node;
-	int result;
+	imax result;
 	
 	if (!root){
 		_error(_e_null);

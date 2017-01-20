@@ -206,10 +206,10 @@ DS DS_new_circular(size_t data_size);
  *	Returns NULL on failure
  */
 DS DS_new_bst(
-	size_t       data_size,
-	bool         duplicates_allowed,
-	const void * (*key)(const void * data),
-	int          (*cmp_keys)(const void * left , const void * right)
+	size_t        data_size,
+	bool          duplicates_allowed,
+	const void *  (*key)(const void * data),
+	long long int (*cmp_keys)(const void * left , const void * right)
 );
 
 

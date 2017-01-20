@@ -34,14 +34,14 @@ CWARNINGS:=	-Wall -Wextra -pedantic \
 CFLAGS:= $(CWARNINGS) --std=c11 -I./ -O3 -g
 
 ALLFILES:= data.c data.h test-data.c input.h input.c test-input.c my_types.h
-CLEANFILES:= *.o *.a test-data test-input
+CLEANFILES:= *.o *.a test-data test-input test-hash
 
 
 .PHONEY: install all
 
 all: libdata.a libinput.a libmsg.a
 
-install: libdata.a data.h libinput.a input.h libmsg.a msg.h
+install: libdata.a data.h libinput.a input.h libmsg.a msg.h hash.h types.h
 	install -d $(LIBDIR) $(INCDIR)
 	install -C ./libdata.a  $(LIBDIR)
 	install -C ./libinput.a $(LIBDIR)
@@ -50,6 +50,11 @@ install: libdata.a data.h libinput.a input.h libmsg.a msg.h
 	install -C ./input.h $(INCDIR)
 	install -C ./msg.h   $(INCDIR)
 	install -C ./types.h $(INCDIR)
+	install -C ./hash.h  $(INCDIR)
+
+test-hash: hash.h test-hash.c data.o input.o
+	$(CC) $(CFLAGS) -Wno-conversion -Wno-pointer-sign -o $@ test-hash.c data.o input.o
+	chmod +x $@
 
 test-input: input.h test-input.c input.o
 	$(CC) $(CFLAGS) -o $@ test-input.c input.o

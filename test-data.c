@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <types.h>
 #include "data.h"
 
 
-static inline int cmp(const void * left, const void * right){
+static inline imax cmp(const void * left, const void * right){
 	return strcmp((char*) left, (char*) right);
 }
 
