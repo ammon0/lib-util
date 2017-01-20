@@ -124,9 +124,8 @@ int main(void){
 			}
 		}
 		
-		printf("%u collisions in %u entries, expected %f\n",
-			collisions, entries,
-			pow(2.0, -0x100000000)* entries
+		printf("%u collisions in %u entries.\n",
+			collisions, entries
 		);
 		DS_empty(collision_table);
 	}
