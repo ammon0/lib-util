@@ -100,27 +100,53 @@ inline uint64_t rotl64 ( uint64_t x, int8_t r ){
 	+ - ^ >> <<
 */
 
-static inline uint64_t hash_fnv1a(uint64_t hash, uint32_t chunk){
+static inline uint64_t hash_a(uint64_t hash, uint32_t chunk){ // like FVN-1a
 	return (hash ^ chunk) * 0x100000001b3;
 }
 
-static inline uint64_t hash_a(uint64_t hash, uint32_t chunk){ // murmur
+static inline uint64_t hash_b(uint64_t hash, uint32_t chunk){ // like murmur
 	hash += chunk;
 	hash *= 0x7fd652ad;
 	return hash ^ (hash >> 16);
 }
 
-static inline uint64_t hash_b(uint64_t hash, uint32_t chunk){ // murmur3
+static inline uint64_t hash_c(uint64_t hash, uint32_t chunk){ // like murmur3
 	chunk *= 0xcc9e2d51;
-	chunk = rotl32(chunk,15);
+	chunk = rotl32(chunk, 15);
 	chunk *= 0x1b873593;
 	
 	hash ^= chunk;
-	hash = rotl64(hash,37);
+	hash = rotl64(hash, 37);
 	return hash + (hash << 2) + 0xe6546b64;
 }
 
-#define _FUN_CNT 3
+/* The mixing step */
+#define mix(a,b,c) \
+{ \
+  a=a-b;  a=a-c;  a=a^(c>>13); \
+  b=b-c;  b=b-a;  b=b^(a<<8);  \
+  c=c-a;  c=c-b;  c=c^(b>>13); \
+  a=a-b;  a=a-c;  a=a^(c>>12); \
+  b=b-c;  b=b-a;  b=b^(a<<16); \
+  c=c-a;  c=c-b;  c=c^(b>>5);  \
+  a=a-b;  a=a-c;  a=a^(c>>3);  \
+  b=b-c;  b=b-a;  b=b^(a<<10); \
+  c=c-a;  c=c-b;  c=c^(b>>15); \
+}
+
+static inline uint64_t hash_d(uint64_t hash, uint32_t chunk){
+	static uint32_t a, b, c;
+	
+	a += hash;
+	b += (hash>>32);
+	c += chunk;
+	
+	mix(a,b,c);
+	
+	return (uint64_t)b<<32 | c;
+}
+
+#define _FUN_CNT 4
 
 
 /******************************************************************************/
@@ -135,6 +161,10 @@ static uint64_t __attribute__((pure)) array_hash(
 	const void * array,
 	size_t len
 ){
+#ifndef _TEST_HASH
+	hash += len;
+#endif
+	
 	if(len & 1) hash = fn(hash, ((uint8_t*)array)[--len]);
 	len >>= 1;
 	
@@ -143,8 +173,10 @@ static uint64_t __attribute__((pure)) array_hash(
 	
 	while(len) hash = fn(hash, ((uint32_t*)array)[--len]);
 	
-//	hash = fn(hash, 0xcc9e2d51);
-//	hash = fn(hash, 0x1b873593);
+#ifndef _TEST_HASH
+	hash = fn(hash, 0xcc9e2d51);
+	hash = fn(hash, 0x1b873593);
+#endif
 	
 	return hash;
 }
@@ -183,19 +215,7 @@ static uint64_t __attribute__((pure)) file_hash(
 }
 
 
-/* The mixing step */
-#define mix(a,b,c) \
-{ \
-  a=a-b;  a=a-c;  a=a^(c>>13); \
-  b=b-c;  b=b-a;  b=b^(a<<8);  \
-  c=c-a;  c=c-b;  c=c^(b>>13); \
-  a=a-b;  a=a-c;  a=a^(c>>12); \
-  b=b-c;  b=b-a;  b=b^(a<<16); \
-  c=c-a;  c=c-b;  c=c^(b>>5);  \
-  a=a-b;  a=a-c;  a=a^(c>>3);  \
-  b=b-c;  b=b-a;  b=b^(a<<10); \
-  c=c-a;  c=c-b;  c=c^(b>>15); \
-}
+
 
 /* The whole new hash function */
 //uint32_t hash(uint8_t * k, size_t length, uint32_t initval){

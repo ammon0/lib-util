@@ -1,5 +1,5 @@
 
-
+#define _TEST_HASH
 
 #include "hash.h"
 #include "data.h"
@@ -8,15 +8,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/time.h>
+#include <math.h>
 
+
+#define NUMSTR_SZ 16
 
 typedef struct {
 	const unsigned char * data;
-	uint64_t     hash;
+	uint32_t     hash;
+	char num_str[NUMSTR_SZ];
 } frame;
 
 static inline void print_frame(frame * f){
-	printf("%10s: 0x%016lx\n", f->data, f->hash);
+	if(f->data) printf("'%10s': 0x%08x\n", f->data, f->hash);
+	else printf("'%s': 0x%08x\n", f->num_str, f->hash);
 }
 
 static inline const void * key(const void * data){
@@ -27,20 +32,21 @@ static inline imax cmp_key(const void * a, const void * b){
 	return (*(uint64_t*)b - *(uint64_t*)a);
 }
 
-uint8_t rot;
 
 int main(void){
 	FILE * fd, * hashfile;
-	const uint8_t zero =0x0000, one = 0x0001, two = 0x0010;
+	const uint8_t zero =0x0000, one = 0x0001, two = 0x0002;
 	DS collision_table;
 	frame   f;
 	frame * f_pt;
-	uint collisions;
-	char num_str[10];
+	uint collisions, entries;
+	uint64_t full_hash;
+	
 	uint64_t (*hash_funcs[_FUN_CNT])(uint64_t hash, uint32_t chunk) = {
-		&hash_fnv1a,
 		&hash_a,
 		&hash_b,
+		&hash_c,
+		&hash_d
 	};
 	
 	
@@ -54,9 +60,12 @@ int main(void){
 	fd = fopen("/home/ammon/Documents/word_dic/passwords.txt", "r");
 	hashfile = fopen("hash.h", "r");
 	
+	if(!fd) puts("could not open file");
+	
 	for(uint i=0; i<_FUN_CNT; i++){
 		printf("\n\tFUNCTION %u\n", i);
 		collisions =0;
+		entries = 0;
 		
 		printf("hash 0x0000: 0x%016lx\n",
 			array_hash(0, hash_funcs[i], &zero, 1)
@@ -73,36 +82,52 @@ int main(void){
 		
 		rewind(hashfile);
 		rewind(fd);
+		
+		memset(f.num_str, 0, 8);
+		
 		while( (f.data = grabline(fd)) != NULL ){
-			f.hash = string_hash(0, hash_funcs[i], f.data);
+			entries++;
+			
+			full_hash = string_hash(0, hash_funcs[i], f.data);
+			
+			f.hash = (full_hash>>32) ^ full_hash;
 			
 			f_pt = (frame*) DS_insert(collision_table, &f);
 			
 			if(!f_pt){
-/*				print_frame( (frame*) DS_current(collision_table));*/
-/*				print_frame(&f);*/
-/*				puts("");*/
+//				print_frame( (frame*) DS_current(collision_table));
+//				print_frame(&f);
+//				puts("");
 				collisions++;
 			}
 		}
 		
 		DS_empty(collision_table);
 		
-		for(uint j =0; j<99999; j++){
-			sprintf(num_str, "%05u", j);
-			f.hash = array_hash(0, hash_funcs[i], num_str, 5);
+		f.data = NULL;
+		
+		for(uint j =0; j<999999; j++){
+			entries++;
+			
+			sprintf(f.num_str, "%015u", j);
+			full_hash = array_hash(0, hash_funcs[i], f.num_str, NUMSTR_SZ);
+			
+			f.hash = (full_hash>>32) ^ full_hash;
 			
 			f_pt = (frame*) DS_insert(collision_table, &f);
 			
 			if(!f_pt){
-				//print_frame( (frame*) DS_current(collision_table));
-				//print_frame(&f);
-				//puts("");
+//				print_frame( (frame*) DS_current(collision_table));
+//				print_frame(&f);
+//				puts("");
 				collisions++;
 			}
 		}
 		
-		printf("%u collisions\n", collisions);
+		printf("%u collisions in %u entries, expected %f\n",
+			collisions, entries,
+			pow(2.0, -0x100000000)* entries
+		);
 		DS_empty(collision_table);
 	}
 	
@@ -111,39 +136,6 @@ int main(void){
 	
 	fclose(fd);
 	fclose(hashfile);
-	
-/*	printf("\n\tHASH DEAD BEAF\n");*/
-/*	printf("hash_djb2 : 0x%016lx.\n", array_hash(0, &hash_djb2 , &db, 4));*/
-/*	printf("hash_djb2a: 0x%016lx.\n", array_hash(0, &hash_djb2a, &db, 4));*/
-/*	printf("hash_gawk : 0x%016lx.\n", array_hash(0, &hash_gawk , &db, 4));*/
-/*	printf("hash_sdbm : 0x%016lx.\n", array_hash(0, &hash_sdbm , &db, 4));*/
-/*	printf("hash_fnv1a: 0x%016lx.\n", array_hash(0, &hash_fnv1a, &db, 4));*/
-/*	printf("hash_a    : 0x%016lx.\n", array_hash(0, &hash_a    , &db, 4));*/
-/*	printf("hash_b    : 0x%016lx.\n", array_hash(0, &hash_b    , &db, 4));*/
-	
-/*	fd = fopen("hash.h", "r");*/
-/*	*/
-/*	printf("\n\tHASH THIS FILE\n");*/
-/*	printf("hash_djb2 : 0x%016lx.\n", file_hash(0, &hash_djb2, fd));*/
-/*	rewind(fd);*/
-/*	printf("hash_djb2a: 0x%016lx.\n", file_hash(0, &hash_djb2a, fd));*/
-/*	rewind(fd);*/
-/*	printf("hash_gawk : 0x%016lx.\n", file_hash(0, &hash_gawk, fd));*/
-/*	rewind(fd);*/
-/*	printf("hash_sdbm : 0x%016lx.\n", file_hash(0, &hash_sdbm, fd));*/
-/*	rewind(fd);*/
-/*	printf("hash_fnv1a: 0x%016lx.\n", file_hash(0, &hash_fnv1a, fd));*/
-/*	rewind(fd);*/
-/*	printf("hash_a    : 0x%016lx.\n", file_hash(0, &hash_a    , fd));*/
-/*	rewind(fd);*/
-/*	printf("hash_b    : 0x%016lx.\n", file_hash(0, &hash_b    , fd));*/
-/*	*/
-/*	fclose(fd);*/
-/*	*/
-/*	*/
-	
-	
-	
 	
 	return EXIT_SUCCESS;
 }

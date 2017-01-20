@@ -53,7 +53,7 @@ install: libdata.a data.h libinput.a input.h libmsg.a msg.h hash.h types.h
 	install -C ./hash.h  $(INCDIR)
 
 test-hash: hash.h test-hash.c data.o input.o
-	$(CC) $(CFLAGS) -Wno-conversion -Wno-pointer-sign -o $@ test-hash.c data.o input.o
+	$(CC) $(CFLAGS) -Wno-conversion -Wno-pointer-sign -o $@ test-hash.c data.o input.o -lm
 	chmod +x $@
 
 test-input: input.h test-input.c input.o
