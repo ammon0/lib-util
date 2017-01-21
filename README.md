@@ -1,6 +1,6 @@
 # lib-util : A Utility Library
 
-A collection of utilities for development in C and C++. Including some basic data structures. and headache free IO functions to replace some of the functionality of `stdio.h`.
+A collection of utilities for development in C and C++. Including some basic data structures, hash functions, and headache free IO functions to replace some of the functionality of `stdio.h`.
 
 ## Project Pages
 *	[Latest Release](https://github.com/ammon0/lib-util/releases/latest)
@@ -49,6 +49,19 @@ Types include:
 *	`size_t`
 *	`uint`, `umax`, and `imax`
 
+### hash.h : Indexing Hashes
+
+Hash Functions implemented:
+* hash_a : based on [FVN-1a](http://www.isthe.com/chongo/tech/comp/fnv/)
+* hash_b : based on [murmur](https://github.com/aappleby/smhasher)
+* hash_c : based on [murmur3](https://github.com/aappleby/smhasher)
+* hash_d : based on [newhash](http://burtleburtle.net/bob/hash/evahash.html)
+
+Functions include:
+* array_hash() : hash an array
+* string_hash() : hash a null terminated string
+* file_hash() : hash a file
+
 ## Version Numbering
 This project is using [semantic versioning](http://semver.org/). As such, the API as documented in the header files and the project website will not change in an incompatible way unless there is a new major version number. Compatible changes are indicated by the minor version number.
 
@@ -59,7 +72,7 @@ This project is using [semantic versioning](http://semver.org/). As such, the AP
 
 ##MIT License
 
-Copyright (c) 2016 Ammon Dodson
+Copyright (c) 2017 Ammon Dodson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

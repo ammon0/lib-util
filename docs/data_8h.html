@@ -126,9 +126,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae00e28070a623af1c47bd6c45bdfe04e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#ae00e28070a623af1c47bd6c45bdfe04e">DS_new_circular</a> (size_t data_size)</td></tr>
 <tr class="memdesc:ae00e28070a623af1c47bd6c45bdfe04e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new circular list.  <a href="#ae00e28070a623af1c47bd6c45bdfe04e">More...</a><br /></td></tr>
 <tr class="separator:ae00e28070a623af1c47bd6c45bdfe04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb09ff182fb1bbf39313cf64ed2697f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#adb09ff182fb1bbf39313cf64ed2697f7">DS_new_bst</a> (size_t data_size, bool duplicates_allowed, const void *(*key)(const void *data), int(*cmp_keys)(const void *left, const void *right))</td></tr>
-<tr class="memdesc:adb09ff182fb1bbf39313cf64ed2697f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new binary search tree.  <a href="#adb09ff182fb1bbf39313cf64ed2697f7">More...</a><br /></td></tr>
-<tr class="separator:adb09ff182fb1bbf39313cf64ed2697f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acda2543e394d4b98ff123ae450411107"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#acda2543e394d4b98ff123ae450411107">DS_new_bst</a> (size_t data_size, bool duplicates_allowed, const void *(*key)(const void *data), long long int(*cmp_keys)(const void *left, const void *right))</td></tr>
+<tr class="memdesc:acda2543e394d4b98ff123ae450411107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new binary search tree.  <a href="#acda2543e394d4b98ff123ae450411107">More...</a><br /></td></tr>
+<tr class="separator:acda2543e394d4b98ff123ae450411107"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06279ab0d94e5b3f2b16e48c30de8729"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a06279ab0d94e5b3f2b16e48c30de8729"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a06279ab0d94e5b3f2b16e48c30de8729">DS_delete</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
 <tr class="memdesc:a06279ab0d94e5b3f2b16e48c30de8729"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete the entire contents of a data structure and free its memory. <br /></td></tr>
@@ -518,7 +518,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
 
 </div>
 </div>
-<a class="anchor" id="adb09ff182fb1bbf39313cf64ed2697f7"></a>
+<a class="anchor" id="acda2543e394d4b98ff123ae450411107"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -543,7 +543,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="da
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int(*)(const void *left, const void *right)&#160;</td>
+          <td class="paramtype">long long int(*)(const void *left, const void *right)&#160;</td>
           <td class="paramname"><em>cmp_keys</em>&#160;</td>
         </tr>
         <tr>

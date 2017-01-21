@@ -73,12 +73,15 @@ lib%.a: %.o
 
 ################################## UTILITIES ###################################
 
-.PHONEY: clean todolist docs
-docs: Doxyfile data.h input.h msg.h types.h README.md
+.PHONEY: clean todolist docs very-clean
+docs: Doxyfile data.h input.h msg.h types.h hash.h README.md
 	doxygen Doxyfile
 
 clean:
 	rm -f $(CLEANFILES)
+
+very-clean: clean
+	rm -r ./docs
 
 todolist:
 	-@for file in $(ALLFILES:Makefile=); do fgrep -H -e TODO -e FIXME $$file; done; true

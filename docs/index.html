@@ -78,7 +78,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">lib-util : A Utility Library </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>A collection of utilities for development in C and C++. Including some basic data structures. and headache free IO functions to replace some of the functionality of <code>stdio.h</code>.</p>
+<div class="textblock"><p>A collection of utilities for development in C and C++. Including some basic data structures, hash functions, and headache free IO functions to replace some of the functionality of <code>stdio.h</code>.</p>
 <h2>Project Pages</h2>
 <ul>
 <li><a href="https://github.com/ammon0/lib-util/releases/latest">Latest Release</a></li>
@@ -120,6 +120,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><code>size_t</code></li>
 <li><code>uint</code>, <code>umax</code>, and <code>imax</code></li>
 </ul>
+<h3><a class="el" href="hash_8h.html" title="A Collection of hash functions with a common interface. ">hash.h</a> : Indexing Hashes</h3>
+<p>Hash Functions implemented:</p><ul>
+<li>hash_a : based on <a href="http://www.isthe.com/chongo/tech/comp/fnv/">FVN-1a</a></li>
+<li>hash_b : based on <a href="https://github.com/aappleby/smhasher">murmur</a></li>
+<li>hash_c : based on <a href="https://github.com/aappleby/smhasher">murmur3</a></li>
+<li>hash_d : based on <a href="http://burtleburtle.net/bob/hash/evahash.html">newhash</a></li>
+</ul>
+<p>Functions include:</p><ul>
+<li><a class="el" href="hash_8h.html#a4984af1c47b47bb47f682c698e612614" title="Hash a memory array. ">array_hash()</a> : hash an array</li>
+<li><a class="el" href="hash_8h.html#aad67ca402635b72bebed9c0111a8c9ad" title="Hash a `&#39;\0&#39;` terminated string. ">string_hash()</a> : hash a null terminated string</li>
+<li><a class="el" href="hash_8h.html#a5f5eead6f684d0618eba1937aeb08bdd" title="Hash a file. ">file_hash()</a> : hash a file</li>
+</ul>
 <h2>Version Numbering</h2>
 <p>This project is using <a href="http://semver.org/">semantic versioning</a>. As such, the API as documented in the header files and the project website will not change in an incompatible way unless there is a new major version number. Compatible changes are indicated by the minor version number.</p>
 <h2>Dependencies</h2>
@@ -129,7 +141,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>make</li>
 </ul>
 <h2>MIT License</h2>
-<p>Copyright (c) 2016 Ammon Dodson</p>
+<p>Copyright (c) 2017 Ammon Dodson</p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. </p>
