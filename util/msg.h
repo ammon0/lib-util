@@ -67,7 +67,7 @@ typedef struct log_t * log_descriptor; ///< A log stream descriptor
 void msg_set_verbosity(msg_log_lvl verbosity);
 
 /// Open a log file
-return_t msg_log_open (log_descriptor log, const char *path, msg_log_mode mode);
+return_t msg_log_open (log_descriptor log, msg_log_mode mode, const char *path);
 
 /// Close a log file
 void msg_log_close(log_descriptor log);

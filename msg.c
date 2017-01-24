@@ -43,12 +43,12 @@ msg_log_lvl _lvl = V_NOTE;
 
 
 /******************************************************************************/
-//                           FUNCTION DEFINITIONS
+//                           PRIVATE FUNCTIONS
 /******************************************************************************/
 
 
 static inline void __attribute__((format(printf, 3, 0)))
-log_to_file(
+_log_to_file(
 	FILE * fd,
 	msg_log_lvl lvl,
 	const char * format,
@@ -95,9 +95,15 @@ log_to_file(
 	vfprintf(fd, format, ap);
 }
 
+
+/******************************************************************************/
+//                           PUBLIC FUNCTIONS
+/******************************************************************************/
+
+
 void msg_set_verbosity(msg_log_lvl verbosity){ _lvl = verbosity; }
 
-return_t msg_log_open (log_descriptor log, const char *path, msg_log_mode mode){
+return_t msg_log_open (log_descriptor log, msg_log_mode mode, const char *path){
 	log = (log_descriptor) malloc(sizeof(struct log_t));
 	if(!log){
 		msg_print(NULL, V_ERROR, "log_open(): could not allocate memory");
@@ -114,7 +120,7 @@ return_t msg_log_open (log_descriptor log, const char *path, msg_log_mode mode){
 	}
 	
 	log->mode = mode;
-	log_to_file(log->fd, V_INFO, "<<<<<< Log start >>>>>>", NULL);
+	_log_to_file(log->fd, V_INFO, "<<<<<< Log start >>>>>>", NULL);
 	return success;
 }
 
@@ -131,7 +137,7 @@ msg_print(log_descriptor log, msg_log_lvl lvl, const char * format, ...){
 	va_start(ap, format);
 	
 	if(log){
-		log_to_file(log->fd, lvl, format, ap);
+		_log_to_file(log->fd, lvl, format, ap);
 		fflush(log->fd);
 	}
 	

@@ -50,16 +50,16 @@ install: $(libraries) $(headers)
 	
 	for f in $(headers); do install -C $$f $(INCDIR); done
 
-test-hash: util/hash.h test-hash.c data.o input.o
-	$(CC) $(CFLAGS) -Wno-conversion -Wno-pointer-sign -o $@ test-hash.c data.o input.o -lm
+test-hash: util/hash.h test-hash.c data.o input.o msg.o
+	$(CC) $(CFLAGS) -Wno-conversion -Wno-pointer-sign -o $@ test-hash.c data.o input.o msg.o -lm
 	chmod +x $@
 
 test-input: util/input.h test-input.c input.o
 	$(CC) $(CFLAGS) -o $@ test-input.c input.o
 	chmod +x $@
 
-test-data: util/data.h test-data.c data.o
-	$(CC) $(CFLAGS) -o $@ test-data.c data.o
+test-data: util/data.h test-data.c data.o msg.o
+	$(CC) $(CFLAGS) -o $@ test-data.c data.o msg.o
 	chmod +x $@
 
 lib%.a: %.o

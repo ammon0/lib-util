@@ -58,7 +58,7 @@ int main(void){
 	);
 	
 	fd = fopen("/home/ammon/Documents/word_dic/passwords.txt", "r");
-	hashfile = fopen("hash.h", "r");
+	hashfile = fopen("util/hash.h", "r");
 	
 	if(!fd) puts("could not open file");
 	

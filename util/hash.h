@@ -45,12 +45,14 @@
 #include <stdio.h>
 
 /// 32-bit barrel shift
-static inline uint32_t rotl32 ( uint32_t x, int8_t r ){
+static inline uint32_t __attribute__((const, always_inline))
+rotl32 ( uint32_t x, int8_t r ){
 	return (x << r) | (x >> (32 - r));
 }
 
 /// 64-bit barrel shift
-static inline uint64_t rotl64 ( uint64_t x, int8_t r ){
+static inline uint64_t __attribute__((const, always_inline))
+rotl64 ( uint64_t x, int8_t r ){
 	return (x << r) | (x >> (64 - r));
 }
 
@@ -79,13 +81,15 @@ static inline uint64_t rotl64 ( uint64_t x, int8_t r ){
 */
 
 /// A hash function based on [FVN-1a](http://www.isthe.com/chongo/tech/comp/fnv/)
-static inline uint64_t hash_a(uint64_t hash, uint32_t chunk){
+static inline uint64_t __attribute__((const, always_inline))
+hash_a(uint64_t hash, uint32_t chunk){
 	return (hash ^ chunk) * 0x100000001b3;
 }
 
 
 /// A hash function based on [murmur](https://github.com/aappleby/smhasher)
-static inline uint64_t hash_b(uint64_t hash, uint32_t chunk){
+static inline uint64_t __attribute__((const, always_inline))
+hash_b(uint64_t hash, uint32_t chunk){
 	hash += chunk;
 	hash *= 0x7fd652ad;
 	return hash ^ (hash >> 16);
@@ -93,7 +97,8 @@ static inline uint64_t hash_b(uint64_t hash, uint32_t chunk){
 
 
 /// A hash function based on [murmur3](https://github.com/aappleby/smhasher)
-static inline uint64_t hash_c(uint64_t hash, uint32_t chunk){
+static inline uint64_t __attribute__((const, always_inline))
+hash_c(uint64_t hash, uint32_t chunk){
 	chunk *= 0xcc9e2d51;
 	chunk = rotl32(chunk, 15);
 	chunk *= 0x1b873593;
@@ -107,7 +112,8 @@ static inline uint64_t hash_c(uint64_t hash, uint32_t chunk){
 /**	A hash function based on
  *	[newhash](http://burtleburtle.net/bob/hash/evahash.html)
  */
-static inline uint64_t hash_d(uint64_t hash, uint32_t chunk){
+static inline uint64_t __attribute__((const, always_inline))
+hash_d(uint64_t hash, uint32_t chunk){
 	static uint32_t a, b, c;
 	
 	a += hash;
@@ -125,7 +131,7 @@ static inline uint64_t hash_d(uint64_t hash, uint32_t chunk){
 	b-=c;  b-=a;  b^=(a<<10);
 	c-=a;  c-=b;  c^=(b>>15);
 	
-	return (uint64_t)a<<32 | b ^ (c<<16);
+	return ((uint64_t)a<<32 | b) ^ (c<<16);
 }
 
 
@@ -207,6 +213,11 @@ static uint64_t __attribute__((pure)) file_hash(
 ){
 	size_t cnt;
 	uint32_t buffer[BUF_SZ];
+	
+	if(!fd){
+		fprintf(stderr, "no such file");
+		return 0;
+	}
 	
 	while(!feof(fd)){
 		cnt = fread(buffer, sizeof(uint32_t), BUF_SZ, fd);
