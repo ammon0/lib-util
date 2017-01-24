@@ -51,6 +51,8 @@ Types include:
 
 ### hash.h : Indexing Hashes
 
+I'm not much of a hashing nut, I just wanted something that would work reasonably well. These hashes may not be the fastest or best, nor are they meant to produce consistent results cross-platform, but they work.
+
 Hash Functions implemented:
 * hash_a : based on [FVN-1a](http://www.isthe.com/chongo/tech/comp/fnv/)
 * hash_b : based on [murmur](https://github.com/aappleby/smhasher)

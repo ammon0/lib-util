@@ -12,7 +12,7 @@
 # Change these variables to point to the appropriate installation directories
 INSTALLDIR:=$(HOME)/prg
 LIBDIR:=$(INSTALLDIR)/lib
-INCDIR:=$(INSTALLDIR)/include
+INCDIR:=$(INSTALLDIR)/util/include
 
 # My code builds without warnings--ALWAYS
 CWARNINGS:=	-Wall -Wextra -pedantic \

@@ -64,19 +64,24 @@ typedef struct log_t * log_descriptor; ///< A log stream descriptor
 
 
 /// Set the minimum log level necessary to print to `stderr`
-void     msg_set_verbosity(msg_log_lvl verbosity);
+void msg_set_verbosity(msg_log_lvl verbosity);
 
 /// Open a log file
 return_t msg_log_open (log_descriptor log, const char *path, msg_log_mode mode);
 
 /// Close a log file
-void     msg_log_close(log_descriptor log                                 );
+void msg_log_close(log_descriptor log);
 
 /**	Print a message
  *
- *	
+ *	@param log    The log descriptor, if any, that the message should be sent to.
+ *	This should be set to NULL if none.
+ *	@param lvl    The log level of the message.
+ *	@param format A printf type message format followed by any arguments.
+ *
+ *	@return void.
  */
-void msg_print(log_descriptor log, msg_log_lvl, const char * format, ...);
+void msg_print(log_descriptor log, msg_log_lvl lvl, const char * format, ...);
 
 
 #endif // _MESSAGE_H
