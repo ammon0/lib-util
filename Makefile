@@ -50,14 +50,6 @@ install: $(libraries) $(headers)
 	
 	for f in $(headers); do install -C $$f $(INCDIR); done
 
-#	install -C ./libinput.a $(LIBDIR)
-#	install -C ./libmsg.a   $(LIBDIR)
-#	install -C ./data.h  $(INCDIR)
-#	install -C ./input.h $(INCDIR)
-#	install -C ./msg.h   $(INCDIR)
-#	install -C ./types.h $(INCDIR)
-#	install -C ./hash.h  $(INCDIR)
-
 test-hash: util/hash.h test-hash.c data.o input.o
 	$(CC) $(CFLAGS) -Wno-conversion -Wno-pointer-sign -o $@ test-hash.c data.o input.o -lm
 	chmod +x $@
@@ -80,7 +72,7 @@ lib%.a: %.o
 ################################## UTILITIES ###################################
 
 .PHONEY: clean todolist docs very-clean
-docs: Doxyfile data.h input.h msg.h types.h hash.h README.md
+docs: Doxyfile $(headers) README.md
 	doxygen Doxyfile
 
 clean:

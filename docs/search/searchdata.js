@@ -1,13 +1,14 @@
 var indexSectionsWithContent =
 {
-  0: "_abdfghilmrstuv",
+  0: "_abcdfghilmrstuv",
   1: "dhimt",
   2: "adfghmrs",
   3: "dilu",
   4: "mr",
   5: "fsv",
-  6: "_bdiu",
-  7: "l"
+  6: "_biu",
+  7: "acrv",
+  8: "l"
 };
 
 var indexSectionNames =
@@ -19,7 +20,8 @@ var indexSectionNames =
   4: "enums",
   5: "enumvalues",
   6: "defines",
-  7: "pages"
+  7: "groups",
+  8: "pages"
 };
 
 var indexSectionLabels =
@@ -31,6 +33,7 @@ var indexSectionLabels =
   4: "Enumerations",
   5: "Enumerator",
   6: "Macros",
-  7: "Pages"
+  7: "Modules",
+  8: "Pages"
 };
 

@@ -31,20 +31,6 @@ PROJECT_NAME           = "Lib-Util"
 
 PROJECT_BRIEF          = "A Utility C Library"
 
-# With the PROJECT_LOGO tag one can specify a logo or an icon that is included
-# in the documentation. The maximum height of the logo should not exceed 55
-# pixels and the maximum width should not exceed 200 pixels. Doxygen will copy
-# the logo to the output directory.
-
-PROJECT_LOGO           =
-
-# The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) path
-# into which the generated documentation will be written. If a relative path is
-# entered, it will be relative to the location where doxygen was started. If
-# left blank the current directory will be used.
-
-OUTPUT_DIRECTORY       =
-
 # If the JAVADOC_AUTOBRIEF tag is set to YES then doxygen will interpret the
 # first line (until the first dot) of a Javadoc-style comment as the brief
 # description. If set to NO, the Javadoc-style will behave just like regular Qt-
@@ -55,10 +41,7 @@ OUTPUT_DIRECTORY       =
 JAVADOC_AUTOBRIEF      = YES
 
 # Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of C sources
-# only. Doxygen will then generate output that is more tailored for C. For
-# instance, some of the names that are used will be different. The list of all
-# members will be omitted, etc.
-# The default value is: NO.
+# only.
 
 OPTIMIZE_OUTPUT_FOR_C  = YES
 
@@ -93,34 +76,11 @@ INLINE_SIMPLE_STRUCTS  = YES
 
 TYPEDEF_HIDES_STRUCT   = YES
 
-# The size of the symbol lookup cache can be set using LOOKUP_CACHE_SIZE. This
-# cache is used to resolve symbols given their name and scope. Since this can be
-# an expensive process and often the same symbol appears multiple times in the
-# code, doxygen keeps a cache of pre-resolved symbols. If the cache is too small
-# doxygen will become slower. If the cache is too large, memory is wasted. The
-# cache size is given by this formula: 2^(16+LOOKUP_CACHE_SIZE). The valid range
-# is 0..9, the default is 0, corresponding to a cache size of 2^16=65536
-# symbols. At the end of a run doxygen will report the cache usage and suggest
-# the optimal cache size from a speed point of view.
-# Minimum value: 0, maximum value: 9, default value: 0.
-
-LOOKUP_CACHE_SIZE      = 0
-
 #---------------------------------------------------------------------------
 # Build related configuration options
 #---------------------------------------------------------------------------
 
-# If the EXTRACT_ALL tag is set to YES, doxygen will assume all entities in
-# documentation are documented, even if no documentation was available. Private
-# class members and static file members will be hidden unless the
-# EXTRACT_PRIVATE respectively EXTRACT_STATIC tags are set to YES.
-# Note: This will also disable the warnings about undocumented members that are
-# normally produced when WARNINGS is set to YES.
-# The default value is: NO.
-
-EXTRACT_ALL    = NO
 EXTRACT_STATIC = YES
-
 GENERATE_DEPRECATEDLIST= YES
 
 # The FILE_VERSION_FILTER tag can be used to specify a program or script that
@@ -144,30 +104,13 @@ FILE_VERSION_FILTER    =
 
 QUIET                  = YES
 
-# The WARNINGS tag can be used to turn on/off the warning messages that are
-# generated to standard error (stderr) by doxygen. If WARNINGS is set to YES
-# this implies that the warnings are on.
-#
-# Tip: Turn warnings on while writing the documentation.
-# The default value is: YES.
-
-WARNINGS               = YES
-
-# If the WARN_IF_DOC_ERROR tag is set to YES, doxygen will generate warnings for
-# potential errors in the documentation, such as not documenting some parameters
-# in a documented function, or documenting parameters that don't exist or using
-# markup commands wrongly.
-# The default value is: YES.
-
-WARN_IF_DOC_ERROR      = YES
-
 # This WARN_NO_PARAMDOC option can be enabled to get warnings for functions that
 # are documented, but have no documentation for their parameters or return
 # value. If set to NO, doxygen will only warn about wrong or incomplete
 # parameter documentation, but not about the absence of documentation.
 # The default value is: NO.
 
-WARN_NO_PARAMDOC       = NO
+WARN_NO_PARAMDOC       = YES
 
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
@@ -179,7 +122,9 @@ WARN_NO_PARAMDOC       = NO
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = README.md ./ #data.h input.h types.h
+INPUT                  = README.md ./util/
+EXCLUDE                =
+USE_MDFILE_AS_MAINPAGE = README.md
 
 # If the value of the INPUT tag contains directories, you can use the
 # FILE_PATTERNS tag to specify one or more wildcard patterns (like *.cpp and
@@ -195,7 +140,8 @@ INPUT                  = README.md ./ #data.h input.h types.h
 # *.m, *.markdown, *.md, *.mm, *.dox, *.py, *.pyw, *.f90, *.f, *.for, *.tcl,
 # *.vhd, *.vhdl, *.ucf, *.qsf, *.as and *.js.
 
-FILE_PATTERNS          = *.h
+FILE_PATTERNS          =
+EXCLUDE_PATTERNS       =
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should
 # be searched for input files as well.
@@ -203,39 +149,9 @@ FILE_PATTERNS          = *.h
 
 RECURSIVE              = NO
 
-# The EXCLUDE tag can be used to specify files and/or directories that should be
-# excluded from the INPUT source files. This way you can easily exclude a
-# subdirectory from a directory tree whose root is specified with the INPUT tag.
-#
-# Note that relative paths are relative to the directory from which doxygen is
-# run.
-
-EXCLUDE                =
-
-# If the value of the INPUT tag contains directories, you can use the
-# EXCLUDE_PATTERNS tag to specify one or more wildcard patterns to exclude
-# certain files from those directories.
-#
-# Note that the wildcards are matched against the file with absolute path, so to
-# exclude all test directories for example use the pattern */test/*
-
-EXCLUDE_PATTERNS       =
-
-# If the USE_MDFILE_AS_MAINPAGE tag refers to the name of a markdown file that
-# is part of the input, its contents will be placed on the main page
-# (index.html). This can be useful if you have a project on for instance GitHub
-# and want to reuse the introduction page also for the doxygen output.
-
-USE_MDFILE_AS_MAINPAGE = README.md
-
 #---------------------------------------------------------------------------
 # Configuration options related to the HTML output
 #---------------------------------------------------------------------------
-
-# If the GENERATE_HTML tag is set to YES, doxygen will generate HTML output
-# The default value is: YES.
-
-GENERATE_HTML          = YES
 
 # The HTML_OUTPUT tag is used to specify where the HTML docs will be put. If a
 # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of
@@ -245,28 +161,7 @@ GENERATE_HTML          = YES
 
 HTML_OUTPUT            = docs
 
-# The HTML_EXTRA_STYLESHEET tag can be used to specify additional user-defined
-# cascading style sheets that are included after the standard style sheets
-# created by doxygen. Using this option one can overrule certain style aspects.
-# This is preferred over using HTML_STYLESHEET since it does not replace the
-# standard style sheet and is therefore more robust against future updates.
-# Doxygen will copy the style sheet files to the output directory.
-# Note: The order of the extra style sheet files is of importance (e.g. the last
-# style sheet in the list overrules the setting of the previous ones in the
-# list). For an example see the documentation.
-# This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_STYLESHEET  =
-
-# The HTML_EXTRA_FILES tag can be used to specify one or more extra images or
-# other source files which should be copied to the HTML output directory. Note
-# that these files will be copied to the base HTML output directory. Use the
-# $relpath^ marker in the HTML_HEADER and/or HTML_FOOTER files to load these
-# files. In the HTML_STYLESHEET file, use the file name only. Also note that the
-# files will be copied as-is; there are no commands or markers available.
-# This tag requires that the tag GENERATE_HTML is set to YES.
-
-HTML_EXTRA_FILES       =
 
 # If the HTML_DYNAMIC_SECTIONS tag is set to YES then the generated HTML
 # documentation will contain sections that can be hidden and shown after the
@@ -372,18 +267,7 @@ PREDEFINED             = __attribute__((x))= BUF_SZ ()=
 
 SKIP_FUNCTION_MACROS   = YES
 
-#---------------------------------------------------------------------------
-# Configuration options related to the dot tool
-#---------------------------------------------------------------------------
-
-# If you set the HAVE_DOT tag to YES then doxygen will assume the dot tool is
-# available from the path. This tool is part of Graphviz (see:
-# http://www.graphviz.org/), a graph visualization toolkit from AT&T and Lucent
-# Bell Labs. The other options in this section have no effect if this option is
-# set to NO
-# The default value is: YES.
-
-HAVE_DOT               = NO
-
 GENERATE_LATEX = NO
+HAVE_DOT       = NO
+
 

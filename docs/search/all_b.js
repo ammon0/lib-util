@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['string_5fhash',['string_hash',['../hash_8h.html#aad67ca402635b72bebed9c0111a8c9ad',1,'hash.h']]],
-  ['success',['success',['../types_8h.html#a387664de0ac452f11abed4a7d9c2cc5dab8916948582bbb4902d6ad269064f7ef',1,'types.h']]]
+  ['remove_20data_20from_20a_20structure',['Remove Data from a Structure',['../group__remove.html',1,'']]],
+  ['return_5ft',['return_t',['../types_8h.html#a387664de0ac452f11abed4a7d9c2cc5d',1,'types.h']]],
+  ['rotl32',['rotl32',['../hash_8h.html#a773c5f9ea23b0cc10fbb505676f51f8c',1,'hash.h']]],
+  ['rotl64',['rotl64',['../hash_8h.html#af4adfdbf8bebc46e62a78cba7ead57ba',1,'hash.h']]]
 ];

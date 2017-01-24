@@ -24,26 +24,29 @@
  *	*	The newline is discarded and the array is \0 teriminated.
  *	*	Discards all leading whitespace and control characters
  *	*	the caller must free the array provided by grabline()
- *	*	returns NULL on failure
+ *	@param source The source file
+ *	@return A character string in the heap on success or `NULL` on failure
  */
-char * grabline(FILE*);
+char * grabline(FILE * source);
 
 /**	Get the next **space** terminated word and store it in an array.
  *	*	The space is discarded and the arrya is \0 terminated.
  *	*	Discards all leading whitespace and control characters
  *	*	the caller must free the array provided by grabword()
- *	*	returns NULL on failure
+ *	@param source The source file
+ *	@return A character string in the heap on success or `NULL` on failure
  */
-char * grabword(FILE*);
+char * grabword(FILE * source);
 
 /**	Get the next **tab** or 3x **newline** terminated string and store it in an
  *	array.
  *	*	Discards leading and terminating whitespace
  *	*	whitespace is newlines, tabs, and spaces
  *	*	the caller must free the array provided by grabfield()
- *	*	returns NULL on failure
+ *	@param source The source file
+ *	@return A character string in the heap on success or `NULL` on failure
  */
-char * grabfield(FILE*);
+char * grabfield(FILE * source);
 
 
 #endif // _INPUT_H_INCLUDE

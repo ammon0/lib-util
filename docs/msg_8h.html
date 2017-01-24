@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Lib-Util: msg.h File Reference</title>
+<title>Lib-Util: util/msg.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -39,6 +39,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -78,6 +79,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_23ec12649285f9fabf3a6b7380226c28.html">util</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
@@ -91,7 +96,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>Functions for logging and printing messages to stderr.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="types_8h_source.html">types.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="types_8h_source.html">util/types.h</a>&gt;</code><br />
 </div>
 <p><a href="msg_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -138,9 +143,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="msg_
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="msg_8h.html#a4ef03ad78c9d27d68cae45af553acdbd">msg_log_close</a> (<a class="el" href="msg_8h.html#a26e03febb32476cf464d632000763aa2">log_descriptor</a> log)</td></tr>
 <tr class="memdesc:a4ef03ad78c9d27d68cae45af553acdbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close a log file. <br /></td></tr>
 <tr class="separator:a4ef03ad78c9d27d68cae45af553acdbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1416ffecdc8fafd6f05434abe2451e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="msg_8h.html#ad1416ffecdc8fafd6f05434abe2451e7">msg_print</a> (<a class="el" href="msg_8h.html#a26e03febb32476cf464d632000763aa2">log_descriptor</a> log, <a class="el" href="msg_8h.html#a33144f37a87ea22d9c3ba6d333d479b6">msg_log_lvl</a>, const char *format,...)</td></tr>
-<tr class="memdesc:ad1416ffecdc8fafd6f05434abe2451e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a message.  <a href="#ad1416ffecdc8fafd6f05434abe2451e7">More...</a><br /></td></tr>
-<tr class="separator:ad1416ffecdc8fafd6f05434abe2451e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98479b9c051805012151f66c842d7e2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="msg_8h.html#a98479b9c051805012151f66c842d7e2d">msg_print</a> (<a class="el" href="msg_8h.html#a26e03febb32476cf464d632000763aa2">log_descriptor</a> log, <a class="el" href="msg_8h.html#a33144f37a87ea22d9c3ba6d333d479b6">msg_log_lvl</a> lvl, const char *format,...)</td></tr>
+<tr class="memdesc:a98479b9c051805012151f66c842d7e2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a message.  <a href="#a98479b9c051805012151f66c842d7e2d">More...</a><br /></td></tr>
+<tr class="separator:a98479b9c051805012151f66c842d7e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Functions for logging and printing messages to stderr. </p>
@@ -169,7 +174,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="msg_
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ad1416ffecdc8fafd6f05434abe2451e7"></a>
+<a class="anchor" id="a98479b9c051805012151f66c842d7e2d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -183,7 +188,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="msg_
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="msg_8h.html#a33144f37a87ea22d9c3ba6d333d479b6">msg_log_lvl</a>&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramname"><em>lvl</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -206,6 +211,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="msg_
 </div><div class="memdoc">
 
 <p>Print a message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">log</td><td>The log descriptor, if any, that the message should be sent to. This should be set to NULL if none. </td></tr>
+    <tr><td class="paramname">lvl</td><td>The log level of the message. </td></tr>
+    <tr><td class="paramname">format</td><td>A printf type message format followed by any arguments.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
 
 </div>
 </div>
