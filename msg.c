@@ -10,7 +10,7 @@
  ******************************************************************************/
 
 
-#include <msg.h>
+#include <util/msg.h>
 
 #include <stdio.h>
 #include <stdlib.h>

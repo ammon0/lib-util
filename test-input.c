@@ -1,7 +1,7 @@
 // just a test program
 
 #include <stdlib.h>
-#include "input.h"
+#include <util/input.h>
 
 void output (char* string);
 

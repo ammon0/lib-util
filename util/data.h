@@ -140,8 +140,7 @@
 #ifndef _DATA_H_INCLUDE
 #define _DATA_H_INCLUDE
 
-#include <stdbool.h>
-#include <stddef.h>
+#include <util/types.h>
 
 /// All data structures are represented in the caller's code as type DS
 typedef struct _root* DS;

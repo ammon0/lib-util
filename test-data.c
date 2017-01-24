@@ -1,9 +1,12 @@
+
+
+#include <util/types.h>
+#include <util/data.h>
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <types.h>
-#include "data.h"
-
 
 static inline imax cmp(const void * left, const void * right){
 	return strcmp((char*) left, (char*) right);

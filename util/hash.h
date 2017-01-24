@@ -40,7 +40,7 @@
 #ifndef _HASH_H
 #define _HASH_H
 
-#include <types.h>
+#include <util/types.h>
 #include <string.h>
 #include <stdio.h>
 

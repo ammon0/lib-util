@@ -1,4 +1,19 @@
-#include "input.h"
+/*******************************************************************************
+ *
+ *	lib-util : A Utility Library
+ *
+ *	Copyright (c) 2017 Ammon Dodson
+ *	You should have received a copy of the license terms with this software. If
+ *	not, please visit the project homepage at:
+ *	https://github.com/ammon0/lib-util
+ *
+ *
+ *	Welcome to pointer HELL >:D
+ *
+ ******************************************************************************/
+
+#include <util/input.h>
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>

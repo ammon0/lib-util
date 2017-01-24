@@ -2,7 +2,7 @@
  *
  *	lib-util : A Utility Library
  *
- *	Copyright (c) 2016 Ammon Dodson
+ *	Copyright (c) 2017 Ammon Dodson
  *	You should have received a copy of the license terms with this software. If
  *	not, please visit the project homepage at:
  *	https://github.com/ammon0/lib-util
@@ -17,12 +17,13 @@
 /******************************************************************************/
 
 
+#include <util/data.h>
+#include <util/types.h>
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "data.h"
-#include <types.h>
 
 
 /******************************************************************************/

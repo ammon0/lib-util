@@ -1,9 +1,9 @@
 
 #define _TEST_HASH
 
-#include "hash.h"
-#include "data.h"
-#include "input.h"
+#include <util/hash.h>
+#include <util/data.h>
+#include <util/input.h>
 
 #include <stdlib.h>
 #include <stdio.h>

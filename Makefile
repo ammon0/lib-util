@@ -12,7 +12,7 @@
 # Change these variables to point to the appropriate installation directories
 INSTALLDIR:=$(HOME)/prg
 LIBDIR:=$(INSTALLDIR)/lib
-INCDIR:=$(INSTALLDIR)/util/include
+INCDIR:=$(INSTALLDIR)/include/util
 
 # My code builds without warnings--ALWAYS
 CWARNINGS:=	-Wall -Wextra -pedantic \
@@ -33,41 +33,47 @@ CWARNINGS:=	-Wall -Wextra -pedantic \
 
 CFLAGS:= $(CWARNINGS) --std=c11 -I./ -O3 -g
 
-ALLFILES:= data.c data.h test-data.c input.h input.c test-input.c my_types.h
+headers:= util/data.h util/input.h util/msg.h util/hash.h util/types.h
+libraries:= libdata.a libinput.a libmsg.a
+
+ALLFILES:= $(headers) data.c test-data.c input.c test-input.c msg.c
 CLEANFILES:= *.o *.a test-data test-input test-hash
 
 
 .PHONEY: install all
 
-all: libdata.a libinput.a libmsg.a
+all: $(libraries)
 
-install: libdata.a data.h libinput.a input.h libmsg.a msg.h hash.h types.h
+install: $(libraries) $(headers)
 	install -d $(LIBDIR) $(INCDIR)
-	install -C ./libdata.a  $(LIBDIR)
-	install -C ./libinput.a $(LIBDIR)
-	install -C ./libmsg.a   $(LIBDIR)
-	install -C ./data.h  $(INCDIR)
-	install -C ./input.h $(INCDIR)
-	install -C ./msg.h   $(INCDIR)
-	install -C ./types.h $(INCDIR)
-	install -C ./hash.h  $(INCDIR)
+	for f in $(libraries); do install -C $$f $(LIBDIR); done
+	
+	for f in $(headers); do install -C $$f $(INCDIR); done
 
-test-hash: hash.h test-hash.c data.o input.o
+#	install -C ./libinput.a $(LIBDIR)
+#	install -C ./libmsg.a   $(LIBDIR)
+#	install -C ./data.h  $(INCDIR)
+#	install -C ./input.h $(INCDIR)
+#	install -C ./msg.h   $(INCDIR)
+#	install -C ./types.h $(INCDIR)
+#	install -C ./hash.h  $(INCDIR)
+
+test-hash: util/hash.h test-hash.c data.o input.o
 	$(CC) $(CFLAGS) -Wno-conversion -Wno-pointer-sign -o $@ test-hash.c data.o input.o -lm
 	chmod +x $@
 
-test-input: input.h test-input.c input.o
+test-input: util/input.h test-input.c input.o
 	$(CC) $(CFLAGS) -o $@ test-input.c input.o
 	chmod +x $@
 
-test-data: data.h test-data.c data.o
+test-data: util/data.h test-data.c data.o
 	$(CC) $(CFLAGS) -o $@ test-data.c data.o
 	chmod +x $@
 
 lib%.a: %.o
 	ar rcs $@ $<
 
-%.o: %.c %.h
+%.o: %.c util/%.h
 	$(CC) $(CFLAGS) -c $<
 
 
