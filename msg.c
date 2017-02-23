@@ -11,6 +11,7 @@
 
 
 #include <util/msg.h>
+#include <util/flags.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,7 +27,7 @@
 
 struct log_t{
 	FILE * fd;
-	msg_log_mode mode;
+	flag8 mode;
 };
 
 const char * lvl_str[V_NUM] = {
@@ -147,6 +148,19 @@ msg_print(log_descriptor log, msg_log_lvl lvl, const char * format, ...){
 	}
 	
 	va_end(ap);
+}
+
+void msg_set_flag(log_descriptor log, flag_t f){
+	flag_set(log->mode, f);
+}
+
+void msg_unset_flag(log_descriptor log, flag_t f){
+	flag_unset(log->mode, f);
+}
+
+bool __attribute__((const))
+msg_check_flag(log_descriptor log, flag_t f){
+	return flag_status(log->mode, f);
 }
 
 

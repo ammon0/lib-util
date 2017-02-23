@@ -56,6 +56,19 @@ typedef enum{
 } msg_log_mode;
 
 typedef struct log_t * log_descriptor; ///< A log stream descriptor
+typedef uint flag_t;
+
+
+/******************************************************************************/
+//                                CONSTANTS
+/******************************************************************************/
+
+
+/// whether log file should be synced after each entry
+#define MF_LOG_SYNC (flag_t)0
+#define MF_LOG_DATE (flag_t)1 ///< whether log file should record the date
+/// whether log file should record seconnds / useconds
+#define MF_LOG_USEC (flag_t)2 
 
 
 /******************************************************************************/
@@ -81,8 +94,12 @@ void msg_log_close(log_descriptor log);
  *
  *	@return void.
  */
-void msg_print(log_descriptor log, msg_log_lvl lvl, const char * format, ...);
+void msg_print(log_descriptor, msg_log_lvl, const char * format, ...);
 
+
+void msg_set_flag(log_descriptor log, flag_t f);
+void msg_unset_flag(log_descriptor log, flag_t f);
+bool msg_check_flag(log_descriptor log, flag_t f);
 
 #endif // _MESSAGE_H
 

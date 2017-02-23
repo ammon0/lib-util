@@ -29,11 +29,14 @@ CWARNINGS:=	-Wall -Wextra -pedantic \
 	-Wwrite-strings \
 	-Wc++-compat \
 	-Wconversion -Wdisabled-optimization \
-	-Wpadded #-Wno-discarded-qualifiers 
+	-Wpadded
 
 CFLAGS:= $(CWARNINGS) --std=c11 -I./ -O3 -g
 
-headers:= util/data.h util/input.h util/msg.h util/hash.h util/types.h
+headers:= \
+util/data.h util/input.h util/msg.h \
+util/hash.h util/types.h util/flags.h
+
 libraries:= libdata.a libinput.a libmsg.a
 
 ALLFILES:= $(headers) data.c test-data.c input.c test-input.c msg.c
@@ -61,6 +64,9 @@ test-input: util/input.h test-input.c input.o
 test-data: util/data.h test-data.c data.o msg.o
 	$(CC) $(CFLAGS) -o $@ test-data.c data.o msg.o
 	chmod +x $@
+
+msg.o: msg.c util/msg.h util/flags.h
+	$(CC) $(CFLAGS) -Wno-conversion -c $<
 
 lib%.a: %.o
 	ar rcs $@ $<

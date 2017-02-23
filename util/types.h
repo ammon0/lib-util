@@ -37,16 +37,18 @@
 /// The largest signed integer for a given architecture
 typedef long long int imax;
 
-#define IMAX_MAX LLONG_MAX ///< the maximum value of `imax`
-#define IMAX_MIN LLONG_MIN ///< the minimum value of `imax`
+#define IMAX_MAX ((size_t)LLONG_MAX) ///< the maximum value of `imax`
+#define IMAX_MIN ((size_t)LLONG_MIN) ///< the minimum value of `imax`
 
 // Unsigned
 /// The largest unsigned integer for a given architecture
 typedef unsigned long long int umax;
-typedef unsigned int uint; ///< a naturally sized unsigned integer
+typedef unsigned int  uint; ///< a naturally sized unsigned integer
+typedef unsigned char uchar; ///< an unsigned character
 
-#define UMAX_MAX ULLONG_MAX ///< the maximum value of `umax`
+#define UMAX_MAX ((size_t)ULLONG_MAX) ///< the maximum value of `umax`
 // UINT_MAX is defined in limits.h
+// UCHAR_MAX is defined in limits
 
 /// A type to simply indicate success or failure
 typedef enum{

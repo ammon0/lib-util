@@ -34,7 +34,7 @@
  *	(`test-hash.c`) I get from 651 to 702 collisions from 3 150 027 entries when
  *	usind a 32-bit hash, and none at 64-bits.
  *
- */
+ ******************************************************************************/
 
 
 #ifndef _HASH_H
