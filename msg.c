@@ -40,7 +40,7 @@ const char * lvl_str[V_NUM] = {
 	"\t\tTRACE"
 };
 
-msg_log_lvl _lvl = V_NOTE;
+static msg_log_lvl _lvl = V_NOTE;
 
 
 /******************************************************************************/

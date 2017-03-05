@@ -38,9 +38,10 @@ util/data.h util/input.h util/msg.h \
 util/hash.h util/types.h util/flags.h
 
 libraries:= libdata.a libinput.a libmsg.a
+tests    := test-hash test-input test-data test-msg
 
 ALLFILES:= $(headers) data.c test-data.c input.c test-input.c msg.c
-CLEANFILES:= *.o *.a test-data test-input test-hash
+CLEANFILES:= *.o *.a test-data test-input test-hash test-msg
 
 
 .PHONEY: install all
@@ -57,12 +58,16 @@ test-hash: util/hash.h test-hash.c data.o input.o msg.o
 	$(CC) $(CFLAGS) -Wno-conversion -Wno-pointer-sign -o $@ test-hash.c data.o input.o msg.o -lm
 	chmod +x $@
 
-test-input: util/input.h test-input.c input.o
-	$(CC) $(CFLAGS) -o $@ test-input.c input.o
+test-input: util/input.h test-input.c libinput.a
+	$(CC) $(CFLAGS) -o $@ -L./ test-input.c -linput
 	chmod +x $@
 
-test-data: util/data.h test-data.c data.o msg.o
-	$(CC) $(CFLAGS) -o $@ test-data.c data.o msg.o
+test-data: util/data.h test-data.c libdata.a libmsg.a
+	$(CC) $(CFLAGS) -o $@ -L./ test-data.c -ldata -lmsg
+	chmod +x $@
+
+test-msg: util/msg.h test-msg.c libmsg.a
+	$(CC) $(CFLAGS) -o $@ -L./ test-msg.c -lmsg
 	chmod +x $@
 
 msg.o: msg.c util/msg.h util/flags.h
