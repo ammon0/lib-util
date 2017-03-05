@@ -68,16 +68,19 @@ typedef uint flag_t;
 #define MF_LOG_SYNC (flag_t)0
 #define MF_LOG_DATE (flag_t)1 ///< whether log file should record the date
 /// whether log file should record seconnds / useconds
-#define MF_LOG_USEC (flag_t)2 
+#define MF_LOG_USEC (flag_t)2
 
 
 /******************************************************************************/
 //                                PROTOTYPES
 /******************************************************************************/
 
+#ifdef __cplusplus
+	extern "C" {
+#endif
 
 /// Set the minimum log level necessary to print to `stderr`
-void msg_set_verbosity(msg_log_lvl verbosity);
+void msg_set_verbosity(msg_log_lvl);
 
 /// Open a log file
 return_t msg_log_open (log_descriptor log, msg_log_mode mode, const char *path);
@@ -100,6 +103,10 @@ void msg_print(log_descriptor, msg_log_lvl, const char * format, ...);
 void msg_set_flag(log_descriptor log, flag_t f);
 void msg_unset_flag(log_descriptor log, flag_t f);
 bool msg_check_flag(log_descriptor log, flag_t f);
+
+#ifdef __cplusplus
+	}
+#endif
 
 #endif // _MESSAGE_H
 

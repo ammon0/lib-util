@@ -44,6 +44,10 @@
 #include <string.h>
 #include <stdio.h>
 
+#ifdef __cplusplus
+	extern "C" {
+#endif
+
 /// 32-bit barrel shift
 static inline uint32_t __attribute__((const, always_inline))
 rotl32 ( uint32_t x, int8_t r ){
@@ -227,6 +231,9 @@ static uint64_t __attribute__((pure)) file_hash(
 	return hash;
 }
 
+#ifdef __cplusplus
+	}
+#endif
 
 #endif // _HASH_H
 

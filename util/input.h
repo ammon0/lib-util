@@ -20,6 +20,10 @@
 
 #include <stdio.h>
 
+#ifdef __cplusplus
+	extern "C" {
+#endif
+
 /**	Get the next **newline** terminated line of text and store it in an array.
  *	*	The newline is discarded and the array is \0 teriminated.
  *	*	Discards all leading whitespace and control characters
@@ -48,6 +52,9 @@ char * grabword(FILE * source);
  */
 char * grabfield(FILE * source);
 
+#ifdef __cplusplus
+	}
+#endif
 
 #endif // _INPUT_H_INCLUDE
 
