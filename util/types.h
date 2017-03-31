@@ -19,7 +19,7 @@
  *	* `bool`
  *	* `NULL`
  *	* size_t
- *	* `uint`, `umax`, and `imax`
+ *	* `uchar`, `uint`, `umax`, and `imax`
  */
 
 

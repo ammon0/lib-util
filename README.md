@@ -72,7 +72,7 @@ This project is using [semantic versioning](http://semver.org/). As such, the AP
 *	Lib-Util is built to the C11 standard. It may not build with lower versions.
 *	make
 
-##MIT License
+## MIT License
 
 Copyright (c) 2016-2017 Ammon Dodson
 

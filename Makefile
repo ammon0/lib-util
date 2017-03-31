@@ -31,16 +31,31 @@ CWARNINGS:=	-Wall -Wextra -pedantic \
 	-Wconversion -Wdisabled-optimization \
 	-Wpadded
 
-CFLAGS:= $(CWARNINGS) --std=c11 -I./ -O3 -g
+CXXWARNINGS:=-Wall -Wextra -pedantic \
+	-Wmissing-declarations -Werror=implicit-function-declaration \
+	-Wredundant-decls -Wshadow \
+	-Wpointer-arith -Wcast-align \
+	-Wuninitialized -Wmaybe-uninitialized -Werror=uninitialized \
+	-Winline -Wno-long-long \
+	-Wswitch \
+	-Wsuggest-attribute=pure -Wsuggest-attribute=const \
+	-Wsuggest-attribute=noreturn -Wsuggest-attribute=format \
+	-Wtrampolines -Wstack-protector \
+	-Wwrite-strings \
+	-Wconversion -Wdisabled-optimization
+
+CFLAGS  := $(CWARNINGS)   --std=c11   -g -O3 -I./
+CXXFLAGS:= $(CXXWARNINGS) --std=c++14 -g -O3 -I./
 
 headers:= \
 util/data.h util/input.h util/msg.h \
-util/hash.h util/types.h util/flags.h
+util/hash.h util/types.h util/flags.h \
+util/string_array.hpp
 
-libraries:= libdata.a libinput.a libmsg.a
+libraries:= libdata.a libinput.a libmsg.a libstring_array.a
 tests    := test-hash test-input test-data test-msg
 
-ALLFILES:= $(headers) data.c test-data.c input.c test-input.c msg.c
+ALLFILES:= $(headers) data.c test-data.c input.c test-input.c msg.c string_array.cpp
 CLEANFILES:= *.o *.a test-data test-input test-hash test-msg
 
 
@@ -51,8 +66,7 @@ all: $(libraries)
 install: $(libraries) $(headers)
 	install -d $(LIBDIR) $(INCDIR)
 	for f in $(libraries); do install -C $$f $(LIBDIR); done
-	
-	for f in $(headers); do install -C $$f $(INCDIR); done
+	for f in $(headers)  ; do install -C $$f $(INCDIR); done
 
 test-hash: util/hash.h test-hash.c data.o input.o msg.o
 	$(CC) $(CFLAGS) -Wno-conversion -Wno-pointer-sign -o $@ test-hash.c data.o input.o msg.o -lm

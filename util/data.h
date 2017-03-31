@@ -160,10 +160,10 @@ typedef struct _root* DS;
  *	Create a new data structure
  *
  *	@param data_size The size in bytes of the data being stored in this
- *	structure. If you need to store variable length data you should store
- *	pointers in the data structure.
- *
- *	@return `NULL` on failure
+ *	structure. If you need to store variable length data you could use a union
+ *	or else you should store pointers in the data structure.
+ *	@return These functions return a handle that must be used for all future
+ *	operations on the data structure. It will return `NULL` on failure.
  *
  *	@{
  */
@@ -185,11 +185,12 @@ DS DS_new_circular(size_t data_size);
  *	pointers in the data structure.
  *	@param duplicates_allowed Non-zero if duplicate keys are allowed, zero
  *	otherwise.
- *	@param key Is used to extract a sort key from the data
- *	passed into the structure.
- *	@param cmp_keys A function to compare keys extracted by key(). It must
- *	return <0 if left is ordered before right, >0 if left is ordered after
- *	right, and 0 if they are the same.
+ *	@param key The function passed as `key` must take your data as a parameter,
+ *	and return the sort key of your choice.
+ *	@param cmp_keys Must be a function that takes as parameters the keys
+ *	extracted by key(). It returns a signed integer indicating in what order the
+ *	keys should be sorted. It must return <0 if left is ordered before right, >0
+ *	if left is ordered after right, and 0 if they are the same.
  *
  *	@return `NULL` on failure
  */
@@ -254,8 +255,7 @@ DS DS_new_bst(
 /******************************************************************************/
 
 
-/** Delete the entire contents of a data structure and free its memory.
- */
+/// Delete the data structure with its contents, and free its memory.
 void DS_delete(DS root);
 
 /**	Flushes cached memory.
@@ -269,14 +269,14 @@ void DS_flush (DS root);
 /// Remove all items from a data structure
 void DS_empty (DS root);
 
-/** Return the number of nodes in the structure.
- */
+/// Return the number of nodes in the structure.
 unsigned int DS_count  (const DS root);
 bool         DS_isempty(const DS root); ///< is the structure empty
 bool         DS_isleaf (const DS root); ///< is the current position a leaf
 
 /**	Dump the entire contents of the data structure to the console.
- *	the stored data is not changed. Used for debugging.
+ *	the stored data is not changed. This function is used for debugging; it may
+ *	not generate meaningful output for all types of data.
  *	@param root is the root of a data structure
  */
 void         DS_dump   (const DS root);
@@ -291,7 +291,9 @@ void         DS_dump   (const DS root);
  *	Insert new data into an existing structure
  *
  *	Data is copied into the structure. The size of the data must be the same as
- *	the `data_size` parameter used when the structure was initialized.
+ *	the `data_size` parameter used when the structure was initialized. On a
+ *	sucessful insertion the *current position* will be at the newest data.
+ *	Insertion calls will fail if they are unable to allocate more memory.
  *
  *	If your data structure is a queue use only DS_nq() and DS_dq(). If your data
  *	structure is a stack use only DS_push() and DS_pop()
@@ -350,7 +352,7 @@ void * DS_insert_last (DS root, const void * data);
  *	data structure.
  *
  *	If your data structure is a queue use only DS_nq() and DS_dq(). If your data
- *	structure is a stack use only DS_push() and DS_pop()
+ *	structure is a stack use only DS_push() and DS_pop().
  *
  *	@param root is the root of a data structure
  *
@@ -400,17 +402,18 @@ const void * DS_remove_last (DS root);
 /**	search for data by its key.
  *	does not change contents of data structure
  *	@param root a data structure
- *	@param key the search/sort key. must be the same key as accepted by (*cmp_keys)
+ *	@param key the search/sort key. It must be the same data type as returned by
+ *	key() and accepted by cmp_keys().
  *	@return a pointer to the stored data on success, `NULL` on failure.
  */
 void * DS_find(const DS root, const void * key);
 
 
-void * DS_first    (      DS root); ///< visit the first node
-void * DS_last     (      DS root); ///< visit the last node
-void * DS_next     (      DS root); ///< visit the next in-order node
-void * DS_previous (      DS root); ///< visit the previous in-order node
-void * DS_current  (const DS root); ///< visit the current node
+void * DS_first    (DS root); ///< visit the first node
+void * DS_last     (DS root); ///< visit the last node
+void * DS_next     (DS root); ///< visit the next in-order node
+void * DS_previous (DS root); ///< visit the previous in-order node
+void * DS_current  (DS root); ///< visit the current node
 
 /**	Visit the entry that is a specific count from the beginning of the structure
  *

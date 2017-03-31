@@ -25,7 +25,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <stdint.h>
 
 
 /******************************************************************************/
@@ -35,7 +34,13 @@
 
 #define DS_DEFAULT_TABLE_SZ 1023
 
-typedef enum {DS_list, DS_circular_list, DS_bst, DS_hash} DS_type;
+typedef enum {
+	DS_list,
+	DS_circular_list,
+	DS_bst,
+	DS_splay,
+	DS_hash
+} DS_type;
 
 typedef struct _list_node {
 	struct _list_node * next;
@@ -61,7 +66,6 @@ struct _root {
 	_node_pt     current;
 	_node_pt     freelist;
 	const void * (*key)(const void * data);
-	// TODO: return long int
 	imax         (*cmp_keys) (const void * left, const void * right);
 	size_t       data_size;
 	size_t       key_size;
@@ -79,6 +83,7 @@ const char* _e_mem    ="ERROR: Could not allocate more memory";
 const char* _e_nsense ="ERROR: Nonsensical action for given structure type";
 const char* _e_null   ="ERROR: the DS pointer is NULL";
 const char* _e_nimp   ="ERROR: that feature is not implemented";
+const char* _e_over   ="ERROR: Overflow";
 
 
 /******************************************************************************/
@@ -603,10 +608,7 @@ const void * DS_remove(DS root){
 		return NULL;
 	}
 	
-	if (root->current.l == NULL){
-		
-		return NULL;
-	}
+	if (root->current.l == NULL) return NULL;
 	
 	data = root->current.l->data;
 	
@@ -700,10 +702,7 @@ const void * DS_remove_first(DS root){
 		return NULL;
 	}
 	
-	if (root->current.l == NULL){
-		
-		return NULL;
-	}
+	if (root->current.l == NULL) return NULL;
 	
 	switch (root->type){
 	case DS_list:
@@ -767,10 +766,7 @@ const void * DS_remove_last (DS root){
 		return NULL;
 	}
 	
-	if (root->current.l == NULL){
-		
-		return NULL;
-	}
+	if (root->current.l == NULL) return NULL;
 	
 	switch (root->type){
 	case DS_list:
@@ -835,10 +831,7 @@ void * DS_find(const DS root, const void * key){
 		return NULL;
 	}
 	
-	if (root->current.l == NULL){
-		
-		return NULL;
-	}
+	if (root->current.l == NULL) return NULL;
 	
 	switch (root->type){
 	case DS_bst: break;
@@ -871,10 +864,7 @@ void * DS_first(const DS root){ // visit the first node
 		return NULL;
 	}
 	
-	if (root->current.l == NULL){
-		
-		return NULL;
-	}
+	if (root->current.l == NULL) return NULL;
 	
 	switch (root->type){
 	case DS_bst:
@@ -900,10 +890,7 @@ void * DS_last(const DS root){ // visit the last node
 		return NULL;
 	}
 	
-	if (root->current.l == NULL){
-		
-		return NULL;
-	}
+	if (root->current.l == NULL) return NULL;
 	
 	switch (root->type){
 	case DS_bst:
@@ -928,10 +915,7 @@ void * DS_next(const DS root){ // visit the next in-order node
 		return NULL;
 	}
 	
-	if (root->current.l == NULL){
-		
-		return NULL;
-	}
+	if (root->current.l == NULL) return NULL;
 	
 	switch (root->type){
 	case DS_bst: // this is an in-order traversal
@@ -981,10 +965,7 @@ void * DS_previous(const DS root){ // visit the previous in-order node
 		return NULL;
 	}
 	
-	if (root->current.l == NULL){
-		
-		return NULL;
-	}
+	if (root->current.l == NULL) return NULL;
 	
 	switch (root->type){
 	case DS_bst:
@@ -1026,16 +1007,13 @@ void * DS_previous(const DS root){ // visit the previous in-order node
 	}
 }
 
-void * DS_current (const DS root){ // visit the current node
+void * DS_current (DS root){ // visit the current node
 	if (!root){
 		_error(_e_null);
 		return NULL;
 	}
 	
-		if (root->current.l == NULL){
-		
-		return NULL;
-	}
+	if (root->current.l == NULL) return NULL;
 	
 	switch (root->type){
 	case DS_bst          : return root->current.t->data;
@@ -1053,10 +1031,7 @@ void * DS_position(const DS root, const unsigned int position){
 		return NULL;
 	}
 	
-	if (root->current.l == NULL){
-		
-		return NULL;
-	}
+	if (root->current.l == NULL) return NULL;
 	
 	switch (root->type){
 	case DS_list         : break;
