@@ -56,7 +56,7 @@ typedef enum{
 } msg_log_mode;
 
 typedef struct log_t * log_descriptor; ///< A log stream descriptor
-typedef uint flag_t;
+typedef uint8_t flag_t;
 
 
 /******************************************************************************/
@@ -67,7 +67,7 @@ typedef uint flag_t;
 /// whether log file should be synced after each entry
 #define MF_LOG_SYNC (flag_t)0
 #define MF_LOG_DATE (flag_t)1 ///< whether log file should record the date
-/// whether log file should record seconnds / useconds
+/// whether log file should record seconds / useconds
 #define MF_LOG_USEC (flag_t)2
 
 
@@ -83,7 +83,7 @@ typedef uint flag_t;
 void msg_set_verbosity(msg_log_lvl);
 
 /// Open a log file
-return_t msg_log_open (log_descriptor log, msg_log_mode mode, const char *path);
+RETURN msg_log_open (log_descriptor log, msg_log_mode mode, const char *path);
 
 /// Close a log file
 void msg_log_close(log_descriptor log);

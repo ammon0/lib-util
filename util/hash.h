@@ -27,7 +27,7 @@
  *	[newhash](http://burtleburtle.net/bob/hash/evahash.html)
  *
  *	In addition to the actual hash functions, hash.h provides 3 different hasher
- *	functions, one each for array's strings, and files. The actual hash function
+ *	functions, one each for array's, strings, and files. The actual hash function
  *	used is determined by passing its pointer to the hasher.
  *
  *	I can't make any guarantee's about these hash functions. In my own tests
@@ -160,7 +160,8 @@ hash_d(uint64_t hash, uint32_t chunk){
  *
  *	@return a 64-bit hash of the input data.
  */
-static uint64_t __attribute__((pure)) array_hash(
+static uint64_t __attribute__((pure))
+array_hash(
 	uint64_t hash,
 	uint64_t (*fn)(uint64_t hash, uint32_t chunk),
 	const void * array,
@@ -195,7 +196,8 @@ static uint64_t __attribute__((pure)) array_hash(
  *
  *	@return a 64-bit hash of the input data.
  */
-static uint64_t __attribute__((pure)) string_hash(
+static uint64_t __attribute__((pure))
+string_hash(
 	uint64_t hash,
 	uint64_t (*fn)(uint64_t hash, uint32_t chunk),
 	const unsigned char * str
@@ -210,7 +212,8 @@ static uint64_t __attribute__((pure)) string_hash(
  *
  *	@return a 64-bit hash of the input data.
  */
-static uint64_t __attribute__((pure)) file_hash(
+static uint64_t __attribute__((pure))
+file_hash(
 	uint64_t hash,
 	uint64_t (*fn)(uint64_t hash, uint32_t chunk),
 	FILE * fd

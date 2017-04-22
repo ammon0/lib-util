@@ -31,11 +31,11 @@ struct log_t{
 };
 
 const char * lvl_str[V_NUM] = {
-	"      ",
-	"ERROR ",
-	"WARN  ",
-	"NOTICE",
-	"INFO  ",
+	"       ",
+	"ERROR  ",
+	"WARNING",
+	"NOTICE ",
+	"INFO   ",
 	"\tDEBUG",
 	"\t\tTRACE"
 };
@@ -108,19 +108,18 @@ return_t msg_log_open (log_descriptor log, msg_log_mode mode, const char *path){
 	log = (log_descriptor) malloc(sizeof(struct log_t));
 	if(!log){
 		msg_print(NULL, V_ERROR, "log_open(): could not allocate memory");
-		return success;
+		return failure;
 	}
 	
 	if(mode == lm_append) log->fd = fopen(path, "a");
 	else                  log->fd = fopen(path, "w");
 	
 	if(!log->fd){
-		msg_print(NULL, V_ERROR, "log_open(): could not open stream");
+		msg_print(NULL, V_ERROR, "log_open(): could not open file");
 		free(log);
 		return failure;
 	}
 	
-	log->mode = mode;
 	_log_to_file(log->fd, V_INFO, "<<<<<< Log start >>>>>>", NULL);
 	return success;
 }

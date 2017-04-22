@@ -38,7 +38,7 @@ typedef enum {
 	DS_list,
 	DS_circular_list,
 	DS_bst,
-	DS_splay,
+	//DS_splay,
 	DS_hash
 } DS_type;
 

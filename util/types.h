@@ -56,6 +56,7 @@ typedef enum{
 	failure  ///< indicates the function call failed
 } return_t;
 
+#define RETURN return_t __attribute__((warn_unused_result))
 
 #endif // _TYPES_H
 

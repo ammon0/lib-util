@@ -49,13 +49,12 @@ CXXFLAGS:= $(CXXWARNINGS) --std=c++14 -g -O3 -I./
 
 headers:= \
 util/data.h util/input.h util/msg.h \
-util/hash.h util/types.h util/flags.h \
-util/string_array.hpp
+util/hash.h util/types.h util/flags.h
 
-libraries:= libdata.a libinput.a libmsg.a libstring_array.a
+libraries:= libdata.a libinput.a libmsg.a
 tests    := test-hash test-input test-data test-msg
 
-ALLFILES:= $(headers) data.c test-data.c input.c test-input.c msg.c string_array.cpp
+ALLFILES:= $(headers) data.c test-data.c input.c test-input.c msg.c
 CLEANFILES:= *.o *.a test-data test-input test-hash test-msg
 
 
