@@ -31,21 +31,7 @@ CWARNINGS:=	-Wall -Wextra -pedantic \
 	-Wconversion -Wdisabled-optimization \
 	-Wpadded
 
-CXXWARNINGS:=-Wall -Wextra -pedantic \
-	-Wmissing-declarations -Werror=implicit-function-declaration \
-	-Wredundant-decls -Wshadow \
-	-Wpointer-arith -Wcast-align \
-	-Wuninitialized -Wmaybe-uninitialized -Werror=uninitialized \
-	-Winline -Wno-long-long \
-	-Wswitch \
-	-Wsuggest-attribute=pure -Wsuggest-attribute=const \
-	-Wsuggest-attribute=noreturn -Wsuggest-attribute=format \
-	-Wtrampolines -Wstack-protector \
-	-Wwrite-strings \
-	-Wconversion -Wdisabled-optimization
-
 CFLAGS  := $(CWARNINGS)   --std=c11   -g -O3 -I./
-CXXFLAGS:= $(CXXWARNINGS) --std=c++14 -g -O3 -I./
 
 headers:= \
 util/data.h util/input.h util/msg.h \
