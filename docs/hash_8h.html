@@ -158,7 +158,7 @@ static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el"
 <li><code>hash_c</code>: based on murmur3</li>
 <li><code>hash_d</code>: based on burtle's <a href="http://burtleburtle.net/bob/hash/evahash.html">newhash</a></li>
 </ul>
-<p>In addition to the actual hash functions, <a class="el" href="hash_8h.html" title="A Collection of hash functions with a common interface. ">hash.h</a> provides 3 different hasher functions, one each for array's strings, and files. The actual hash function used is determined by passing its pointer to the hasher.</p>
+<p>In addition to the actual hash functions, <a class="el" href="hash_8h.html" title="A Collection of hash functions with a common interface. ">hash.h</a> provides 3 different hasher functions, one each for array's, strings, and files. The actual hash function used is determined by passing its pointer to the hasher.</p>
 <p>I can't make any guarantee's about these hash functions. In my own tests (<code>test-hash.c</code>) I get from 651 to 702 collisions from 3 150 027 entries when usind a 32-bit hash, and none at 64-bits. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a4984af1c47b47bb47f682c698e612614"></a>

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['ds_5fcount',['DS_count',['../data_8h.html#abcc7bc9af7b1a7ffeca51252ae736a71',1,'data.h']]],
-  ['ds_5fcurrent',['DS_current',['../group__visit.html#ga194c805eef343bcfb53ff27198839bc4',1,'data.h']]],
+  ['ds_5fcurrent',['DS_current',['../group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7',1,'data.h']]],
   ['ds_5fdelete',['DS_delete',['../data_8h.html#a06279ab0d94e5b3f2b16e48c30de8729',1,'data.h']]],
   ['ds_5fdump',['DS_dump',['../data_8h.html#afa5865b5c5c30cf28f9a71780227cd49',1,'data.h']]],
   ['ds_5fempty',['DS_empty',['../data_8h.html#ab32b9061275f94450b5f1601ffa3b63d',1,'data.h']]],

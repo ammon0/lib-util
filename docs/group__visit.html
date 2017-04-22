@@ -106,10 +106,10 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#ga2d268d31c093b31b9afd3750df701125">DS_previous</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
 <tr class="memdesc:ga2d268d31c093b31b9afd3750df701125"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the previous in-order node <br /></td></tr>
 <tr class="separator:ga2d268d31c093b31b9afd3750df701125"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga194c805eef343bcfb53ff27198839bc4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga194c805eef343bcfb53ff27198839bc4"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#ga194c805eef343bcfb53ff27198839bc4">DS_current</a> (const <a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
-<tr class="memdesc:ga194c805eef343bcfb53ff27198839bc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the current node <br /></td></tr>
-<tr class="separator:ga194c805eef343bcfb53ff27198839bc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaccd54c18ec22fc4f757fb94687fb13a7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaccd54c18ec22fc4f757fb94687fb13a7"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7">DS_current</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
+<tr class="memdesc:gaccd54c18ec22fc4f757fb94687fb13a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the current node <br /></td></tr>
+<tr class="separator:gaccd54c18ec22fc4f757fb94687fb13a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga643641939f25f4cb4c4beea2d9aec46c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#ga643641939f25f4cb4c4beea2d9aec46c">DS_position</a> (const <a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root, const <a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> count)</td></tr>
 <tr class="memdesc:ga643641939f25f4cb4c4beea2d9aec46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit the entry that is a specific count from the beginning of the structure.  <a href="#ga643641939f25f4cb4c4beea2d9aec46c">More...</a><br /></td></tr>
 <tr class="separator:ga643641939f25f4cb4c4beea2d9aec46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,7 +153,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <p>does not change contents of data structure </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">root</td><td>a data structure </td></tr>
-    <tr><td class="paramname">key</td><td>the search/sort key. must be the same key as accepted by (*cmp_keys) </td></tr>
+    <tr><td class="paramname">key</td><td>the search/sort key. It must be the same data type as returned by key() and accepted by cmp_keys(). </td></tr>
   </table>
   </dd>
 </dl>

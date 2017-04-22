@@ -56,6 +56,9 @@ typedef enum{
 	failure  ///< indicates the function call failed
 } return_t;
 
+/**	RETURN can be used as the return type of a function so that a warning is
+ *	issued if the return value is ignored.
+ */
 #define RETURN return_t __attribute__((warn_unused_result))
 
 #endif // _TYPES_H

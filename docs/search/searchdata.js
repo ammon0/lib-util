@@ -1,12 +1,12 @@
 var indexSectionsWithContent =
 {
   0: "_abcdfghilmrstuv",
-  1: "dhimt",
+  1: "dfhimt",
   2: "adfghmrs",
-  3: "dilu",
+  3: "dfilu",
   4: "mr",
   5: "fsv",
-  6: "_biu",
+  6: "_bimru",
   7: "acrv",
   8: "l"
 };

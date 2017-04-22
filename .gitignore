@@ -5,7 +5,7 @@
 *.a
 
 # Executables
-test-*
+test-data test-hash test-input test-msg
 
 # Other
 junk

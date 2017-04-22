@@ -141,7 +141,7 @@ Functions</h2></td></tr>
 <tr class="separator:ga3805de311146dbbe37529579981a70f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06279ab0d94e5b3f2b16e48c30de8729"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a06279ab0d94e5b3f2b16e48c30de8729"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a06279ab0d94e5b3f2b16e48c30de8729">DS_delete</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
-<tr class="memdesc:a06279ab0d94e5b3f2b16e48c30de8729"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete the entire contents of a data structure and free its memory. <br /></td></tr>
+<tr class="memdesc:a06279ab0d94e5b3f2b16e48c30de8729"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete the data structure with its contents, and free its memory. <br /></td></tr>
 <tr class="separator:a06279ab0d94e5b3f2b16e48c30de8729"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05b9db783e9d4b021355fa6a9856c75b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a05b9db783e9d4b021355fa6a9856c75b">DS_flush</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
 <tr class="memdesc:a05b9db783e9d4b021355fa6a9856c75b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes cached memory.  <a href="#a05b9db783e9d4b021355fa6a9856c75b">More...</a><br /></td></tr>
@@ -207,10 +207,10 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#ga2d268d31c093b31b9afd3750df701125">DS_previous</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
 <tr class="memdesc:ga2d268d31c093b31b9afd3750df701125"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the previous in-order node <br /></td></tr>
 <tr class="separator:ga2d268d31c093b31b9afd3750df701125"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga194c805eef343bcfb53ff27198839bc4"><td class="memItemLeft" align="right" valign="top">
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#ga194c805eef343bcfb53ff27198839bc4">DS_current</a> (const <a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
-<tr class="memdesc:ga194c805eef343bcfb53ff27198839bc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the current node <br /></td></tr>
-<tr class="separator:ga194c805eef343bcfb53ff27198839bc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaccd54c18ec22fc4f757fb94687fb13a7"><td class="memItemLeft" align="right" valign="top">
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7">DS_current</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
+<tr class="memdesc:gaccd54c18ec22fc4f757fb94687fb13a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the current node <br /></td></tr>
+<tr class="separator:gaccd54c18ec22fc4f757fb94687fb13a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga643641939f25f4cb4c4beea2d9aec46c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#ga643641939f25f4cb4c4beea2d9aec46c">DS_position</a> (const <a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root, const <a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> count)</td></tr>
 <tr class="memdesc:ga643641939f25f4cb4c4beea2d9aec46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit the entry that is a specific count from the beginning of the structure.  <a href="group__visit.html#ga643641939f25f4cb4c4beea2d9aec46c">More...</a><br /></td></tr>
 <tr class="separator:ga643641939f25f4cb4c4beea2d9aec46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -250,7 +250,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <h3>All Structures</h3>
 <ul>
 <li><a class="el" href="data_8h.html#a05b9db783e9d4b021355fa6a9856c75b" title="Flushes cached memory. ">DS_flush()</a></li>
-<li><a class="el" href="data_8h.html#a06279ab0d94e5b3f2b16e48c30de8729" title="Delete the entire contents of a data structure and free its memory. ">DS_delete()</a></li>
+<li><a class="el" href="data_8h.html#a06279ab0d94e5b3f2b16e48c30de8729" title="Delete the data structure with its contents, and free its memory. ">DS_delete()</a></li>
 <li><a class="el" href="data_8h.html#ab32b9061275f94450b5f1601ffa3b63d" title="Remove all items from a data structure. ">DS_empty()</a></li>
 <li><a class="el" href="data_8h.html#abcc7bc9af7b1a7ffeca51252ae736a71" title="Return the number of nodes in the structure. ">DS_count()</a></li>
 <li><a class="el" href="data_8h.html#a37b448842fea9b7997425d0b23d9f405" title="is the structure empty ">DS_isempty()</a></li>
@@ -268,7 +268,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <li><a class="el" href="group__visit.html#ga62d6c18761a826c59622d25a4e435854" title="visit the last node ">DS_last()</a></li>
 <li><a class="el" href="group__visit.html#ga380ec859ac582b8fb874a16dfdd2d707" title="visit the next in-order node ">DS_next()</a></li>
 <li><a class="el" href="group__visit.html#ga2d268d31c093b31b9afd3750df701125" title="visit the previous in-order node ">DS_previous()</a></li>
-<li><a class="el" href="group__visit.html#ga194c805eef343bcfb53ff27198839bc4" title="visit the current node ">DS_current()</a></li>
+<li><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7" title="visit the current node ">DS_current()</a></li>
 <li><a class="el" href="group__visit.html#ga643641939f25f4cb4c4beea2d9aec46c" title="Visit the entry that is a specific count from the beginning of the structure. ">DS_position()</a> <h4>Stacks Only</h4>
 </li>
 </ul>
@@ -287,7 +287,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <li><a class="el" href="group__remove.html#ga877da7a87a9b87a69e2153a97abab91a" title="Removes the entry at the current position ">DS_remove()</a></li>
 <li><a class="el" href="group__visit.html#ga380ec859ac582b8fb874a16dfdd2d707" title="visit the next in-order node ">DS_next()</a></li>
 <li><a class="el" href="group__visit.html#ga2d268d31c093b31b9afd3750df701125" title="visit the previous in-order node ">DS_previous()</a></li>
-<li><a class="el" href="group__visit.html#ga194c805eef343bcfb53ff27198839bc4" title="visit the current node ">DS_current()</a></li>
+<li><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7" title="visit the current node ">DS_current()</a></li>
 </ul>
 <h3>Binary Search Trees</h3>
 <ul>
@@ -301,7 +301,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <li><a class="el" href="group__visit.html#ga62d6c18761a826c59622d25a4e435854" title="visit the last node ">DS_last()</a></li>
 <li><a class="el" href="group__visit.html#ga380ec859ac582b8fb874a16dfdd2d707" title="visit the next in-order node ">DS_next()</a></li>
 <li><a class="el" href="group__visit.html#ga2d268d31c093b31b9afd3750df701125" title="visit the previous in-order node ">DS_previous()</a></li>
-<li><a class="el" href="group__visit.html#ga194c805eef343bcfb53ff27198839bc4" title="visit the current node ">DS_current()</a></li>
+<li><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7" title="visit the current node ">DS_current()</a></li>
 </ul>
 <h3>General Trees</h3>
 <ul>
@@ -317,14 +317,14 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <li>DS_first_child()</li>
 <li>DS_last_child()</li>
 <li>DS_nth_child()</li>
-<li><a class="el" href="group__visit.html#ga194c805eef343bcfb53ff27198839bc4" title="visit the current node ">DS_current()</a></li>
+<li><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7" title="visit the current node ">DS_current()</a></li>
 </ul>
 <h3>Hash Tables</h3>
 <ul>
 <li><a class="el" href="group__insert.html#ga5390b657446b15f8397eb9705af3ca4a" title="Insert data in sort order, or at the current position ">DS_insert()</a></li>
 <li><a class="el" href="group__remove.html#ga877da7a87a9b87a69e2153a97abab91a" title="Removes the entry at the current position ">DS_remove()</a></li>
 <li><a class="el" href="group__visit.html#gac33b13e61fd47f989f61940fbb50d706" title="search for data by its key. ">DS_find()</a></li>
-<li><a class="el" href="group__visit.html#ga194c805eef343bcfb53ff27198839bc4" title="visit the current node ">DS_current()</a> </li>
+<li><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7" title="visit the current node ">DS_current()</a> </li>
 </ul>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="afa5865b5c5c30cf28f9a71780227cd49"></a>
@@ -342,7 +342,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 </div><div class="memdoc">
 
 <p>Dump the entire contents of the data structure to the console. </p>
-<p>the stored data is not changed. Used for debugging. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>the stored data is not changed. This function is used for debugging; it may not generate meaningful output for all types of data. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">root</td><td>is the root of a data structure </td></tr>
   </table>

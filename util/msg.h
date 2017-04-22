@@ -56,7 +56,7 @@ typedef enum{
 } msg_log_mode;
 
 typedef struct log_t * log_descriptor; ///< A log stream descriptor
-typedef uint8_t flag_t;
+typedef uint8_t flag_t; ///< flags for use in the log_descriptor
 
 
 /******************************************************************************/
@@ -97,11 +97,13 @@ void msg_log_close(log_descriptor log);
  *
  *	@return void.
  */
-void msg_print(log_descriptor, msg_log_lvl, const char * format, ...);
+void msg_print(log_descriptor log, msg_log_lvl lvl, const char * format, ...);
 
-
+/// set a flag on the log_descriptor
 void msg_set_flag(log_descriptor log, flag_t f);
+/// unset a flag on the log_descriptor
 void msg_unset_flag(log_descriptor log, flag_t f);
+/// check if a flag is set on the log_descriptor
 bool msg_check_flag(log_descriptor log, flag_t f);
 
 #ifdef __cplusplus

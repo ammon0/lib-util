@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Lib-Util: util Directory Reference</title>
+<title>Lib-Util: util/flags.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li class="current"><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
@@ -86,32 +86,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">util Directory Reference</div>  </div>
+<div class="title">flags.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
-Files</h2></td></tr>
-<tr class="memitem:data_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html">data.h</a> <a href="data_8h_source.html">[code]</a></td></tr>
-<tr class="memdesc:data_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generic data structures library for C development. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:flags_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html">flags.h</a> <a href="flags_8h_source.html">[code]</a></td></tr>
-<tr class="memdesc:flags_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">A bit flag implementation. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:hash_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hash_8h.html">hash.h</a> <a href="hash_8h_source.html">[code]</a></td></tr>
-<tr class="memdesc:hash_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">A Collection of hash functions with a common interface. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:input_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8h.html">input.h</a> <a href="input_8h_source.html">[code]</a></td></tr>
-<tr class="memdesc:input_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safe input functions. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:msg_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="msg_8h.html">msg.h</a> <a href="msg_8h_source.html">[code]</a></td></tr>
-<tr class="memdesc:msg_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions for logging and printing messages to stderr. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:types_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="types_8h.html">types.h</a> <a href="types_8h_source.html">[code]</a></td></tr>
-<tr class="memdesc:types_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commonly Used Type Definitions. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-</div><!-- contents -->
+<a href="flags_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*******************************************************************************</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> *</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *  lib-util : A Utility Library</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  Copyright (c) 2016-2017 Ammon Dodson</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *  You should have received a copy of the license terms with this software. If</span></div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *  not, please visit the project homepage at:</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *  https://github.com/ammon0/lib-util</span></div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> ******************************************************************************/</span></div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">typedef</span> uint8_t  flag8;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">typedef</span> uint16_t flag16;</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">typedef</span> uint32_t flag32;</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">typedef</span> uint64_t flag64;</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#define flag_status(flags,pos) (!!( flags &amp;   ((uint64_t)1&lt;&lt;pos) ))</span></div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#define flag_flip(  flags,pos)    ( flags ^=  ((uint64_t)1&lt;&lt;pos) )</span></div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#define flag_set(   flags,pos)    ( flags |=  ((uint64_t)1&lt;&lt;pos) )</span></div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#define flag_unset( flags,pos)    ( flags &amp;= ~((uint64_t)1&lt;&lt;pos) )</span></div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div></div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -103,11 +103,11 @@ Functions</h2></td></tr>
 <p>Create a new data structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data_size</td><td>The size in bytes of the data being stored in this structure. If you need to store variable length data you should store pointers in the data structure.</td></tr>
+    <tr><td class="paramname">data_size</td><td>The size in bytes of the data being stored in this structure. If you need to store variable length data you could use a union or else you should store pointers in the data structure. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>NULL</code> on failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>These functions return a handle that must be used for all future operations on the data structure. It will return <code>NULL</code> on failure. </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ga3805de311146dbbe37529579981a70f3"></a>
 <div class="memitem">
@@ -151,8 +151,8 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">data_size</td><td>The size in bytes of the data being stored in this structure. If you need to store variable length data you should store pointers in the data structure. </td></tr>
     <tr><td class="paramname">duplicates_allowed</td><td>Non-zero if duplicate keys are allowed, zero otherwise. </td></tr>
-    <tr><td class="paramname">key</td><td>Is used to extract a sort key from the data passed into the structure. </td></tr>
-    <tr><td class="paramname">cmp_keys</td><td>A function to compare keys extracted by key(). It must return &lt;0 if left is ordered before right, &gt;0 if left is ordered after right, and 0 if they are the same.</td></tr>
+    <tr><td class="paramname">key</td><td>The function passed as <code>key</code> must take your data as a parameter, and return the sort key of your choice. </td></tr>
+    <tr><td class="paramname">cmp_keys</td><td>Must be a function that takes as parameters the keys extracted by key(). It returns a signed integer indicating in what order the keys should be sorted. It must return &lt;0 if left is ordered before right, &gt;0 if left is ordered after right, and 0 if they are the same.</td></tr>
   </table>
   </dd>
 </dl>
