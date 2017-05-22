@@ -66,23 +66,31 @@ rotl64 ( uint64_t x, int8_t r ){
 /******************************************************************************/
 
 
-/*	The combining step is a reversible mapping of the internal state to the
- 	internal state,
- *	The combining step is a one-to-one mapping (every input block value is
- 	mapped to a distinct internal state value),
- *	The mixing function is reversible,
- *	The mixing step causes every bit of the internal state to affect every bit
- 	of the result.
- *	The mixing step, when run either forwards or in reverse, causes every bit of
- 	the internal state to affect at least v bits of the internal state.
- *	For every intermediate point in the mixing step, consider running the mixing step forward to that point from the previous combine, and backward to that point from the next combine. For every set Y of bits in the internal state in the middle, there some set X of bits in the previous input block and Z in the next input block that affect those Y bits. For every Y with less than v bits, |X|+|Z| must be less than or equal to |Y|. (Note that if every bit in the previous and next block affects at least v bits in the center of the mixing step, this requirement is satisfied.)
- */
- 
+/*
+ *	## premix
+ *	This step attempts to create better distribution when the chunks are
+ *	clustered.
+ *	
+ *	## Combine
+ *	combine the chunk with the interal state. The combining step must be a
+ *	reversible mapping of the internal state to the internal state, The
+ *	combining step is a one-to-one mapping (every chunk value is mapped to a
+ *	distinct internal state value). we should collect and recycle any overflow
+ *
+ *	## Mix
+ *	Mix the internal state recovering any overflow bits. The mixing function is
+ *	reversible. The mixing step causes every bit of the internal state to affect
+ *	every bit of the result.
+*/
+
 /* Operators:
 	& | do not create a one-to-one mapping, nor are they reversable
 	* / % are slow
-	+ - ^ >> <<
+	>> << are only useful as part of mixing step
+	+ - ^ are the only operations useful for mixing
+	many processors have a built in barrel rotation instruction
 */
+
 
 /// A hash function based on [FVN-1a](http://www.isthe.com/chongo/tech/comp/fnv/)
 static inline uint64_t __attribute__((const, always_inline))
@@ -113,37 +121,30 @@ hash_c(uint64_t hash, uint32_t chunk){
 }
 
 
-/**	A hash function based on
- *	[newhash](http://burtleburtle.net/bob/hash/evahash.html)
- */
-static inline uint64_t __attribute__((const, always_inline))
-hash_d(uint64_t hash, uint32_t chunk){
-	static uint32_t a, b, c;
-	
-	a += hash;
-	b += (hash>>32);
-	c += chunk;
-	
-	a-=c;  b-=a;  b^=(a<<8);
-	c-=a;  c-=b;  c^=(b>>13);
-	
-	a-=b;  a-=c;  a^=(c>>12);
-	b-=c;  b-=a;  b^=(a<<16);
-	c-=a;  c-=b;  c^=(b>>5);
-	
-	a-=b;  a-=c;  a^=(c>>3);
-	b-=c;  b-=a;  b^=(a<<10);
-	c-=a;  c-=b;  c^=(b>>15);
-	
-	return ((uint64_t)a<<32 | b) ^ (c<<16);
-}
 
+// a hash of my own design
+static inline uint64_t __attribute__((const, always_inline))
+hash_d(uint64_t hash, uint32_t c){
+	uint32_t a, b;
+	
+	// premix
+	c = (48271*c) % 0x1FFFFFFFFFFFF; // Lehmer random number generator
+	
+	a = hash&0xffffffff;
+	b = (hash>>32);
+	
+	c-=a; c-=b; c ^= rotl32(a,13);
+	b-=c; b-=a; b ^= rotl32(c,13);
+	a-=b; a-=c; a ^= rotl32(b,13);
+	
+	return (uint64_t)a<<32 | b;
+}
 
 /// The number of hash functions availible. Used in test-hash.c
 #define _FUN_CNT 4
 
 /// size of file buffer for file hashing
-#define BUF_SZ ((size_t) 1<<10)
+#define BUF_SZ ((size_t) 1<<20)
 
 
 /******************************************************************************/
@@ -167,14 +168,10 @@ array_hash(
 	const void * array,
 	size_t len
 	){
-#ifndef _TEST_HASH
-	hash += len;
-#endif
-	
-	if(len & 1) hash = fn(hash, ((uint8_t*)array)[--len]);
+	if(len & 1) hash = fn(hash, ((uint8_t*)array)[len-1]);
 	len >>= 1;
 	
-	if(len & 1) hash = fn(hash, ((uint16_t*)array)[--len]);
+	if(len & 1) hash = fn(hash, ((uint16_t*)array)[len-1]);
 	len >>= 1;
 	
 	while(len) hash = fn(hash, ((uint32_t*)array)[--len]);
@@ -182,6 +179,7 @@ array_hash(
 #ifndef _TEST_HASH
 	hash = fn(hash, 0xcc9e2d51);
 	hash = fn(hash, 0x1b873593);
+	hash = fn(hash, len);
 #endif
 	
 	return hash;
