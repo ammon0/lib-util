@@ -40,7 +40,7 @@ util/hash.h util/types.h util/flags.h
 libraries:= libdata.a libinput.a libmsg.a
 tests    := test-hash test-input test-data test-msg
 
-ALLFILES:= $(headers) data.c test-data.c input.c test-input.c msg.c
+allfiles:= $(headers) data.c test-data.c input.c test-input.c msg.c
 CLEANFILES:= *.o *.a test-data test-input test-hash test-msg
 
 
@@ -81,7 +81,8 @@ lib%.a: %.o
 
 ################################## UTILITIES ###################################
 
-.PHONEY: clean todolist docs very-clean
+.PHONEY: clean todolist docs very-clean count
+
 docs: Doxyfile $(headers) README.md
 	doxygen Doxyfile
 
@@ -92,5 +93,9 @@ very-clean: clean
 	rm -r ./docs
 
 todolist:
-	-@for file in $(ALLFILES:Makefile=); do fgrep -H -e TODO -e FIXME $$file; done; true
+	-@for file in $(allfiles:Makefile=); do fgrep -H -e TODO -e FIXME $$file; done; true
+
+count:
+	cat $(allfiles) |line_count
+
 
