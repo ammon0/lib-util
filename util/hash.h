@@ -122,7 +122,7 @@ hash_c(uint64_t hash, uint32_t chunk){
 
 
 
-// a hash of my own design
+/// a hash of my own design
 static inline uint64_t __attribute__((const, always_inline))
 hash_d(uint64_t hash, uint32_t c){
 	uint32_t a, b;

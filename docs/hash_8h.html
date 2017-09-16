@@ -108,7 +108,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:a59dae256a5938c5c95f5373dc138d687"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of hash functions availible. Used in test-hash.c. <br /></td></tr>
 <tr class="separator:a59dae256a5938c5c95f5373dc138d687"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4962f06eca1fdb2c29f4496e090bdaf4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4962f06eca1fdb2c29f4496e090bdaf4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hash_8h.html#a4962f06eca1fdb2c29f4496e090bdaf4">BUF_SZ</a>&#160;&#160;&#160;((size_t) 1&lt;&lt;10)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hash_8h.html#a4962f06eca1fdb2c29f4496e090bdaf4">BUF_SZ</a>&#160;&#160;&#160;((size_t) 1&lt;&lt;20)</td></tr>
 <tr class="memdesc:a4962f06eca1fdb2c29f4496e090bdaf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">size of file buffer for file hashing <br /></td></tr>
 <tr class="separator:a4962f06eca1fdb2c29f4496e090bdaf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -134,10 +134,10 @@ static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el"
 static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hash_8h.html#a3a3f9963540314be98e48e1b66790dcd">hash_c</a> (uint64_t hash, uint32_t chunk)</td></tr>
 <tr class="memdesc:a3a3f9963540314be98e48e1b66790dcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">A hash function based on <a href="https://github.com/aappleby/smhasher">murmur3</a> <br /></td></tr>
 <tr class="separator:a3a3f9963540314be98e48e1b66790dcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31a1d889a4feea18b4819137a46522ce"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31a1d889a4feea18b4819137a46522ce"></a>
-static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hash_8h.html#a31a1d889a4feea18b4819137a46522ce">hash_d</a> (uint64_t hash, uint32_t chunk)</td></tr>
-<tr class="memdesc:a31a1d889a4feea18b4819137a46522ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">A hash function based on <a href="http://burtleburtle.net/bob/hash/evahash.html">newhash</a> <br /></td></tr>
-<tr class="separator:a31a1d889a4feea18b4819137a46522ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6bc17ddb90026ed7f0837dcc1c89ded"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae6bc17ddb90026ed7f0837dcc1c89ded"></a>
+static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hash_8h.html#ae6bc17ddb90026ed7f0837dcc1c89ded">hash_d</a> (uint64_t hash, uint32_t c)</td></tr>
+<tr class="memdesc:ae6bc17ddb90026ed7f0837dcc1c89ded"><td class="mdescLeft">&#160;</td><td class="mdescRight">a hash of my own design <br /></td></tr>
+<tr class="separator:ae6bc17ddb90026ed7f0837dcc1c89ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4984af1c47b47bb47f682c698e612614"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hash_8h.html#a4984af1c47b47bb47f682c698e612614">array_hash</a> (uint64_t hash, uint64_t(*fn)(uint64_t hash, uint32_t chunk), const void *array, size_t len)</td></tr>
 <tr class="memdesc:a4984af1c47b47bb47f682c698e612614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash a memory array.  <a href="#a4984af1c47b47bb47f682c698e612614">More...</a><br /></td></tr>
 <tr class="separator:a4984af1c47b47bb47f682c698e612614"><td class="memSeparator" colspan="2">&#160;</td></tr>

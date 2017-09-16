@@ -101,31 +101,39 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a59f30b11367eee590b60b38fe6e4df0c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59f30b11367eee590b60b38fe6e4df0c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>flag_status</b>(flags,  pos)&#160;&#160;&#160;(!!( flags &amp;   ((uint64_t)1&lt;&lt;pos) ))</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#a59f30b11367eee590b60b38fe6e4df0c">flag_status</a>(flags,  pos)&#160;&#160;&#160;(!!( flags &amp;   ((uint64_t)1&lt;&lt;pos) ))</td></tr>
+<tr class="memdesc:a59f30b11367eee590b60b38fe6e4df0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the state of a bit flag. <br /></td></tr>
 <tr class="separator:a59f30b11367eee590b60b38fe6e4df0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7e7f2d3f5c020daa1042b5a241c08be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab7e7f2d3f5c020daa1042b5a241c08be"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>flag_flip</b>(flags,  pos)&#160;&#160;&#160;( flags ^=  ((uint64_t)1&lt;&lt;pos) )</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#ab7e7f2d3f5c020daa1042b5a241c08be">flag_flip</a>(flags,  pos)&#160;&#160;&#160;( flags ^=  ((uint64_t)1&lt;&lt;pos) )</td></tr>
+<tr class="memdesc:ab7e7f2d3f5c020daa1042b5a241c08be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip a bit flag. <br /></td></tr>
 <tr class="separator:ab7e7f2d3f5c020daa1042b5a241c08be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6ceafe5f3a10aa02c17ad06f704a026"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad6ceafe5f3a10aa02c17ad06f704a026"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>flag_set</b>(flags,  pos)&#160;&#160;&#160;( flags |=  ((uint64_t)1&lt;&lt;pos) )</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#ad6ceafe5f3a10aa02c17ad06f704a026">flag_set</a>(flags,  pos)&#160;&#160;&#160;( flags |=  ((uint64_t)1&lt;&lt;pos) )</td></tr>
+<tr class="memdesc:ad6ceafe5f3a10aa02c17ad06f704a026"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a bit flag to 1 even if it alreay is set. <br /></td></tr>
 <tr class="separator:ad6ceafe5f3a10aa02c17ad06f704a026"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f70524a7971f35ca570a6023e0e5eb8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0f70524a7971f35ca570a6023e0e5eb8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>flag_unset</b>(flags,  pos)&#160;&#160;&#160;( flags &amp;= ~((uint64_t)1&lt;&lt;pos) )</td></tr>
-<tr class="separator:a0f70524a7971f35ca570a6023e0e5eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3bd047e9cac934d7b9fe86b5c987522"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3bd047e9cac934d7b9fe86b5c987522"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#ad3bd047e9cac934d7b9fe86b5c987522">flag_clear</a>(flags,  pos)&#160;&#160;&#160;( flags &amp;= ~((uint64_t)1&lt;&lt;pos) )</td></tr>
+<tr class="memdesc:ad3bd047e9cac934d7b9fe86b5c987522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear a bit flag to 0 whether is was set or not. <br /></td></tr>
+<tr class="separator:ad3bd047e9cac934d7b9fe86b5c987522"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a97fb8740e8d922bf9f12096876a34689"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a97fb8740e8d922bf9f12096876a34689"></a>
-typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>flag8</b></td></tr>
+typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#a97fb8740e8d922bf9f12096876a34689">flag8</a></td></tr>
+<tr class="memdesc:a97fb8740e8d922bf9f12096876a34689"><td class="mdescLeft">&#160;</td><td class="mdescRight">an 8-bit flag field <br /></td></tr>
 <tr class="separator:a97fb8740e8d922bf9f12096876a34689"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af98f01ca3264b3f3c34e9fd2519e1a60"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af98f01ca3264b3f3c34e9fd2519e1a60"></a>
-typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>flag16</b></td></tr>
+typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#af98f01ca3264b3f3c34e9fd2519e1a60">flag16</a></td></tr>
+<tr class="memdesc:af98f01ca3264b3f3c34e9fd2519e1a60"><td class="mdescLeft">&#160;</td><td class="mdescRight">an 16-bit flag field <br /></td></tr>
 <tr class="separator:af98f01ca3264b3f3c34e9fd2519e1a60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f4b8e19c43305657b8e18bf4636e0ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f4b8e19c43305657b8e18bf4636e0ef"></a>
-typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>flag32</b></td></tr>
+typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#a7f4b8e19c43305657b8e18bf4636e0ef">flag32</a></td></tr>
+<tr class="memdesc:a7f4b8e19c43305657b8e18bf4636e0ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">an 32-bit flag field <br /></td></tr>
 <tr class="separator:a7f4b8e19c43305657b8e18bf4636e0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fd767943e6ada68119c7c2e7c3db942"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1fd767943e6ada68119c7c2e7c3db942"></a>
-typedef uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>flag64</b></td></tr>
+typedef uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#a1fd767943e6ada68119c7c2e7c3db942">flag64</a></td></tr>
+<tr class="memdesc:a1fd767943e6ada68119c7c2e7c3db942"><td class="mdescLeft">&#160;</td><td class="mdescRight">an 64-bit flag field <br /></td></tr>
 <tr class="separator:a1fd767943e6ada68119c7c2e7c3db942"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
