@@ -30,6 +30,6 @@ typedef uint64_t flag64; ///< an 64-bit flag field
 #define flag_set(   flags,pos)    ( flags |=  ((uint64_t)1<<pos) )
 
 /// Clear a bit flag to 0 whether is was set or not
-#define flag_clear( flags,pos)    ( flags &= ~((uint64_t)1<<pos) )
+#define flag_unset( flags,pos)    ( flags &= ~((uint64_t)1<<pos) )
 
 
