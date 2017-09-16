@@ -136,6 +136,10 @@ Functions</h2></td></tr>
 <a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#gae00e28070a623af1c47bd6c45bdfe04e">DS_new_circular</a> (size_t data_size)</td></tr>
 <tr class="memdesc:gae00e28070a623af1c47bd6c45bdfe04e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new circular list. <br /></td></tr>
 <tr class="separator:gae00e28070a623af1c47bd6c45bdfe04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadf9082d76ebab41c5cd079a9fe6b2127"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#gadf9082d76ebab41c5cd079a9fe6b2127">DS_new_tree</a> (size_t data_size)</td></tr>
+<tr class="memdesc:gadf9082d76ebab41c5cd079a9fe6b2127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new general tree. <br /></td></tr>
+<tr class="separator:gadf9082d76ebab41c5cd079a9fe6b2127"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3805de311146dbbe37529579981a70f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#ga3805de311146dbbe37529579981a70f3">DS_new_bst</a> (size_t data_size, bool duplicates_allowed, const void *(*key)(const void *data), <a class="el" href="types_8h.html#a965ad1fca4130c8801937fc77bddc999">imax</a>(*cmp_keys)(const void *left, const void *right))</td></tr>
 <tr class="memdesc:ga3805de311146dbbe37529579981a70f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new binary search tree.  <a href="group__new.html#ga3805de311146dbbe37529579981a70f3">More...</a><br /></td></tr>
 <tr class="separator:ga3805de311146dbbe37529579981a70f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -207,6 +211,10 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#ga2d268d31c093b31b9afd3750df701125">DS_previous</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
 <tr class="memdesc:ga2d268d31c093b31b9afd3750df701125"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the previous in-order node <br /></td></tr>
 <tr class="separator:ga2d268d31c093b31b9afd3750df701125"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a950d9b8fc90136dd4aac8cc202b773"><td class="memItemLeft" align="right" valign="top">
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#ga3a950d9b8fc90136dd4aac8cc202b773">DS_parent</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
+<tr class="memdesc:ga3a950d9b8fc90136dd4aac8cc202b773"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the parent node in a tree <br /></td></tr>
+<tr class="separator:ga3a950d9b8fc90136dd4aac8cc202b773"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaccd54c18ec22fc4f757fb94687fb13a7"><td class="memItemLeft" align="right" valign="top">
 void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7">DS_current</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
 <tr class="memdesc:gaccd54c18ec22fc4f757fb94687fb13a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the current node <br /></td></tr>
@@ -214,6 +222,30 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <tr class="memitem:ga643641939f25f4cb4c4beea2d9aec46c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#ga643641939f25f4cb4c4beea2d9aec46c">DS_position</a> (const <a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root, const <a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> count)</td></tr>
 <tr class="memdesc:ga643641939f25f4cb4c4beea2d9aec46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit the entry that is a specific count from the beginning of the structure.  <a href="group__visit.html#ga643641939f25f4cb4c4beea2d9aec46c">More...</a><br /></td></tr>
 <tr class="separator:ga643641939f25f4cb4c4beea2d9aec46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga14503813c1b1d63a48de380cdc1c2f82"><td class="memItemLeft" align="right" valign="top">
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__general__tree.html#ga14503813c1b1d63a48de380cdc1c2f82">DS_next_sibling</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
+<tr class="memdesc:ga14503813c1b1d63a48de380cdc1c2f82"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the current node's next sibling <br /></td></tr>
+<tr class="separator:ga14503813c1b1d63a48de380cdc1c2f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b8834cf2bb6fddebcef36f31c3cda50"><td class="memItemLeft" align="right" valign="top">
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__general__tree.html#ga5b8834cf2bb6fddebcef36f31c3cda50">DS_first_sibling</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
+<tr class="memdesc:ga5b8834cf2bb6fddebcef36f31c3cda50"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the first sibling of the current node <br /></td></tr>
+<tr class="separator:ga5b8834cf2bb6fddebcef36f31c3cda50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga811108cc66ef572537ef95afcba83012"><td class="memItemLeft" align="right" valign="top">
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__general__tree.html#ga811108cc66ef572537ef95afcba83012">DS_last_sibling</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
+<tr class="memdesc:ga811108cc66ef572537ef95afcba83012"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the last sibling of the current node <br /></td></tr>
+<tr class="separator:ga811108cc66ef572537ef95afcba83012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae46a4a9dea862ed3e1ade3356b567547"><td class="memItemLeft" align="right" valign="top">
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__general__tree.html#gae46a4a9dea862ed3e1ade3356b567547">DS_first_child</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
+<tr class="memdesc:gae46a4a9dea862ed3e1ade3356b567547"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the current node's first child <br /></td></tr>
+<tr class="separator:gae46a4a9dea862ed3e1ade3356b567547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadf82f40a57ae387d671786ee46e53830"><td class="memItemLeft" align="right" valign="top">
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__general__tree.html#gadf82f40a57ae387d671786ee46e53830">DS_last_child</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
+<tr class="memdesc:gadf82f40a57ae387d671786ee46e53830"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the current node's last child <br /></td></tr>
+<tr class="separator:gadf82f40a57ae387d671786ee46e53830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga47e1e59230313590b8563c4dbaf1996a"><td class="memItemLeft" align="right" valign="top">
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__general__tree.html#ga47e1e59230313590b8563c4dbaf1996a">DS_nth_child</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
+<tr class="memdesc:ga47e1e59230313590b8563c4dbaf1996a"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the current node's n-th child <br /></td></tr>
+<tr class="separator:ga47e1e59230313590b8563c4dbaf1996a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A generic data structures library for C development. </p>
@@ -306,17 +338,18 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <h3>General Trees</h3>
 <ul>
 <li><a class="el" href="data_8h.html#a60a14d170726a82c38b1ccc24044c851" title="is the current position a leaf ">DS_isleaf()</a></li>
-<li>DS_insert_sibling()</li>
+<li>DS_insert_next_sibling()</li>
 <li>DS_insert_first_child()</li>
 <li>DS_insert_last_child()</li>
 <li>DS_insert_nth_child()</li>
 <li><a class="el" href="group__remove.html#ga877da7a87a9b87a69e2153a97abab91a" title="Removes the entry at the current position ">DS_remove()</a></li>
-<li>DS_next_sibling()</li>
-<li>DS_previous_sibling()</li>
-<li>DS_parent()</li>
-<li>DS_first_child()</li>
-<li>DS_last_child()</li>
-<li>DS_nth_child()</li>
+<li><a class="el" href="group__general__tree.html#ga5b8834cf2bb6fddebcef36f31c3cda50" title="visit the first sibling of the current node ">DS_first_sibling()</a></li>
+<li><a class="el" href="group__general__tree.html#ga811108cc66ef572537ef95afcba83012" title="visit the last sibling of the current node ">DS_last_sibling()</a></li>
+<li><a class="el" href="group__general__tree.html#ga14503813c1b1d63a48de380cdc1c2f82" title="visit the current node&#39;s next sibling ">DS_next_sibling()</a></li>
+<li><a class="el" href="group__visit.html#ga3a950d9b8fc90136dd4aac8cc202b773" title="visit the parent node in a tree ">DS_parent()</a></li>
+<li><a class="el" href="group__general__tree.html#gae46a4a9dea862ed3e1ade3356b567547" title="visit the current node&#39;s first child ">DS_first_child()</a></li>
+<li><a class="el" href="group__general__tree.html#gadf82f40a57ae387d671786ee46e53830" title="visit the current node&#39;s last child ">DS_last_child()</a></li>
+<li><a class="el" href="group__general__tree.html#ga47e1e59230313590b8563c4dbaf1996a" title="visit the current node&#39;s n-th child ">DS_nth_child()</a></li>
 <li><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7" title="visit the current node ">DS_current()</a></li>
 </ul>
 <h3>Hash Tables</h3>

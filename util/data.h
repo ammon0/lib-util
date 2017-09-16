@@ -116,13 +116,14 @@
  *
  *	### General Trees
  *	*	DS_isleaf()
- *	*	DS_insert_sibling()
+ *	*	DS_insert_next_sibling()
  *	*	DS_insert_first_child()
  *	*	DS_insert_last_child()
  *	*	DS_insert_nth_child()
  *	*	DS_remove()
+ *	*	DS_first_sibling()
+ *	*	DS_last_sibling()
  *	*	DS_next_sibling()
- *	*	DS_previous_sibling()
  *	*	DS_parent()
  *	*	DS_first_child()
  *	*	DS_last_child()
@@ -174,6 +175,8 @@ DS DS_new_list(size_t data_size);
 /// Create a new circular list.
 DS DS_new_circular(size_t data_size);
 
+/// Create a new general tree
+DS DS_new_tree(size_t data_size);
 
 /**	Create a new binary search tree.
  *
@@ -241,11 +244,6 @@ DS DS_new_bst(
 //	int          (*cmp_keys)(const void * left , const void * right)
 //);
 
-
-//DS DS_new_tree(
-//	unsigned int children,
-//	size_t       data_size
-//);
 
 /** @} */
 
@@ -409,11 +407,12 @@ const void * DS_remove_last (DS root);
 void * DS_find(const DS root, const void * key);
 
 
-void * DS_first    (DS root); ///< visit the first node
-void * DS_last     (DS root); ///< visit the last node
-void * DS_next     (DS root); ///< visit the next in-order node
-void * DS_previous (DS root); ///< visit the previous in-order node
-void * DS_current  (DS root); ///< visit the current node
+void * DS_first   (DS root); ///< visit the first node
+void * DS_last    (DS root); ///< visit the last node
+void * DS_next    (DS root); ///< visit the next in-order node
+void * DS_previous(DS root); ///< visit the previous in-order node
+void * DS_parent  (DS root); ///< visit the parent node in a tree
+void * DS_current (DS root); ///< visit the current node
 
 /**	Visit the entry that is a specific count from the beginning of the structure
  *
@@ -424,7 +423,20 @@ void * DS_current  (DS root); ///< visit the current node
  */
 void * DS_position (const DS root, const uint count);
 
+/**	@defgroup general_tree Visitor functions for general trees
+ *
+ * @{
+ */
 
+void * DS_next_sibling (DS root); ///< visit the current node's next sibling
+void * DS_first_sibling(DS root); ///< visit the first sibling of the current node
+void * DS_last_sibling (DS root); ///< visit the last sibling of the current node
+
+void * DS_first_child(DS root); ///< visit the current node's first child
+void * DS_last_child (DS root); ///< visit the current node's last child
+void * DS_nth_child  (DS root); ///< visit the current node's n-th child
+
+/**@}*/
 
 /**@}*/
 

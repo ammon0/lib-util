@@ -46,7 +46,7 @@ CLEANFILES:= *.o *.a test-data test-input test-hash test-msg
 
 .PHONEY: install all
 
-all: $(libraries)
+all: $(libraries) $(tests)
 
 install: $(libraries) $(headers)
 	install -d $(LIBDIR) $(INCDIR)

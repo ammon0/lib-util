@@ -76,6 +76,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="summary">
+<a href="#groups">Modules</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">View a Data Entry</div>  </div>
@@ -85,6 +86,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Visit a data entry in the structure.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
+Modules</h2></td></tr>
+<tr class="memitem:group__general__tree"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__general__tree.html">Visitor functions for general trees</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gac33b13e61fd47f989f61940fbb50d706"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#gac33b13e61fd47f989f61940fbb50d706">DS_find</a> (const <a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root, const void *key)</td></tr>
@@ -106,6 +112,10 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#ga2d268d31c093b31b9afd3750df701125">DS_previous</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
 <tr class="memdesc:ga2d268d31c093b31b9afd3750df701125"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the previous in-order node <br /></td></tr>
 <tr class="separator:ga2d268d31c093b31b9afd3750df701125"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a950d9b8fc90136dd4aac8cc202b773"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga3a950d9b8fc90136dd4aac8cc202b773"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#ga3a950d9b8fc90136dd4aac8cc202b773">DS_parent</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
+<tr class="memdesc:ga3a950d9b8fc90136dd4aac8cc202b773"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the parent node in a tree <br /></td></tr>
+<tr class="separator:ga3a950d9b8fc90136dd4aac8cc202b773"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaccd54c18ec22fc4f757fb94687fb13a7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaccd54c18ec22fc4f757fb94687fb13a7"></a>
 void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7">DS_current</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
 <tr class="memdesc:gaccd54c18ec22fc4f757fb94687fb13a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the current node <br /></td></tr>
@@ -150,7 +160,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 </div><div class="memdoc">
 
 <p>search for data by its key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>does not change contents of data structure </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">root</td><td>a data structure </td></tr>
     <tr><td class="paramname">key</td><td>the search/sort key. It must be the same data type as returned by key() and accepted by cmp_keys(). </td></tr>
@@ -189,7 +199,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">root</td><td>is the root of a data structure </td></tr>
-    <tr><td class="paramname">count</td><td>is the position in the structure to be returned </td></tr>
+    <tr><td class="paramname">count</td><td>is the position in the structure to be returned</td></tr>
   </table>
   </dd>
 </dl>

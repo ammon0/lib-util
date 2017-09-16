@@ -39,7 +39,8 @@ typedef enum {
 	DS_circular_list,
 	DS_bst,
 	//DS_splay,
-	DS_hash
+	DS_hash,
+	DS_tree
 } DS_type;
 
 typedef struct _list_node {
@@ -100,6 +101,8 @@ inline static _node_pt _new_node(const DS const root){
 	_node_pt new_node; // will return null on failure
 	
 	switch(root->type){
+	
+	// using _list_node
 	case DS_list         :
 	case DS_circular_list:
 	case DS_hash         :
@@ -117,7 +120,8 @@ inline static _node_pt _new_node(const DS const root){
 		new_node.l->prev = NULL;
 		break;
 	
-	
+	// using _tree_node
+	case DS_tree:
 	case DS_bst:
 		if (root->freelist.t){
 			new_node = root->freelist;
@@ -195,9 +199,9 @@ DS DS_new_list(size_t data_size){
 		return NULL;
 	}
 	
-	new_structure->type       = DS_list;
-	new_structure->data_size  = data_size;
-	new_structure->count      = 0        ;
+	new_structure->type      = DS_list  ;
+	new_structure->data_size = data_size;
+	new_structure->count     = 0        ;
 	
 	return new_structure;
 }
@@ -213,9 +217,27 @@ DS DS_new_circular(size_t data_size){
 		return NULL;
 	}
 	
-	new_structure->type       = DS_circular_list;
-	new_structure->data_size  = data_size;
-	new_structure->count      = 0        ;
+	new_structure->type      = DS_circular_list;
+	new_structure->data_size = data_size       ;
+	new_structure->count     = 0               ;
+	
+	return new_structure;
+}
+
+
+DS DS_new_tree(size_t data_size){
+	DS new_structure;
+	
+	// Allocate space
+	new_structure= (DS) calloc(1, sizeof(struct _root));
+	if (new_structure == NULL) {
+		_error(_e_mem);
+		return NULL;
+	}
+	
+	new_structure->type      = DS_tree  ;
+	new_structure->data_size = data_size;
+	new_structure->count     = 0        ;
 	
 	return new_structure;
 }
@@ -316,6 +338,8 @@ inline void DS_flush (DS root){
 	_node_pt dead_node;
 	
 	switch (root->type){
+	
+	// using _list_node
 	case DS_list:
 	case DS_circular_list:
 		while (root->freelist.l) {
@@ -325,6 +349,8 @@ inline void DS_flush (DS root){
 		}
 		return;
 	
+	// using _tree_node
+	case DS_tree:
 	case DS_bst:
 		while (root->freelist.t) {
 		dead_node = root->freelist;
@@ -365,14 +391,14 @@ bool DS_isleaf (const DS root){
 	}
 
 	switch (root->type){
-	case DS_bst          : break;
+	case DS_bst: return (!( root->current.t->left || root->current.t->right ));
+	case DS_tree: return (!( root->current.t->left ));
+	
 	case DS_hash         :
 	case DS_list         :
 	case DS_circular_list: _error(_e_nsense); return false;
 	default: _error(_e_invtype); return false;
 	}
-	
-	return (!( root->current.t->left || root->current.t->right ));
 }
 
 // Dump the contents of the data structure
@@ -388,28 +414,25 @@ void DS_dump (const DS root){
 	
 	switch (root->type){
 	case DS_list:
-	
 		while(this_node.l != NULL) {
 			printf("%s\n", (char*) this_node.l->data);
 			this_node.l = this_node.l->next;
 		}
+		break;
 	
-	break;
 	case DS_circular_list:
-	
 		if (this_node.l == NULL) break;
 		do {
 			printf("%s\n", (char*) this_node.l->data);
 			this_node.l = this_node.l->next;
 		} while (this_node.l != root->head.l);
+		break;
 	
-	break;
+	case DS_tree:
 	case DS_bst:
-	
 		if (this_node.t == NULL) break;
 		_print_node(root->head.t, 0);
-	
-	break;
+		break;
 	
 	case DS_hash: _error(_e_nimp); return;
 	
