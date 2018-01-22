@@ -11,7 +11,7 @@
 
 # Change these variables to point to the appropriate installation directories
 INSTALLDIR:=$(HOME)/prg
-LIBDIR:=$(INSTALLDIR)/lib
+LIBDIR:=$(INSTALLDIR)/lib/util
 INCDIR:=$(INSTALLDIR)/include/util
 
 # My code builds without warnings--ALWAYS
@@ -31,22 +31,23 @@ CWARNINGS:=	-Wall -Wextra -pedantic \
 	-Wconversion -Wdisabled-optimization \
 	-Wpadded
 
-CFLAGS  := $(CWARNINGS)   --std=c11   -g -O3 -I./
+CFLAGS  := $(CWARNINGS) --std=c11 -g -O3 -I./
 
 headers:= \
 util/data.h util/input.h util/msg.h \
 util/hash.h util/types.h util/flags.h
 
-libraries:= libdata.a libinput.a libmsg.a
+libraries:= libdata.so libinput.so libmsg.so
 tests    := test-hash test-input test-data test-msg
 
 allfiles:= $(headers) data.c test-data.c input.c test-input.c msg.c
-CLEANFILES:= *.o *.a test-data test-input test-hash test-msg
+cleanfiles:= *.o *.a *.so test-data test-input test-hash test-msg
 
 
-.PHONEY: install all
+.PHONEY: install libs all
 
-all: $(libraries)
+all: libs test-hash test-input test-data test-msg
+libs: $(libraries)
 
 install: $(libraries) $(headers)
 	install -d $(LIBDIR) $(INCDIR)
@@ -57,26 +58,27 @@ test-hash: util/hash.h test-hash.c data.o input.o msg.o
 	$(CC) $(CFLAGS) -Wno-conversion -Wno-pointer-sign -o $@ test-hash.c data.o input.o msg.o -lm
 	chmod +x $@
 
-test-input: util/input.h test-input.c libinput.a
+test-input: util/input.h test-input.c libinput.so
 	$(CC) $(CFLAGS) -o $@ -L./ test-input.c -linput
 	chmod +x $@
 
-test-data: util/data.h test-data.c libdata.a libmsg.a
+test-data: util/data.h test-data.c libdata.so libmsg.so
 	$(CC) $(CFLAGS) -o $@ -L./ test-data.c -ldata -lmsg
 	chmod +x $@
 
-test-msg: util/msg.h test-msg.c libmsg.a
+test-msg: util/msg.h test-msg.c libmsg.so
 	$(CC) $(CFLAGS) -o $@ -L./ test-msg.c -lmsg
 	chmod +x $@
 
 msg.o: msg.c util/msg.h util/flags.h
-	$(CC) $(CFLAGS) -Wno-conversion -c $<
+	$(CC) $(CFLAGS) -Wno-conversion -c -fpic -o $@ $<
 
-lib%.a: %.o
-	ar rcs $@ $<
+lib%.so: %.o
+	$(CC) $(CFLAGS) -shared -o $@ $^
+#ar rcs $@ $^
 
 %.o: %.c util/%.h
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c -fpic -o $@ $<
 
 
 ################################## UTILITIES ###################################
@@ -87,7 +89,7 @@ docs: Doxyfile $(headers) README.md
 	doxygen Doxyfile
 
 clean:
-	rm -f $(CLEANFILES)
+	rm -f $(cleanfiles)
 
 very-clean: clean
 	rm -r ./docs
