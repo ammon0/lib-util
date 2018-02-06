@@ -67,7 +67,7 @@ rotl64 ( uint64_t x, int8_t r ){
 
 
 /*
- *	## premix
+ *	## Premix
  *	This step attempts to create better distribution when the chunks are
  *	clustered.
  *	
@@ -77,7 +77,7 @@ rotl64 ( uint64_t x, int8_t r ){
  *	combining step is a one-to-one mapping (every chunk value is mapped to a
  *	distinct internal state value). we should collect and recycle any overflow
  *
- *	## Mix
+ *	## Postmix
  *	Mix the internal state recovering any overflow bits. The mixing function is
  *	reversible. The mixing step causes every bit of the internal state to affect
  *	every bit of the result.
@@ -121,7 +121,6 @@ hash_c(uint64_t hash, uint32_t chunk){
 }
 
 
-
 /// a hash of my own design
 static inline uint64_t __attribute__((const, always_inline))
 hash_d(uint64_t hash, uint32_t c){
@@ -161,7 +160,7 @@ hash_d(uint64_t hash, uint32_t c){
  *
  *	@return a 64-bit hash of the input data.
  */
-static uint64_t __attribute__((pure))
+static inline uint64_t __attribute__((pure))
 array_hash(
 	uint64_t hash,
 	uint64_t (*fn)(uint64_t hash, uint32_t chunk),

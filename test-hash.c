@@ -12,6 +12,7 @@
 
 
 #define NUMSTR_SZ 16
+#define HASH_SEED 0
 
 static char ** strings;
 static uint    str_cnt;
@@ -71,7 +72,7 @@ collision_check(uint64_t (*hf)(uint64_t hash, uint32_t chunk)){
 	);
 	
 	for(uint i=0; i<str_cnt; i++){
-		full_hash = string_hash(0, hf, strings[i]);
+		full_hash = string_hash(HASH_SEED, hf, strings[i]);
 		
 		// fold the hash
 		f.hash = (full_hash>>32) ^ full_hash;
@@ -85,7 +86,7 @@ collision_check(uint64_t (*hf)(uint64_t hash, uint32_t chunk)){
 	for(uint j =0; j<SEQ_LIM; j++){
 		// hash the number
 		sprintf(f.num_str, "%015u", j);
-		full_hash = array_hash(0, hf, f.num_str, NUMSTR_SZ);
+		full_hash = array_hash(HASH_SEED, hf, f.num_str, NUMSTR_SZ);
 		
 		// fold the hash
 		f.hash = (full_hash>>32) ^ full_hash;
@@ -97,7 +98,7 @@ collision_check(uint64_t (*hf)(uint64_t hash, uint32_t chunk)){
 	}
 	
 	// report results
-	printf("%u collisions from %u entries in 0xffffffff slots.\n",
+	printf("%u collisions from %u entries.\n",
 		collisions, entries
 	);
 }
@@ -113,12 +114,12 @@ static void time_check(uint64_t (*hf)(uint64_t hash, uint32_t chunk)){
 	gettimeofday(&start, NULL);
 	
 	// hash strings
-	for(uint i=0; i<str_cnt; i++) full_hash += string_hash(0, hf, strings[i]);
+	for(uint i=0; i<str_cnt; i++) full_hash += string_hash(HASH_SEED, hf, strings[i]);
 	
 	// hash numbers
 	for(uint32_t j =0; j<TC_COUNT; j++){
 		sprintf(array, "%015u", j);
-		full_hash += array_hash(0, hf, &j, 4);
+		full_hash += array_hash(HASH_SEED, hf, array, 4);
 	}
 	gettimeofday(&stop, NULL);
 	
@@ -166,18 +167,18 @@ int main(void){
 		
 		/********************* show the first few numbers *********************/
 		printf("hash 0x0000: 0x%016lx\n",
-			array_hash(0, hash_funcs[i], &zero, 1)
+			array_hash(HASH_SEED, hash_funcs[i], &zero, 1)
 		);
 		printf("hash 0x0001: 0x%016lx\n",
-			array_hash(0, hash_funcs[i], &one, 1)
+			array_hash(HASH_SEED, hash_funcs[i], &one, 1)
 		);
 		printf("hash 0x0002: 0x%016lx\n",
-			array_hash(0, hash_funcs[i], &two, 1)
+			array_hash(HASH_SEED, hash_funcs[i], &two, 1)
 		);
 		
 		// prove that file hashing works
 		printf("hash hash.h: 0x%016lx\n",
-			file_hash(0, hash_funcs[i], hashfile)
+			file_hash(HASH_SEED, hash_funcs[i], hashfile)
 		);
 		rewind(hashfile);
 		
