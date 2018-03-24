@@ -40,19 +40,19 @@
 /// The availible log levels
 typedef enum {
 	V_QUIET, ///< no output is printed to `stderr`
-	V_ERROR,
-	V_WARN,
-	V_NOTE,
-	V_INFO,
-	V_DEBUG,
-	V_TRACE,
-	V_NUM
+	V_ERROR, ///< print only errors
+	V_WARN,  ///< print errors and warnings
+	V_NOTE,  ///< print notices (default)
+	V_INFO,  ///< print information
+	V_DEBUG, ///< print debug output
+	V_TRACE, ///< Print program trace information
+	V_NUM    ///< the number of log levels, DO NOT USE
 } msg_log_lvl;
 
 /// Mode to determine if the file will be appended to or replaced
 typedef enum{
-	lm_append,
-	lm_replace
+	lm_append, ///< append to the end of any existing log file
+	lm_replace ///< overwrite any existing log file
 } msg_log_mode;
 
 typedef struct log_t * log_descriptor; ///< A log stream descriptor
@@ -64,11 +64,9 @@ typedef uint8_t flag_t; ///< flags for use in the log_descriptor
 /******************************************************************************/
 
 
-/// whether log file should be synced after each entry
-#define MF_LOG_SYNC (flag_t)0
-#define MF_LOG_DATE (flag_t)1 ///< whether log file should record the date
-/// whether log file should record seconds / useconds
-#define MF_LOG_USEC (flag_t)2
+#define MF_LOG_SYNC (flag_t)0 ///< sync log file after each entry
+#define MF_LOG_DATE (flag_t)1 ///< record the date in the log file
+#define MF_LOG_USEC (flag_t)2 ///< record seconds / useconds in the log file
 
 
 /******************************************************************************/
