@@ -3,9 +3,10 @@
 
 # Libraries
 *.a
+*.so
 
 # Executables
 test-data test-hash test-input test-msg
 
 # Other
-junk
+work/*

@@ -2,14 +2,16 @@
 #
 #	lib-util : A Utility Library
 #
-#	Copyright (c) 2016-2017 Ammon Dodson
+#	Copyright (c) 2016-2018 Ammon Dodson
 #	You should have received a copy of the licence terms with this software. If
 #	not, please visit the project homepage at:
 #	https://github.com/ammon0/lib-util
 #
 ################################################################################
 
+
 # Change these variables to point to the appropriate installation directories
+WORKDIR   :=./work
 INSTALLDIR:=$(HOME)/prg
 LIBDIR:=$(INSTALLDIR)/lib/util
 INCDIR:=$(INSTALLDIR)/include/util
@@ -31,67 +33,85 @@ CWARNINGS:=	-Wall -Wextra -pedantic \
 	-Wconversion -Wdisabled-optimization \
 	-Wpadded
 
-CFLAGS  := $(CWARNINGS) --std=c11 -g -O3 -I./
-
-headers:= \
-util/data.h util/input.h util/msg.h \
-util/hash.h util/types.h util/flags.h
-
-libraries:= libdata.so libinput.so libmsg.so
-tests    := test-hash test-input test-data test-msg
-
-allfiles:= $(headers) data.c test-data.c input.c test-input.c msg.c
-cleanfiles:= *.o *.a *.so test-data test-input test-hash test-msg
+CFLAGS:= $(CWARNINGS) --std=c11 -g -O3 -I./
 
 
-.PHONEY: install libs all
+############################### FILES AND FOLDERS ##############################
 
-all: libs test-hash test-input test-data test-msg
+# Don't change these
+include version.mk
+
+srcdir    :=./src
+headerdir :=./util
+
+headers   :=$(wildcard $(headerdir)/*.h)
+sources   :=$(wildcard $(srcdir)/*.c)
+allfiles  := $(headers) $(sources)
+
+libraries:=libdata libinput libmsg
+objects  :=data.o input.o msg.o
+tests    :=test-hash test-input test-data test-msg
+
+links    :=$(libraries)
+libraries:=$(addprefix $(WORKDIR)/, $(libraries) )
+objects  :=$(addprefix $(WORKDIR)/, $(objects) )
+tests    :=$(addprefix $(WORKDIR)/, $(tests) )
+test_links:=$(libraries)
+
+test_links:=$(addsuffix .$(MAJOR), $(test_links))
+libraries:=$(addsuffix .so.$(MAJOR).$(MINOR), $(libraries))
+
+#################################### PHONEY ####################################
+
+.PHONEY: libs all tests install
+all: libs tests
 libs: $(libraries)
+tests: $(tests)
+
+################################### LIBRARIES ##################################
+
+$(libraries): $(WORKDIR)/lib%.so.$(MAJOR).$(MINOR): $(WORKDIR)/%.o | $(WORKDIR)
+	$(CC) -shared -Wl,-soname,lib$*.$(MAJOR) -o $@ $^
+
+$(objects): $(WORKDIR)/%.o: $(srcdir)/%.c $(headerdir)/%.h | $(WORKDIR)
+	$(CC) $(CFLAGS) -c -fPIC -o $@ $<
+
+##################################### TESTS ####################################
+
+$(tests): $(WORKDIR)/%: $(srcdir)/%.c | $(libraries) $(test_links)
+	$(CC) $(CFLAGS) -o $@ $< -Wl,-rpath=$(WORKDIR) -L$(WORKDIR) -linput -ldata -lmsg
+	chmod +x $@
+
+$(test_links):$(WORKDIR)/lib%.$(MAJOR): $(WORKDIR)/lib%.so.$(MAJOR).$(MINOR) | $(WORKDIR)
+	ln -s lib$*.so.$(MAJOR).$(MINOR) $@
+	ln -s lib$*.so.$(MAJOR).$(MINOR) $(WORKDIR)/lib$*.so
+
+################################### INSTALL ####################################
 
 install: $(libraries) $(headers)
 	install -d $(LIBDIR) $(INCDIR)
-	for f in $(libraries); do install -C $$f $(LIBDIR); done
-	for f in $(headers)  ; do install -C $$f $(INCDIR); done
-
-test-hash: util/hash.h test-hash.c data.o input.o msg.o
-	$(CC) $(CFLAGS) -Wno-conversion -Wno-pointer-sign -o $@ test-hash.c data.o input.o msg.o -lm
-	chmod +x $@
-
-test-input: util/input.h test-input.c libinput.so
-	$(CC) $(CFLAGS) -o $@ -L./ test-input.c -linput
-	chmod +x $@
-
-test-data: util/data.h test-data.c libdata.so libmsg.so
-	$(CC) $(CFLAGS) -o $@ -L./ test-data.c -ldata -lmsg
-	chmod +x $@
-
-test-msg: util/msg.h test-msg.c libmsg.so
-	$(CC) $(CFLAGS) -o $@ -L./ test-msg.c -lmsg
-	chmod +x $@
-
-msg.o: msg.c util/msg.h util/flags.h
-	$(CC) $(CFLAGS) -Wno-conversion -c -fpic -o $@ $<
-
-lib%.so: %.o
-	$(CC) $(CFLAGS) -shared -o $@ $^
-#ar rcs $@ $^
-
-%.o: %.c util/%.h
-	$(CC) $(CFLAGS) -c -fpic -o $@ $<
-
+	for f in $(headers)  ; do install -m0640 -C $$f $(INCDIR); done
+	for f in $(libraries); do install -m0750 -C $$f $(LIBDIR); done
+	for f in $(links)    ; do \
+		ln -fs $$f.so.$(MAJOR).$(MINOR) $(LIBDIR)/$$f.so; \
+	done
+	ldconfig -nv $(LIBDIR)
 
 ################################## UTILITIES ###################################
 
-.PHONEY: clean todolist docs very-clean count
+# working directory
+$(WORKDIR):
+	mkdir -p $@
+
+.PHONEY: clean todolist docs clean-docs count
 
 docs: Doxyfile $(headers) README.md
 	doxygen Doxyfile
 
 clean:
-	rm -f $(cleanfiles)
+	rm -fr $(WORKDIR)
 
-very-clean: clean
+clean-docs:
 	rm -r ./docs
 
 todolist:
