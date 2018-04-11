@@ -2,6 +2,7 @@
 
 #include <util/types.h>
 #include <util/data.h>
+#include <util/msg.h>
 
 
 #include <stdio.h>
@@ -19,7 +20,8 @@ static inline const void * key(const void * data) {
 
 int main(void){
 	char * temp;
-	const char *first = "AAAA",
+	const char
+		*first  = "AAAA",
 		*second = "BBBB",
 		*third  = "CCCC",
 		*fourth = "DDDD";
@@ -28,6 +30,7 @@ int main(void){
 	DS circle  = DS_new_circular(sizeof(char*)                   );
 	DS dup_bst = DS_new_bst     (sizeof(char*), true , &key, &cmp);
 	DS ex_bst  = DS_new_bst     (sizeof(char*), false, &key, &cmp);
+	DS heap    = DS_new_heap    (sizeof(char*),              &cmp);
 	
 	typedef enum {DS_list, DS_circular_list, DS_bst, DS_hash} DS_type;
 	
@@ -182,7 +185,41 @@ int main(void){
 	
 	printf("\nEND LIST TESTS\n\n");
 	
-	printf("\n*** END OF TESTS ***\n\n");
+	/***************************** HEAP TESTS *********************************/
+	
+	msg_print(NULL, V_NOTE, "START HEAP TESTS\n\n");
+	
+	if(!DS_isempty(heap))
+		msg_print(NULL, V_ERROR, "empty heap reports nodes.\n");
+	
+	if(!DS_insert(heap, first))
+		msg_print(NULL, V_ERROR, "failed insert first\n");
+	if(!DS_insert(heap, second))
+		msg_print(NULL, V_ERROR, "failed insert second\n");
+	if(!DS_insert(heap, third))
+		msg_print(NULL, V_ERROR, "failed insert third\n");
+	if(!DS_insert(heap, fourth))
+		msg_print(NULL, V_ERROR, "failed insert fourth\n");
+	
+	if(DS_isempty(heap)) msg_print(NULL, V_ERROR, "heap misreports empty\n");
+	if(DS_count(heap) != 4) msg_print(NULL, V_ERROR, "heap insert miscount\n");
+	
+	msg_print(NULL, V_NOTE, "Dumping heap:\n");
+	DS_dump(heap);
+	
+	for(int i=0; i<4; i++){
+		printf("Count is: %d, ", DS_count(heap));
+		DS_remove(heap);
+	}
+	
+	if(!DS_isempty(heap)) msg_print(NULL, V_ERROR, "empty heap is not empty\n");
+	
+	DS_delete(heap);
+	
+	
+	msg_print(NULL, V_NOTE, "END HEAP TESTS\n\n");
+	
+	msg_print(NULL, V_NOTE,"\t*** END OF TESTS ***\n\n");
 	
 	return EXIT_SUCCESS;
 }

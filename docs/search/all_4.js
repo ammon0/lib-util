@@ -19,6 +19,8 @@ var searchData=
   ['ds_5flast',['DS_last',['../group__visit.html#ga62d6c18761a826c59622d25a4e435854',1,'data.h']]],
   ['ds_5fnew_5fbst',['DS_new_bst',['../group__new.html#ga3805de311146dbbe37529579981a70f3',1,'data.h']]],
   ['ds_5fnew_5fcircular',['DS_new_circular',['../group__new.html#gae00e28070a623af1c47bd6c45bdfe04e',1,'data.h']]],
+  ['ds_5fnew_5fhash',['DS_new_hash',['../group__new.html#ga4ed1b0272b063655f4fae47027312d65',1,'data.h']]],
+  ['ds_5fnew_5fheap',['DS_new_heap',['../group__new.html#gac86d4d924f6fb04dcb502a852148a87c',1,'data.h']]],
   ['ds_5fnew_5flist',['DS_new_list',['../group__new.html#ga558abc409e20bfbdedf1a25fb2346ab3',1,'data.h']]],
   ['ds_5fnext',['DS_next',['../group__visit.html#ga380ec859ac582b8fb874a16dfdd2d707',1,'data.h']]],
   ['ds_5fnq',['DS_nq',['../group__insert.html#ga6236e7db202987b2a038fe590fbbf55b',1,'data.h']]],

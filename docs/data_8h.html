@@ -139,6 +139,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3805de311146dbbe37529579981a70f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#ga3805de311146dbbe37529579981a70f3">DS_new_bst</a> (size_t data_size, bool duplicates_allowed, const void *(*key)(const void *data), <a class="el" href="types_8h.html#a965ad1fca4130c8801937fc77bddc999">imax</a>(*cmp_keys)(const void *left, const void *right))</td></tr>
 <tr class="memdesc:ga3805de311146dbbe37529579981a70f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new binary search tree.  <a href="group__new.html#ga3805de311146dbbe37529579981a70f3">More...</a><br /></td></tr>
 <tr class="separator:ga3805de311146dbbe37529579981a70f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4ed1b0272b063655f4fae47027312d65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#ga4ed1b0272b063655f4fae47027312d65">DS_new_hash</a> (size_t data_size, size_t key_size, size_t table_size, bool duplicates_allowed, const void *(*key)(const void *data), <a class="el" href="types_8h.html#a965ad1fca4130c8801937fc77bddc999">imax</a>(*cmp_keys)(const void *left, const void *right))</td></tr>
+<tr class="memdesc:ga4ed1b0272b063655f4fae47027312d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new hash table.  <a href="group__new.html#ga4ed1b0272b063655f4fae47027312d65">More...</a><br /></td></tr>
+<tr class="separator:ga4ed1b0272b063655f4fae47027312d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac86d4d924f6fb04dcb502a852148a87c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#gac86d4d924f6fb04dcb502a852148a87c">DS_new_heap</a> (size_t data_size, <a class="el" href="types_8h.html#a965ad1fca4130c8801937fc77bddc999">imax</a>(*cmp_data)(const void *left, const void *right))</td></tr>
+<tr class="memdesc:gac86d4d924f6fb04dcb502a852148a87c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new heap.  <a href="group__new.html#gac86d4d924f6fb04dcb502a852148a87c">More...</a><br /></td></tr>
+<tr class="separator:gac86d4d924f6fb04dcb502a852148a87c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06279ab0d94e5b3f2b16e48c30de8729"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a06279ab0d94e5b3f2b16e48c30de8729"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a06279ab0d94e5b3f2b16e48c30de8729">DS_delete</a> (<a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root)</td></tr>
 <tr class="memdesc:a06279ab0d94e5b3f2b16e48c30de8729"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete the data structure with its contents, and free its memory. <br /></td></tr>
@@ -245,7 +251,8 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <li><a class="el" href="group__new.html#ga558abc409e20bfbdedf1a25fb2346ab3" title="Create a new straight list. ">DS_new_list()</a></li>
 <li><a class="el" href="group__new.html#gae00e28070a623af1c47bd6c45bdfe04e" title="Create a new circular list. ">DS_new_circular()</a></li>
 <li><a class="el" href="group__new.html#ga3805de311146dbbe37529579981a70f3" title="Create a new binary search tree. ">DS_new_bst()</a></li>
-<li>DS_new_hash()</li>
+<li><a class="el" href="group__new.html#ga4ed1b0272b063655f4fae47027312d65" title="Create a new hash table. ">DS_new_hash()</a></li>
+<li><a class="el" href="group__new.html#gac86d4d924f6fb04dcb502a852148a87c" title="Create a new heap. ">DS_new_heap()</a></li>
 </ul>
 <h3>All Structures</h3>
 <ul>
@@ -324,6 +331,12 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <li><a class="el" href="group__insert.html#ga5390b657446b15f8397eb9705af3ca4a" title="Insert data in sort order, or at the current position ">DS_insert()</a></li>
 <li><a class="el" href="group__remove.html#ga877da7a87a9b87a69e2153a97abab91a" title="Removes the entry at the current position ">DS_remove()</a></li>
 <li><a class="el" href="group__visit.html#gac33b13e61fd47f989f61940fbb50d706" title="search for data by its key. ">DS_find()</a></li>
+<li><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7" title="visit the current node ">DS_current()</a></li>
+</ul>
+<h3>Heap</h3>
+<ul>
+<li><a class="el" href="group__insert.html#ga5390b657446b15f8397eb9705af3ca4a" title="Insert data in sort order, or at the current position ">DS_insert()</a></li>
+<li><a class="el" href="group__remove.html#ga877da7a87a9b87a69e2153a97abab91a" title="Removes the entry at the current position ">DS_remove()</a></li>
 <li><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7" title="visit the current node ">DS_current()</a> </li>
 </ul>
 </div><h2 class="groupheader">Function Documentation</h2>

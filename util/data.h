@@ -65,6 +65,7 @@
  *	*	DS_new_circular()
  *	*	DS_new_bst()
  *	*	DS_new_hash()
+ *	*	DS_new_heap()
  *
  *	### All Structures
  *	*	DS_flush()
@@ -135,6 +136,11 @@
  *	*	DS_find()
  *	*	DS_current()
  *
+ *	### Heap
+ *	*	DS_insert()
+ *	*	DS_remove()
+ *	*	DS_current()
+ *
  ******************************************************************************/
 
 
@@ -202,44 +208,52 @@ DS DS_new_bst(
 );
 
 
-/*	Create a new hash table.
+/**	Create a new hash table.
  *
- *	##Parameters
- *	### data_size
- *	* The size in bytes of the data being stored in this structure.
- *	* If you need to store variable length data you should store pointers in the
- *		data structure.
+ *	@param data_size The size in bytes of the data being stored in this
+ *	structure.  If you need to store variable length data you should store
+ *	pointers in the data structure.
+ *	@param key_size 0 indicates that the key is null terminated. Otherwise
+ *	indicates the size of the key.
+ *	@param table_size 0 indicates the default size. Otherwise indicates the size
+ *	of the hash table.
+ *	@param duplicates_allowed Non-zero if duplicate keys are allowed, zero
+ *	otherwise.
+ *	@param key Is used to extract a sort key from the data passed into the
+ *	structure.
+ *	@param cmp_keys A function to compare keys extracted by key(). It must return
+ *	<0 if left is ordered before right, >0 if left is ordered after right, and 0
+ *	if they are the same.
  *
- *	### key_size
- *	*	0 indicates that the key is null terminated
- *	*	Otherwise indicates the size of the key.
- *
- *	### table_size
- *	*	0 indicates the default size
- *	*	Otherwise indicates the size of the hash table
- *
- *	### duplicates_allowed
- *	Non-zero if duplicate keys are allowed, zero otherwise.
- *
- *	### key(const void * data)
- *	Is used to extract a sort key from the data passed into the structure.
- *
- *	### cmp_key(const void * left , const void * right)
- *	* A function to compare keys extracted by key()
- *	* It must return <0 if left is ordered before right, >0 if left is
- *		ordered after right, and 0 if they are the same.
- *
- *	##Results:
- *	Returns NULL on failure
+ *	@return NULL on failure
  */
-//DS DS_new_hash(
-//	size_t       data_size,
-//	size_t       key_size,
-//	size_t       table_size,
-//	bool         duplicates_allowed,
-//	const void * (*key)(const void * data),
-//	int          (*cmp_keys)(const void * left , const void * right)
-//);
+DS DS_new_hash(
+	size_t       data_size,
+	size_t       key_size,
+	size_t       table_size,
+	bool         duplicates_allowed,
+	const void * (*key)(const void * data),
+	imax         (*cmp_keys)(const void * left , const void * right)
+);
+
+
+/**	Create a new heap
+ *
+ *	@param data_size The size in bytes of the data being stored in this
+ *	structure. If you need to store variable length data you should store
+ *	pointers in the data structure.
+ *	@param cmp_data The function passed as `cmp_data` must take your data as a
+ *	parameter. It must return a signed integer indicating in what order the
+ *	data should be sorted. It must return <0 if left is ordered before right, >0
+ *	if left is ordered after right, and 0 if they are the same. If they are the
+ *	same then they will follow first-in-first-out.
+ *
+ *	@return `NULL` on failure
+ */
+DS DS_new_heap(
+	size_t data_size,
+	imax   (*cmp_data)(const void * left , const void * right)
+);
 
 
 //DS DS_new_tree(

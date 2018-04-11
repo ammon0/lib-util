@@ -38,7 +38,7 @@ typedef enum {
 	DS_list,
 	DS_circular_list,
 	DS_bst,
-	//DS_splay,
+	DS_heap,
 	DS_hash
 } DS_type;
 
@@ -117,7 +117,7 @@ inline static _node_pt _new_node(const DS const root){
 		new_node.l->prev = NULL;
 		break;
 	
-	
+	case DS_heap:
 	case DS_bst:
 		if (root->freelist.t){
 			new_node = root->freelist;
@@ -252,15 +252,40 @@ DS DS_new_bst(
 	return new_structure;
 }
 
+DS DS_new_heap(
+	size_t data_size,
+	imax    (*cmp_data)(const void * left , const void * right)
+){
+	DS new_structure;
+	
+	if (!cmp_data){
+		_error(_e_nsense);
+		return NULL;
+	}
+	
+	// Allocate space
+	new_structure= (DS) calloc(1, sizeof(struct _root));
+	if (new_structure == NULL) {
+		_error(_e_mem);
+		return NULL;
+	}
+	
+	new_structure->type      = DS_heap  ;
+	new_structure->data_size = data_size;
+	new_structure->count     = 0        ;
+	new_structure->cmp_keys  = cmp_data ;
+	
+	return new_structure;
+}
 
-DS DS_new_hash(
-	size_t       data_size,
-	size_t       key_size,
-	size_t       table_size,
-	bool         duplicates_allowed,
-	const void * (*key)(const void * data),
-	imax         (*cmp_keys)(const void * left , const void * right)
-);
+/*DS DS_new_hash(*/
+/*	size_t       data_size,*/
+/*	size_t       key_size,*/
+/*	size_t       table_size,*/
+/*	bool         duplicates_allowed,*/
+/*	const void * (*key)(const void * data),*/
+/*	imax         (*cmp_keys)(const void * left , const void * right)*/
+/*);*/
 
 DS DS_new_hash(
 	size_t       data_size,
@@ -325,6 +350,7 @@ inline void DS_flush (DS root){
 		}
 		return;
 	
+	case DS_heap:
 	case DS_bst:
 		while (root->freelist.t) {
 		dead_node = root->freelist;
@@ -366,6 +392,7 @@ bool DS_isleaf (const DS root){
 
 	switch (root->type){
 	case DS_bst          : break;
+	case DS_heap         :
 	case DS_hash         :
 	case DS_list         :
 	case DS_circular_list: _error(_e_nsense); return false;
@@ -388,28 +415,25 @@ void DS_dump (const DS root){
 	
 	switch (root->type){
 	case DS_list:
-	
 		while(this_node.l != NULL) {
 			printf("%s\n", (char*) this_node.l->data);
 			this_node.l = this_node.l->next;
 		}
+		break;
 	
-	break;
 	case DS_circular_list:
-	
 		if (this_node.l == NULL) break;
 		do {
 			printf("%s\n", (char*) this_node.l->data);
 			this_node.l = this_node.l->next;
 		} while (this_node.l != root->head.l);
+		break;
 	
-	break;
-	case DS_bst:
-	
+	case DS_heap:
+	case DS_bst :
 		if (this_node.t == NULL) break;
 		_print_node(root->head.t, 0);
-	
-	break;
+		break;
 	
 	case DS_hash: _error(_e_nimp); return;
 	
@@ -517,6 +541,7 @@ void * DS_insert (DS root, const void * data){
 		memcpy(new_node.t->data, data, root->data_size);
 		return new_node.t->data;
 	
+	case DS_heap:
 	case DS_hash: _error(_e_nimp); return NULL;
 	
 	default: _error(_e_invtype); return NULL;
@@ -535,6 +560,7 @@ void * DS_insert_first(DS root, const void * data){
 	case DS_list         : break;
 	case DS_hash         :
 	case DS_circular_list:
+	case DS_heap         :
 	case DS_bst          : _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
 	}
@@ -571,6 +597,7 @@ void * DS_insert_last (DS root, const void * data){
 	case DS_list         : break;
 	case DS_hash         :
 	case DS_circular_list:
+	case DS_heap         :
 	case DS_bst          : _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
 	}
@@ -678,6 +705,7 @@ const void * DS_remove(DS root){
 		root->current.l = root->current.l->next;
 		break;
 	
+	case DS_heap:
 	case DS_hash: _error(_e_nimp); return NULL;
 	
 	default: _error(_e_invtype); return NULL;
@@ -722,7 +750,7 @@ const void * DS_remove_first(DS root){
 		if (!root->head.l) root->tail.l = NULL;
 		
 		break;
-		
+	
 	case DS_bst:
 		parent_pt = &root->head.t;
 		
@@ -746,7 +774,8 @@ const void * DS_remove_first(DS root){
 				root->current.t = root->current.t->left;
 		
 		break;
-		
+	
+	case DS_heap         :
 	case DS_hash         :
 	case DS_circular_list: _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
@@ -807,9 +836,9 @@ const void * DS_remove_last (DS root){
 		if (root->current.t) // may have been the last node
 			while (root->current.t->right)
 				root->current.t = root->current.t->right;
-		
 		break;
 	
+	case DS_heap         :
 	case DS_hash         :
 	case DS_circular_list: _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
@@ -836,7 +865,9 @@ void * DS_find(const DS root, const void * key){
 	switch (root->type){
 	case DS_bst: break;
 	case DS_hash: _error(_e_nimp); return NULL;
-	case DS_list:
+	
+	case DS_heap         :
+	case DS_list         :
 	case DS_circular_list: _error(_e_nsense); return NULL;
 	default: _error(_e_invtype); return NULL;
 	}
@@ -878,6 +909,7 @@ void * DS_first(const DS root){ // visit the first node
 		root->current=root->head;
 		return root->current.l->data;
 	
+	case DS_heap         :
 	case DS_hash         :
 	case DS_circular_list: _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
@@ -903,6 +935,7 @@ void * DS_last(const DS root){ // visit the last node
 		root->current=root->tail;
 		return root->current.l->data;
 	
+	case DS_heap         :
 	case DS_hash         :
 	case DS_circular_list: _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
@@ -954,6 +987,7 @@ void * DS_next(const DS root){ // visit the next in-order node
 		}
 		else return root->current.l->data;
 	
+	case DS_heap:
 	case DS_hash: _error(_e_nsense); return NULL;
 	default     : _error(_e_invtype); return NULL;
 	}
@@ -1002,6 +1036,7 @@ void * DS_previous(const DS root){ // visit the previous in-order node
 		}
 		else return root->current.l->data;
 	
+	case DS_heap:
 	case DS_hash: _error(_e_nsense); return NULL;
 	default     : _error(_e_invtype); return NULL;
 	}
@@ -1017,9 +1052,10 @@ void * DS_current (DS root){ // visit the current node
 	
 	switch (root->type){
 	case DS_bst          : return root->current.t->data;
+	case DS_hash         :
 	case DS_list         :
 	case DS_circular_list: return root->current.l->data;
-	case DS_hash: _error(_e_nimp); return NULL;
+	case DS_heap         : return root->head.t->data;
 	default              : _error(_e_invtype); return NULL;
 	}
 }
@@ -1036,6 +1072,7 @@ void * DS_position(const DS root, const unsigned int position){
 	switch (root->type){
 	case DS_list         : break;
 	case DS_bst          :
+	case DS_heap         :
 	case DS_hash         :
 	case DS_circular_list: _error(_e_nsense); return NULL;
 	default              : _error(_e_invtype); return NULL;

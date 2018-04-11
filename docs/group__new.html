@@ -98,6 +98,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3805de311146dbbe37529579981a70f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#ga3805de311146dbbe37529579981a70f3">DS_new_bst</a> (size_t data_size, bool duplicates_allowed, const void *(*key)(const void *data), <a class="el" href="types_8h.html#a965ad1fca4130c8801937fc77bddc999">imax</a>(*cmp_keys)(const void *left, const void *right))</td></tr>
 <tr class="memdesc:ga3805de311146dbbe37529579981a70f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new binary search tree.  <a href="#ga3805de311146dbbe37529579981a70f3">More...</a><br /></td></tr>
 <tr class="separator:ga3805de311146dbbe37529579981a70f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4ed1b0272b063655f4fae47027312d65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#ga4ed1b0272b063655f4fae47027312d65">DS_new_hash</a> (size_t data_size, size_t key_size, size_t table_size, bool duplicates_allowed, const void *(*key)(const void *data), <a class="el" href="types_8h.html#a965ad1fca4130c8801937fc77bddc999">imax</a>(*cmp_keys)(const void *left, const void *right))</td></tr>
+<tr class="memdesc:ga4ed1b0272b063655f4fae47027312d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new hash table.  <a href="#ga4ed1b0272b063655f4fae47027312d65">More...</a><br /></td></tr>
+<tr class="separator:ga4ed1b0272b063655f4fae47027312d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac86d4d924f6fb04dcb502a852148a87c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#gac86d4d924f6fb04dcb502a852148a87c">DS_new_heap</a> (size_t data_size, <a class="el" href="types_8h.html#a965ad1fca4130c8801937fc77bddc999">imax</a>(*cmp_data)(const void *left, const void *right))</td></tr>
+<tr class="memdesc:gac86d4d924f6fb04dcb502a852148a87c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new heap.  <a href="#gac86d4d924f6fb04dcb502a852148a87c">More...</a><br /></td></tr>
+<tr class="separator:gac86d4d924f6fb04dcb502a852148a87c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Create a new data structure. </p>
@@ -153,6 +159,106 @@ Functions</h2></td></tr>
     <tr><td class="paramname">duplicates_allowed</td><td>Non-zero if duplicate keys are allowed, zero otherwise. </td></tr>
     <tr><td class="paramname">key</td><td>The function passed as <code>key</code> must take your data as a parameter, and return the sort key of your choice. </td></tr>
     <tr><td class="paramname">cmp_keys</td><td>Must be a function that takes as parameters the keys extracted by key(). It returns a signed integer indicating in what order the keys should be sorted. It must return &lt;0 if left is ordered before right, &gt;0 if left is ordered after right, and 0 if they are the same.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>NULL</code> on failure </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga4ed1b0272b063655f4fae47027312d65"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> DS_new_hash </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>data_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>key_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>table_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>duplicates_allowed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *(*)(const void *data)&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a965ad1fca4130c8801937fc77bddc999">imax</a>(*)(const void *left, const void *right)&#160;</td>
+          <td class="paramname"><em>cmp_keys</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a new hash table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data_size</td><td>The size in bytes of the data being stored in this structure. If you need to store variable length data you should store pointers in the data structure. </td></tr>
+    <tr><td class="paramname">key_size</td><td>0 indicates that the key is null terminated. Otherwise indicates the size of the key. </td></tr>
+    <tr><td class="paramname">table_size</td><td>0 indicates the default size. Otherwise indicates the size of the hash table. </td></tr>
+    <tr><td class="paramname">duplicates_allowed</td><td>Non-zero if duplicate keys are allowed, zero otherwise. </td></tr>
+    <tr><td class="paramname">key</td><td>Is used to extract a sort key from the data passed into the structure. </td></tr>
+    <tr><td class="paramname">cmp_keys</td><td>A function to compare keys extracted by key(). It must return &lt;0 if left is ordered before right, &gt;0 if left is ordered after right, and 0 if they are the same.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>NULL on failure </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gac86d4d924f6fb04dcb502a852148a87c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> DS_new_heap </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>data_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a965ad1fca4130c8801937fc77bddc999">imax</a>(*)(const void *left, const void *right)&#160;</td>
+          <td class="paramname"><em>cmp_data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a new heap. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data_size</td><td>The size in bytes of the data being stored in this structure. If you need to store variable length data you should store pointers in the data structure. </td></tr>
+    <tr><td class="paramname">cmp_data</td><td>The function passed as <code>cmp_data</code> must take your data as a parameter. It must return a signed integer indicating in what order the data should be sorted. It must return &lt;0 if left is ordered before right, &gt;0 if left is ordered after right, and 0 if they are the same. If they are the same then they will follow first-in-first-out.</td></tr>
   </table>
   </dd>
 </dl>
