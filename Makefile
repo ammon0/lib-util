@@ -79,7 +79,7 @@ $(objects): $(WORKDIR)/%.o: $(srcdir)/%.c $(headerdir)/%.h | $(WORKDIR)
 ##################################### TESTS ####################################
 
 $(tests): $(WORKDIR)/%: $(srcdir)/%.c | $(libraries) $(test_links)
-	$(CC) $(CFLAGS) -o $@ $< -Wl,-rpath=$(WORKDIR) -L$(WORKDIR) -linput -ldata -lmsg
+	$(CC) $(CFLAGS) -Wno-c++-compat -o $@ $< -Wl,-rpath=$(WORKDIR) -L$(WORKDIR) -linput -ldata -lmsg
 	chmod +x $@
 
 $(test_links):$(WORKDIR)/lib%.$(MAJOR): $(WORKDIR)/lib%.so.$(MAJOR).$(MINOR) | $(WORKDIR)

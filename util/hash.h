@@ -126,11 +126,11 @@ static inline uint64_t __attribute__((const, always_inline))
 hash_d(uint64_t hash, uint32_t c){
 	uint32_t a, b;
 	
-	// premix
-	c = (48271*c) % 0x1FFFFFFFFFFFF; // Lehmer random number generator
+	// premix with Lehmer random number generator
+	c = (uint32_t)((uint64_t)c*48271) % 0x7FFFFFFF; // M31
 	
 	a = hash&0xffffffff;
-	b = (hash>>32);
+	b = (uint32_t)(hash>>32);
 	
 	c-=a; c-=b; c ^= rotl32(a,13);
 	b-=c; b-=a; b ^= rotl32(c,13);
@@ -197,7 +197,7 @@ static uint64_t __attribute__((pure))
 string_hash(
 	uint64_t hash,
 	uint64_t (*fn)(uint64_t hash, uint32_t chunk),
-	const unsigned char * str
+	const char * str
 ){ return array_hash(hash, fn, str, strlen(str)); }
 
 

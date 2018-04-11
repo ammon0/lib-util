@@ -34,7 +34,7 @@ static inline const void * key(const void * data){
 }
 
 static inline imax cmp_key(const void * a, const void * b){
-	return (*(uint64_t*)b - *(uint64_t*)a);
+	return (*(int64_t*)b - *(int64_t*)a);
 }
 
 static void stage_strings(FILE * f){
@@ -75,7 +75,7 @@ collision_check(uint64_t (*hf)(uint64_t hash, uint32_t chunk)){
 		full_hash = string_hash(HASH_SEED, hf, strings[i]);
 		
 		// fold the hash
-		f.hash = (full_hash>>32) ^ full_hash;
+		f.hash = (uint32_t)((full_hash>>32) ^ full_hash);
 		
 		// check for collisions
 		entries++;
@@ -89,7 +89,7 @@ collision_check(uint64_t (*hf)(uint64_t hash, uint32_t chunk)){
 		full_hash = array_hash(HASH_SEED, hf, f.num_str, NUMSTR_SZ);
 		
 		// fold the hash
-		f.hash = (full_hash>>32) ^ full_hash;
+		f.hash = (uint32_t)((full_hash>>32) ^ full_hash);
 		
 		// check for collisions
 		entries++;
