@@ -34,6 +34,8 @@ int main(void){
 	
 	typedef enum {DS_list, DS_circular_list, DS_bst, DS_hash} DS_type;
 	
+	msg_set_verbosity(V_TRACE);
+	
 	printf("Size of (void*)       : %lu\n", sizeof(void*       ));
 	printf("Size of (size_t)      : %lu\n", sizeof(size_t      ));
 	printf("Size of (int)         : %lu\n", sizeof(int         ));
@@ -208,7 +210,8 @@ int main(void){
 	DS_dump(heap);
 	
 	for(int i=0; i<4; i++){
-		printf("Count is: %d, ", DS_count(heap));
+		msg_print(NULL, V_INFO, "Current is: %s\n", DS_current(heap));
+		msg_print(NULL, V_INFO, "Count is: %d\n", DS_count(heap));
 		DS_remove(heap);
 	}
 	

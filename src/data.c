@@ -65,7 +65,10 @@ struct _root {
 	_node_pt     tail;
 	_node_pt     current;
 	_node_pt     freelist;
-	const void * (*key)(const void * data);
+	union{
+		const void * (*key)(const void * data);
+		uint64_t     (*hash)(const void * data);
+	} keys;
 	imax         (*cmp_keys) (const void * left, const void * right);
 	size_t       data_size;
 	size_t       key_size;
@@ -241,7 +244,7 @@ DS DS_new_bst(
 		return NULL;
 	}
 	
-	new_structure->key      = key;
+	new_structure->keys.key = key;
 	new_structure->cmp_keys = cmp_keys;
 	
 	new_structure->type       = DS_bst;
@@ -278,26 +281,17 @@ DS DS_new_heap(
 	return new_structure;
 }
 
-/*DS DS_new_hash(*/
-/*	size_t       data_size,*/
-/*	size_t       key_size,*/
-/*	size_t       table_size,*/
-/*	bool         duplicates_allowed,*/
-/*	const void * (*key)(const void * data),*/
-/*	imax         (*cmp_keys)(const void * left , const void * right)*/
-/*);*/
+
 
 DS DS_new_hash(
-	size_t       data_size,
-	size_t       key_size,
-	size_t       table_size,
-	bool         duplicates_allowed,
-	const void * (*key)(const void * data),
-	imax         (*cmp_keys)(const void * left , const void * right)
+	size_t   data_size,
+	size_t   table_size,
+	bool     duplicates_allowed,
+	uint64_t (*hash_func)(const void * data)
 ){
 	DS new_structure;
 	
-	if (!key || !cmp_keys){
+	if (!hash_func){
 		_error(_e_nsense);
 		return NULL;
 	}
@@ -309,18 +303,14 @@ DS DS_new_hash(
 		return NULL;
 	}
 	
-	new_structure->key_size   = key_size;
-	new_structure->key      = key;
-	new_structure->cmp_keys = cmp_keys;
+	new_structure->type      = DS_hash           ;
+	new_structure->data_size = data_size         ;
+	new_structure->count     = 0                 ;
+	new_structure->dups      = duplicates_allowed;
+	new_structure->keys.hash = hash_func         ;
 	
 	if(!table_size) new_structure->table_size = DS_DEFAULT_TABLE_SZ;
 	new_structure->table_size = table_size;
-	
-	
-	new_structure->type       = DS_hash;
-	new_structure->data_size  = data_size;
-	new_structure->count      = 0        ;
-	new_structure->dups       = duplicates_allowed;
 	
 	return new_structure;
 }
@@ -445,9 +435,9 @@ void DS_dump (const DS root){
 /**************************** ADD TO DATA STRUCTURE ***************************/
 
 void * DS_insert (DS root, const void * data){
-	_node_pt new_node;
+	_node_pt    new_node;
 	_tnode_pt * position;
-	imax result;
+	imax        result;
 	
 	if (!root){
 		_error(_e_null);
@@ -511,8 +501,8 @@ void * DS_insert (DS root, const void * data){
 		while (*position){
 			root->current.t = *position;
 			result=root->cmp_keys(
-				root->key(data),
-				root->key(root->current.t->data)
+				root->keys.key(data),
+				root->keys.key(root->current.t->data)
 			);
 			if      (result <0) position = &(root->current.t->left);
 			else if (result >0) position = &(root->current.t->right);
@@ -542,6 +532,23 @@ void * DS_insert (DS root, const void * data){
 		return new_node.t->data;
 	
 	case DS_heap:
+		// allocate the node
+		new_node = _new_node(root);
+		if (new_node.t == NULL) return NULL;
+		
+		// insert node and set root->current
+		
+		// relocate root->tail
+		
+		// copy data
+		
+		// relocate root->current
+		
+		// the next position is one of the children of root->tail
+		if(!root->tail)
+		
+		
+		
 	case DS_hash: _error(_e_nimp); return NULL;
 	
 	default: _error(_e_invtype); return NULL;
@@ -874,7 +881,7 @@ void * DS_find(const DS root, const void * key){
 	
 	node = root->head.t;
 	while (node != NULL){
-		result=root->cmp_keys(key, root->key(node->data));
+		result=root->cmp_keys(key, root->keys.key(node->data));
 		
 		if      (result>0) node=node->right;
 		else if (result<0) node=node->left;
@@ -904,12 +911,13 @@ void * DS_first(const DS root){ // visit the first node
 		while(root->current.t->left != NULL)
 			root->current.t=root->current.t->left;
 		return root->current.t->data;
-		
+	
+	case DS_heap:
 	case DS_list:
 		root->current=root->head;
 		return root->current.l->data;
 	
-	case DS_heap         :
+	
 	case DS_hash         :
 	case DS_circular_list: _error(_e_nsense ); return NULL;
 	default              : _error(_e_invtype); return NULL;
@@ -1055,7 +1063,7 @@ void * DS_current (DS root){ // visit the current node
 	case DS_hash         :
 	case DS_list         :
 	case DS_circular_list: return root->current.l->data;
-	case DS_heap         : return root->head.t->data;
+	case DS_heap         : _error(_e_nsense); return NULL;
 	default              : _error(_e_invtype); return NULL;
 	}
 }
@@ -1083,5 +1091,38 @@ void * DS_position(const DS root, const unsigned int position){
 	
 	return root->current.l->data;
 }
+
+
+/******************************************************************************/
+//                              ARRAY BASE HEAPS
+/******************************************************************************/
+
+
+inline static _sift_up(
+	void   *array,
+	uint   start,
+	uint   stop,
+	size_t size,
+	imax   (*cmp_data)(const void * left , const void * right)
+){
+	
+}
+
+void DS_heapify(
+	void   *array,
+	size_t size,
+	uint   count,
+	imax   (*cmp_data)(const void * left , const void * right)
+){
+	for(uint i=0; i<count; i++) _sift_up(array, 0, i);
+	
+}
+
+void heap_sort(
+	void *buffer,
+	size_t size,
+	size_t length,
+	imax (*compare)(const void *left , const void *right)
+);
 
 

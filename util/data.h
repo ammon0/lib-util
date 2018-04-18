@@ -136,10 +136,11 @@
  *	*	DS_find()
  *	*	DS_current()
  *
- *	### Heap
+ *	### Heaps
  *	*	DS_insert()
- *	*	DS_remove()
- *	*	DS_current()
+ *	*	DS_remove() : Remove the entry at the top of the heap
+ *	*	DS_first() : View the entry at the top of the heap
+ *	*	DS_swap() : Remove the entry at the top of the heap and add a new one
  *
  ******************************************************************************/
 
@@ -213,27 +214,20 @@ DS DS_new_bst(
  *	@param data_size The size in bytes of the data being stored in this
  *	structure.  If you need to store variable length data you should store
  *	pointers in the data structure.
- *	@param key_size 0 indicates that the key is null terminated. Otherwise
- *	indicates the size of the key.
  *	@param table_size 0 indicates the default size. Otherwise indicates the size
  *	of the hash table.
  *	@param duplicates_allowed Non-zero if duplicate keys are allowed, zero
  *	otherwise.
- *	@param key Is used to extract a sort key from the data passed into the
- *	structure.
- *	@param cmp_keys A function to compare keys extracted by key(). It must return
- *	<0 if left is ordered before right, >0 if left is ordered after right, and 0
- *	if they are the same.
+ *	@param hash_func A function that takes your data as a parameter, and returns
+ *	the hash of that data.
  *
  *	@return NULL on failure
  */
 DS DS_new_hash(
-	size_t       data_size,
-	size_t       key_size,
-	size_t       table_size,
-	bool         duplicates_allowed,
-	const void * (*key)(const void * data),
-	imax         (*cmp_keys)(const void * left , const void * right)
+	size_t   data_size,
+	size_t   table_size,
+	bool     duplicates_allowed,
+	uint64_t (*hash_func)(const void * data)
 );
 
 
@@ -438,9 +432,20 @@ void * DS_current  (DS root); ///< visit the current node
  */
 void * DS_position (const DS root, const uint count);
 
-
-
 /**@}*/
+
+
+/******************************************************************************/
+//                              ARRAY BASE HEAPS
+/******************************************************************************/
+
+
+void DS_heapify(
+	void   *array,
+	size_t size,
+	size_t count,
+	imax   (*cmp_data)(const void * left , const void * right)
+);
 
 
 #ifdef __cplusplus
