@@ -150,16 +150,16 @@ msg_print(log_descriptor log, msg_log_lvl lvl, const char * format, ...){
 }
 
 void msg_set_flag(log_descriptor log, flag_t f){
-	flag_set(log->mode, f);
+	flag_set(log->mode, f,flag8);
 }
 
 void msg_unset_flag(log_descriptor log, flag_t f){
-	flag_unset(log->mode, f);
+	flag_unset(log->mode, f,flag8);
 }
 
 bool __attribute__((const))
 msg_check_flag(log_descriptor log, flag_t f){
-	return flag_status(log->mode, f);
+	return flag_status(log->mode, f, flag8);
 }
 
 

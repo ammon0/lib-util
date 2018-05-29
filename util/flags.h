@@ -21,15 +21,15 @@ typedef uint32_t flag32; ///< an 32-bit flag field
 typedef uint64_t flag64; ///< an 64-bit flag field
 
 /// Check the state of a bit flag
-#define flag_status(flags,pos) (!!( flags &   ((uint64_t)1<<pos) ))
+#define flag_status(flags,pos,type) (!!( flags &   (type)((uint64_t)1<<pos) ))
 
 /// Flip a bit flag
-#define flag_flip(  flags,pos)    ( flags ^=  ((uint64_t)1<<pos) )
+#define flag_flip(  flags,pos,type)    ( flags ^=  (type)((uint64_t)1<<pos) )
 
 /// Set a bit flag to 1 even if it alreay is set
-#define flag_set(   flags,pos)    ( flags |=  ((uint64_t)1<<pos) )
+#define flag_set(   flags,pos,type)    ( flags |=  (type)((uint64_t)1<<pos) )
 
 /// Clear a bit flag to 0 whether is was set or not
-#define flag_unset( flags,pos)    ( flags &= ~((uint64_t)1<<pos) )
+#define flag_unset( flags,pos,type)    ( flags &= (type)~((uint64_t)1<<pos) )
 
 

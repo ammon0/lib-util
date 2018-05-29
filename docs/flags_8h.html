@@ -100,22 +100,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a59f30b11367eee590b60b38fe6e4df0c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59f30b11367eee590b60b38fe6e4df0c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#a59f30b11367eee590b60b38fe6e4df0c">flag_status</a>(flags,  pos)&#160;&#160;&#160;(!!( flags &amp;   ((uint64_t)1&lt;&lt;pos) ))</td></tr>
-<tr class="memdesc:a59f30b11367eee590b60b38fe6e4df0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the state of a bit flag. <br /></td></tr>
-<tr class="separator:a59f30b11367eee590b60b38fe6e4df0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7e7f2d3f5c020daa1042b5a241c08be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab7e7f2d3f5c020daa1042b5a241c08be"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#ab7e7f2d3f5c020daa1042b5a241c08be">flag_flip</a>(flags,  pos)&#160;&#160;&#160;( flags ^=  ((uint64_t)1&lt;&lt;pos) )</td></tr>
-<tr class="memdesc:ab7e7f2d3f5c020daa1042b5a241c08be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip a bit flag. <br /></td></tr>
-<tr class="separator:ab7e7f2d3f5c020daa1042b5a241c08be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6ceafe5f3a10aa02c17ad06f704a026"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad6ceafe5f3a10aa02c17ad06f704a026"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#ad6ceafe5f3a10aa02c17ad06f704a026">flag_set</a>(flags,  pos)&#160;&#160;&#160;( flags |=  ((uint64_t)1&lt;&lt;pos) )</td></tr>
-<tr class="memdesc:ad6ceafe5f3a10aa02c17ad06f704a026"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a bit flag to 1 even if it alreay is set. <br /></td></tr>
-<tr class="separator:ad6ceafe5f3a10aa02c17ad06f704a026"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f70524a7971f35ca570a6023e0e5eb8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0f70524a7971f35ca570a6023e0e5eb8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#a0f70524a7971f35ca570a6023e0e5eb8">flag_unset</a>(flags,  pos)&#160;&#160;&#160;( flags &amp;= ~((uint64_t)1&lt;&lt;pos) )</td></tr>
-<tr class="memdesc:a0f70524a7971f35ca570a6023e0e5eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear a bit flag to 0 whether is was set or not. <br /></td></tr>
-<tr class="separator:a0f70524a7971f35ca570a6023e0e5eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad283d4987900a30b4a9467fbac1dc01c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad283d4987900a30b4a9467fbac1dc01c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#ad283d4987900a30b4a9467fbac1dc01c">flag_status</a>(flags,  pos,  type)&#160;&#160;&#160;(!!( flags &amp;   (type)((uint64_t)1&lt;&lt;pos) ))</td></tr>
+<tr class="memdesc:ad283d4987900a30b4a9467fbac1dc01c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the state of a bit flag. <br /></td></tr>
+<tr class="separator:ad283d4987900a30b4a9467fbac1dc01c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8914ae92cf6a5abb886ea0872df6d8b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8914ae92cf6a5abb886ea0872df6d8b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#ab8914ae92cf6a5abb886ea0872df6d8b">flag_flip</a>(flags,  pos,  type)&#160;&#160;&#160;( flags ^=  (type)((uint64_t)1&lt;&lt;pos) )</td></tr>
+<tr class="memdesc:ab8914ae92cf6a5abb886ea0872df6d8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip a bit flag. <br /></td></tr>
+<tr class="separator:ab8914ae92cf6a5abb886ea0872df6d8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9938b41a9fe69ada697f86a1dae3f929"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9938b41a9fe69ada697f86a1dae3f929"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#a9938b41a9fe69ada697f86a1dae3f929">flag_set</a>(flags,  pos,  type)&#160;&#160;&#160;( flags |=  (type)((uint64_t)1&lt;&lt;pos) )</td></tr>
+<tr class="memdesc:a9938b41a9fe69ada697f86a1dae3f929"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a bit flag to 1 even if it alreay is set. <br /></td></tr>
+<tr class="separator:a9938b41a9fe69ada697f86a1dae3f929"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af43746ed9fe57eac37a4b9a6e374f482"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af43746ed9fe57eac37a4b9a6e374f482"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flags_8h.html#af43746ed9fe57eac37a4b9a6e374f482">flag_unset</a>(flags,  pos,  type)&#160;&#160;&#160;( flags &amp;= (type)~((uint64_t)1&lt;&lt;pos) )</td></tr>
+<tr class="memdesc:af43746ed9fe57eac37a4b9a6e374f482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear a bit flag to 0 whether is was set or not. <br /></td></tr>
+<tr class="separator:af43746ed9fe57eac37a4b9a6e374f482"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
