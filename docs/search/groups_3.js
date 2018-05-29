@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['view_20a_20data_20entry',['View a Data Entry',['../group__visit.html',1,'']]]
+  ['remove_20data_20from_20a_20structure',['Remove Data from a Structure',['../group__remove.html',1,'']]]
 ];

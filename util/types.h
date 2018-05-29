@@ -52,14 +52,30 @@ typedef unsigned char uchar; ///< an unsigned character
 
 /// A type to simply indicate success or failure
 typedef enum{
-	success, ///< indicates the function call was successful
-	failure  ///< indicates the function call failed
+	r_success, ///< indicates the function call was successful
+	r_failure  ///< indicates the function call failed
 } return_t;
 
 /**	RETURN can be used as the return type of a function so that a warning is
  *	issued if the return value is ignored.
  */
 #define RETURN return_t __attribute__((warn_unused_result))
+
+
+/** @defgroup deprecated Mark some standard library functions as deprecated
+ *	@{
+ */
+
+/// There are few safe use cases for sprintf()
+int   sprintf(char *, const char *,...) __attribute__ ((deprecated));
+/// There is no way to use gets safely
+char *gets   (char *                  ) __attribute__ ((deprecated));
+/// Use strncat() instead
+char *strcat (char *, const char *    ) __attribute__ ((deprecated));
+/// Use strncpy() instead
+char *strcpy (char *, const char *    ) __attribute__ ((deprecated));
+
+/** @} */
 
 #endif // _TYPES_H
 

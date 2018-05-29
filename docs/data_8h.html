@@ -139,9 +139,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3805de311146dbbe37529579981a70f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#ga3805de311146dbbe37529579981a70f3">DS_new_bst</a> (size_t data_size, bool duplicates_allowed, const void *(*key)(const void *data), <a class="el" href="types_8h.html#a965ad1fca4130c8801937fc77bddc999">imax</a>(*cmp_keys)(const void *left, const void *right))</td></tr>
 <tr class="memdesc:ga3805de311146dbbe37529579981a70f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new binary search tree.  <a href="group__new.html#ga3805de311146dbbe37529579981a70f3">More...</a><br /></td></tr>
 <tr class="separator:ga3805de311146dbbe37529579981a70f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4ed1b0272b063655f4fae47027312d65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#ga4ed1b0272b063655f4fae47027312d65">DS_new_hash</a> (size_t data_size, size_t key_size, size_t table_size, bool duplicates_allowed, const void *(*key)(const void *data), <a class="el" href="types_8h.html#a965ad1fca4130c8801937fc77bddc999">imax</a>(*cmp_keys)(const void *left, const void *right))</td></tr>
-<tr class="memdesc:ga4ed1b0272b063655f4fae47027312d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new hash table.  <a href="group__new.html#ga4ed1b0272b063655f4fae47027312d65">More...</a><br /></td></tr>
-<tr class="separator:ga4ed1b0272b063655f4fae47027312d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cf5f1e6980654f6ad644b20b4158c87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#ga9cf5f1e6980654f6ad644b20b4158c87">DS_new_hash</a> (size_t data_size, size_t table_size, bool duplicates_allowed, uint64_t(*hash_func)(const void *data))</td></tr>
+<tr class="memdesc:ga9cf5f1e6980654f6ad644b20b4158c87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new hash table.  <a href="group__new.html#ga9cf5f1e6980654f6ad644b20b4158c87">More...</a><br /></td></tr>
+<tr class="separator:ga9cf5f1e6980654f6ad644b20b4158c87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac86d4d924f6fb04dcb502a852148a87c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__new.html#gac86d4d924f6fb04dcb502a852148a87c">DS_new_heap</a> (size_t data_size, <a class="el" href="types_8h.html#a965ad1fca4130c8801937fc77bddc999">imax</a>(*cmp_data)(const void *left, const void *right))</td></tr>
 <tr class="memdesc:gac86d4d924f6fb04dcb502a852148a87c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new heap.  <a href="group__new.html#gac86d4d924f6fb04dcb502a852148a87c">More...</a><br /></td></tr>
 <tr class="separator:gac86d4d924f6fb04dcb502a852148a87c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -220,6 +220,15 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <tr class="memitem:ga643641939f25f4cb4c4beea2d9aec46c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__visit.html#ga643641939f25f4cb4c4beea2d9aec46c">DS_position</a> (const <a class="el" href="data_8h.html#aee12c1a271edf472e92e4948bbde0f77">DS</a> root, const <a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> count)</td></tr>
 <tr class="memdesc:ga643641939f25f4cb4c4beea2d9aec46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit the entry that is a specific count from the beginning of the structure.  <a href="group__visit.html#ga643641939f25f4cb4c4beea2d9aec46c">More...</a><br /></td></tr>
 <tr class="separator:ga643641939f25f4cb4c4beea2d9aec46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac1c6fe96e4cd77b96225362b46d5795"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#aac1c6fe96e4cd77b96225362b46d5795">DS_sort</a> (void *buffer, size_t count, size_t size, int(*compare)(const void *left, const void *right))</td></tr>
+<tr class="memdesc:aac1c6fe96e4cd77b96225362b46d5795"><td class="mdescLeft">&#160;</td><td class="mdescRight">sort an array adaptive, stable  <a href="#aac1c6fe96e4cd77b96225362b46d5795">More...</a><br /></td></tr>
+<tr class="separator:aac1c6fe96e4cd77b96225362b46d5795"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a736b3368b06cd01ce1e955d9437d367c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a736b3368b06cd01ce1e955d9437d367c">DS_memswap</a> (void *a, void *b, size_t size)</td></tr>
+<tr class="memdesc:a736b3368b06cd01ce1e955d9437d367c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swap the contents of two regions of memory.  <a href="#a736b3368b06cd01ce1e955d9437d367c">More...</a><br /></td></tr>
+<tr class="separator:a736b3368b06cd01ce1e955d9437d367c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8830778eca9efe367a6f74914a58be64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="data_8h.html#a8830778eca9efe367a6f74914a58be64">DS_heapify</a> (void *buffer, size_t count, size_t size, int(*compare)(const void *left, const void *right))</td></tr>
+<tr class="memdesc:a8830778eca9efe367a6f74914a58be64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Heapify an array Reorders an array so as to mean the heap invariant.  <a href="#a8830778eca9efe367a6f74914a58be64">More...</a><br /></td></tr>
+<tr class="separator:a8830778eca9efe367a6f74914a58be64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A generic data structures library for C development. </p>
@@ -251,7 +260,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <li><a class="el" href="group__new.html#ga558abc409e20bfbdedf1a25fb2346ab3" title="Create a new straight list. ">DS_new_list()</a></li>
 <li><a class="el" href="group__new.html#gae00e28070a623af1c47bd6c45bdfe04e" title="Create a new circular list. ">DS_new_circular()</a></li>
 <li><a class="el" href="group__new.html#ga3805de311146dbbe37529579981a70f3" title="Create a new binary search tree. ">DS_new_bst()</a></li>
-<li><a class="el" href="group__new.html#ga4ed1b0272b063655f4fae47027312d65" title="Create a new hash table. ">DS_new_hash()</a></li>
+<li><a class="el" href="group__new.html#ga9cf5f1e6980654f6ad644b20b4158c87" title="Create a new hash table. ">DS_new_hash()</a></li>
 <li><a class="el" href="group__new.html#gac86d4d924f6fb04dcb502a852148a87c" title="Create a new heap. ">DS_new_heap()</a></li>
 </ul>
 <h3>All Structures</h3>
@@ -333,11 +342,12 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <li><a class="el" href="group__visit.html#gac33b13e61fd47f989f61940fbb50d706" title="search for data by its key. ">DS_find()</a></li>
 <li><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7" title="visit the current node ">DS_current()</a></li>
 </ul>
-<h3>Heap</h3>
+<h3>Heaps</h3>
 <ul>
 <li><a class="el" href="group__insert.html#ga5390b657446b15f8397eb9705af3ca4a" title="Insert data in sort order, or at the current position ">DS_insert()</a></li>
-<li><a class="el" href="group__remove.html#ga877da7a87a9b87a69e2153a97abab91a" title="Removes the entry at the current position ">DS_remove()</a></li>
-<li><a class="el" href="group__visit.html#gaccd54c18ec22fc4f757fb94687fb13a7" title="visit the current node ">DS_current()</a> </li>
+<li><a class="el" href="group__remove.html#ga877da7a87a9b87a69e2153a97abab91a" title="Removes the entry at the current position ">DS_remove()</a> : Remove the entry at the top of the heap</li>
+<li><a class="el" href="group__visit.html#ga6cc7722834e766ed57895f1d1460ac60" title="visit the first node ">DS_first()</a> : View the entry at the top of the heap</li>
+<li>DS_swap() : Remove the entry at the top of the heap and add a new one </li>
 </ul>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="afa5865b5c5c30cf28f9a71780227cd49"></a>
@@ -382,6 +392,146 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <p>Removing nodes from the structure does not immediately release the occupied memory. This memory is cached for quick reuse. This command frees that cached memory. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">root</td><td>a data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a8830778eca9efe367a6f74914a58be64"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DS_heapify </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int(*)(const void *left, const void *right)&#160;</td>
+          <td class="paramname"><em>compare</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Heapify an array Reorders an array so as to mean the heap invariant. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>the array to be sorted </td></tr>
+    <tr><td class="paramname">count</td><td>the number of elements in the array </td></tr>
+    <tr><td class="paramname">size</td><td>the size in bytes of each array element </td></tr>
+    <tr><td class="paramname">compare</td><td>a function for comparing array elements. It returns a signed integer indicating in what order the keys should be sorted. It must return &lt;0 if left is ordered b </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a736b3368b06cd01ce1e955d9437d367c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DS_memswap </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Swap the contents of two regions of memory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>A pointer to the region of memory to be swapped with b </td></tr>
+    <tr><td class="paramname">b</td><td>A pointer to the region of memory to be swapped with a </td></tr>
+    <tr><td class="paramname">size</td><td>The size in bytes of the regions to be swapped </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aac1c6fe96e4cd77b96225362b46d5795"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DS_sort </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int(*)(const void *left, const void *right)&#160;</td>
+          <td class="paramname"><em>compare</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sort an array adaptive, stable </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>the array to be sorted </td></tr>
+    <tr><td class="paramname">count</td><td>the number of elements in the array </td></tr>
+    <tr><td class="paramname">size</td><td>the size in bytes of each array element </td></tr>
+    <tr><td class="paramname">compare</td><td>a function for comparing array elements. It returns a signed integer indicating in what order the keys should be sorted. It must return &lt;0 if left is ordered before right, &gt;0 if left is ordered after right, and 0 if they are the same. </td></tr>
   </table>
   </dd>
 </dl>

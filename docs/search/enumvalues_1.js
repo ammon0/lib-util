@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['lm_5fappend',['lm_append',['../msg_8h.html#a698a90fa390078497c18f017258a78f6a095efb523c3ba006e8b64c6bdaf89db7',1,'msg.h']]],
-  ['lm_5freplace',['lm_replace',['../msg_8h.html#a698a90fa390078497c18f017258a78f6adbb765a7e7b9a24ce1fc871f84729902',1,'msg.h']]]
+  ['r_5ffailure',['r_failure',['../types_8h.html#a387664de0ac452f11abed4a7d9c2cc5dac1d0ca99b5248a01d5b7ddf15efd61f8',1,'types.h']]],
+  ['r_5fsuccess',['r_success',['../types_8h.html#a387664de0ac452f11abed4a7d9c2cc5da0ba04903278341e2cbe8dc63f8454bc8',1,'types.h']]]
 ];

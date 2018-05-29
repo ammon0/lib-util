@@ -5,9 +5,9 @@ var indexSectionsWithContent =
   2: "adfghmrs",
   3: "dfilu",
   4: "mr",
-  5: "flsv",
+  5: "lrv",
   6: "_bfimru",
-  7: "acrv",
+  7: "acmrv",
   8: "l"
 };
 

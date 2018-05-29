@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['failure',['failure',['../types_8h.html#a387664de0ac452f11abed4a7d9c2cc5da75d6cb8119712d486737f0341231e7b9',1,'types.h']]],
   ['file_5fhash',['file_hash',['../hash_8h.html#a5f5eead6f684d0618eba1937aeb08bdd',1,'hash.h']]],
   ['flag16',['flag16',['../flags_8h.html#af98f01ca3264b3f3c34e9fd2519e1a60',1,'flags.h']]],
   ['flag32',['flag32',['../flags_8h.html#a7f4b8e19c43305657b8e18bf4636e0ef',1,'flags.h']]],

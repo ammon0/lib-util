@@ -92,7 +92,7 @@ rotl64 ( uint64_t x, int8_t r ){
 */
 
 
-/// A hash function based on [FVN-1a](http://www.isthe.com/chongo/tech/comp/fnv/)
+/// A hash function based on [FNV-1a](http://www.isthe.com/chongo/tech/comp/fnv/)
 static inline uint64_t __attribute__((const, always_inline))
 hash_a(uint64_t hash, uint32_t chunk){
 	return (hash ^ chunk) * 0x100000001b3;

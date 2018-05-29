@@ -108,7 +108,7 @@ return_t msg_log_open (log_descriptor log, msg_log_mode mode, const char *path){
 	log = (log_descriptor) malloc(sizeof(struct log_t));
 	if(!log){
 		msg_print(NULL, V_ERROR, "log_open(): could not allocate memory");
-		return failure;
+		return r_failure;
 	}
 	
 	if(mode == lm_append) log->fd = fopen(path, "a");
@@ -117,11 +117,11 @@ return_t msg_log_open (log_descriptor log, msg_log_mode mode, const char *path){
 	if(!log->fd){
 		msg_print(NULL, V_ERROR, "log_open(): could not open file");
 		free(log);
-		return failure;
+		return r_failure;
 	}
 	
 	_log_to_file(log->fd, V_INFO, "<<<<<< Log start >>>>>>", NULL);
-	return success;
+	return r_success;
 }
 
 void msg_log_close(log_descriptor log){

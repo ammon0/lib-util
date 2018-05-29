@@ -85,7 +85,7 @@ collision_check(uint64_t (*hf)(uint64_t hash, uint32_t chunk)){
 	
 	for(uint j =0; j<SEQ_LIM; j++){
 		// hash the number
-		sprintf(f.num_str, "%015u", j);
+		sprintf(f.num_str, "%015u", j); // safe use of sprintf()
 		full_hash = array_hash(HASH_SEED, hf, f.num_str, NUMSTR_SZ);
 		
 		// fold the hash
@@ -118,7 +118,7 @@ static void time_check(uint64_t (*hf)(uint64_t hash, uint32_t chunk)){
 	
 	// hash numbers
 	for(uint32_t j =0; j<TC_COUNT; j++){
-		sprintf(array, "%015u", j);
+		sprintf(array, "%015u", j); // this is a safe use of sprintf()
 		full_hash += array_hash(HASH_SEED, hf, array, 4);
 	}
 	gettimeofday(&stop, NULL);
