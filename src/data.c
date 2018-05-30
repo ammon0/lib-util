@@ -545,7 +545,7 @@ void * DS_insert (DS root, const void * data){
 		// relocate root->current
 		
 		// the next position is one of the children of root->tail
-		if(!root->tail)
+		//if(!root->tail)
 		
 		
 		
@@ -1094,35 +1094,169 @@ void * DS_position(const DS root, const unsigned int position){
 
 
 /******************************************************************************/
-//                              ARRAY BASE HEAPS
+//                              ARRAY UTILITIES
 /******************************************************************************/
 
 
-inline static _sift_up(
-	void   *array,
-	uint   start,
-	uint   stop,
-	size_t size,
-	imax   (*cmp_data)(const void * left , const void * right)
-){
+#define _at(A) ((uint8_t*)buffer+(A*size))
+
+#define CACHE_SZ ((size_t)1<<15)
+
+void DS_memswap(void *a, void *b, size_t size){
+	uint64_t temp;
+	
+	if(size & 1){
+		temp = ((uint8_t*)a)[size-1];
+		((uint8_t*)a)[size-1] = ((uint8_t*)b)[size-1];
+		((uint8_t*)b)[size-1] = (uint8_t)temp;
+	}
+	size>>=1;
+	
+	if(size & 1){
+		temp = ((uint16_t*)a)[size-1];
+		((uint16_t*)a)[size-1] = ((uint16_t*)b)[size-1];
+		((uint16_t*)b)[size-1] = (uint16_t)temp;
+	}
+	size>>=1;
+	
+	if(size & 1){
+		temp = ((uint32_t*)a)[size-1];
+		((uint32_t*)a)[size-1] = ((uint32_t*)b)[size-1];
+		((uint32_t*)b)[size-1] = (uint32_t)temp;
+	}
+	size>>=1;
+	
+	while(size){
+		size--;
+		temp = ((uint64_t*)a)[size-1];
+		((uint64_t*)a)[size-1] = ((uint64_t*)b)[size-1];
+		((uint64_t*)b)[size-1] = temp;
+	}
 	
 }
+
+/*static inline void _merge(*/
+/*	void *buffer,*/
+/*	size_t idx_l,*/
+/*	size_t idx_r,*/
+/*	size_t idx_end,*/
+/*	size_t size,*/
+/*	int (*compare)(const void *left, const void *right)*/
+/*){*/
+/*	while(){*/
+/*		int r=compare(_at(idx_l), _at(idx_r));*/
+/*		*/
+/*		if(r<=0) idx_l++;*/
+/*		else */
+/*	}*/
+/*}*/
+
+/*static inline void _insertion_sort(*/
+/*	void *buffer,*/
+/*	size_t count,*/
+/*	size_t size,*/
+/*	int (*compare)(const void *left, const void *right)*/
+/*){*/
+/*	size_t i, j;*/
+/*	*/
+/*	// efficient for small data sizes and nearly sorted lists*/
+/*	for(i = 1; i<count; i++){*/
+/*		if(compare(_at(i-1), _at(i))>0){*/
+/*			j=i-1;*/
+/*			do DS_memswap(_at(j), _at(j+1), size);*/
+/*			while(j-- && compare(_at(j), _at(j+1))>0);*/
+/*		}*/
+/*	}*/
+/*}*/
+
+
+/*void DS_sort(*/
+/*	void *buffer,*/
+/*	size_t count,*/
+/*	size_t size,*/
+/*	int (*compare)(const void *left, const void *right)*/
+/*){*/
+/*	size_t total_sz = count*size;*/
+/*	size_t run_count = CACHE_SZ / size;*/
+/*	size_t full_runs = count / run_count;*/
+/*	size_t i;*/
+/*	*/
+/*	*/
+/*	// first sort cache sized runs. I could multithread this part*/
+/*	for(i=0; i<full_runs; i++)*/
+/*		_insertion_sort(_at(i*run_count), run_count, size, compare);*/
+/*	*/
+/*	// sort the stragglers*/
+/*	_insertion_sort(_at(i*run_count), count-i*run_count, size, compare);*/
+/*	*/
+/*	while(run_count < count){*/
+/*		_merge*/
+/*	}*/
+/*	*/
+/*}*/
+
+/***************************** ARRAY BASED HEAPS ******************************/
+
+#define _heap_left(A) (A*2+1)
+#define _heap_right(A) (A*2+2)
+#define _heap_parent(A) ((A-1)/2)
+
+inline static void _sift_down(
+	const void   *buffer,
+	      size_t start, // index of the element to sift down, <stop
+	const size_t stop,  // how far to sift down
+	const size_t size,
+	int    (*compare)(const void *left, const void *right)
+){
+	size_t smallest, left;
+	
+	while(_heap_left(start) <= stop){
+		left = _heap_left(start);
+		smallest = start;
+		
+		if( compare(_at(smallest),_at(left)) > 0 ) // if left child is smaller
+			smallest = left;
+		
+		if(left+1 <= stop && compare(_at(smallest),_at(left+1))>0)
+			smallest=left+1;
+		
+		if(smallest == start) return; // both children are in order
+		else DS_memswap(_at(start), _at(smallest), size);
+		start = smallest;
+	}
+	
+}
+
+inline static void _sift_up(
+	const void   *buffer,
+	const size_t stop,    // how far to sift up, <element
+	      size_t element, // index of the element to sift up
+	const size_t size,
+	int    (*compare)(const void *left, const void *right)
+){
+	size_t parent;
+	
+	parent = _heap_parent(element);
+	while(element >= stop && compare(_at(parent), _at(element)) >0){
+		DS_memswap(_at(parent), _at(element), size);
+		element = parent;
+		parent = _heap_parent(element);
+	}
+}
+
 
 void DS_heapify(
-	void   *array,
+	void   *buffer,
+	size_t count,
 	size_t size,
-	uint   count,
-	imax   (*cmp_data)(const void * left , const void * right)
+	int    (*compare)(const void *left, const void *right)
 ){
-	for(uint i=0; i<count; i++) _sift_up(array, 0, i);
+	size_t start = _heap_parent(count-1);
+	
+	do{
+		_sift_down(buffer, start, count-1, size, compare);
+	} while(start-- != 0);
 	
 }
-
-void heap_sort(
-	void *buffer,
-	size_t size,
-	size_t length,
-	imax (*compare)(const void *left , const void *right)
-);
 
 

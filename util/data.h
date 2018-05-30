@@ -436,15 +436,56 @@ void * DS_position (const DS root, const uint count);
 
 
 /******************************************************************************/
+//                               ARRAY UTILITIES
+/******************************************************************************/
+
+
+///** sort an array
+// *	adaptive, stable
+// *
+// *	@param buffer the array to be sorted
+// *	@param count the number of elements in the array
+// *	@param size the size in bytes of each array element
+// *	@param compare a function for comparing array elements. It returns a signed
+// *	integer indicating in what order the keys should be sorted. It must return
+// *	<0 if left is ordered before right, >0 if left is ordered after right, and 0
+// *	if they are the same.
+// */
+//void DS_sort(
+//	void *buffer,
+//	size_t count,
+//	size_t size,
+//	int (*compare)(const void *left, const void *right)
+//);
+
+/**	Swap the contents of two regions of memory
+ *	
+ *	@param a A pointer to the region of memory to be swapped with b
+ *	@param b A pointer to the region of memory to be swapped with a
+ *	@param size The size in bytes of the regions to be swapped
+ */
+void DS_memswap(void *a, void *b, size_t size);
+
+/******************************************************************************/
 //                              ARRAY BASE HEAPS
 /******************************************************************************/
 
 
+/**	Heapify an array
+ *	Reorders an array so as to mean the heap invariant.
+ *
+ *	@param buffer the array to be sorted
+ *	@param count the number of elements in the array
+ *	@param size the size in bytes of each array element
+ *	@param compare a function for comparing array elements. It returns a signed
+ *	integer indicating in what order the keys should be sorted. It must return
+ *	<0 if left is ordered b
+ */
 void DS_heapify(
-	void   *array,
-	size_t size,
+	void   *buffer,
 	size_t count,
-	imax   (*cmp_data)(const void * left , const void * right)
+	size_t size,
+	int    (*compare)(const void *left, const void *right)
 );
 
 
