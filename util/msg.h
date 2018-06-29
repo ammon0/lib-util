@@ -25,8 +25,8 @@
  ******************************************************************************/
 
 
-#ifndef _MESSAGE_H
-#define _MESSAGE_H
+#ifndef _MSG_H
+#define _MSG_H
 
 
 #include <util/types.h>
@@ -104,10 +104,21 @@ void msg_unset_flag(log_descriptor log, flag_t f);
 /// check if a flag is set on the log_descriptor
 bool msg_check_flag(log_descriptor log, flag_t f);
 
+/**	Optimized program trace
+ *	msg_print() is implemented as a macro that expands to nothing when DEBUG is
+ *	not defined. This could be useful for speed critical components of a program.
+ */
+#ifdef DEBUG
+	#define msg_trace(log, format, ...) \
+	msg_print(log, V_TRACE, format, __VA_ARGS__)
+#else
+	#define msg_trace(log, format, ...)
+#endif
+
 #ifdef __cplusplus
 	}
 #endif
 
-#endif // _MESSAGE_H
+#endif // _MSG_H
 
 
