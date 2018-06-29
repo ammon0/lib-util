@@ -13,5 +13,6 @@ var searchData=
   ['msg_5fprint',['msg_print',['../msg_8h.html#a98479b9c051805012151f66c842d7e2d',1,'msg.h']]],
   ['msg_5fset_5fflag',['msg_set_flag',['../msg_8h.html#a95062f020078e65859e2ead87ec8eeca',1,'msg.h']]],
   ['msg_5fset_5fverbosity',['msg_set_verbosity',['../msg_8h.html#a024b739221ef93350a9c26eb8af40d23',1,'msg.h']]],
+  ['msg_5ftrace',['msg_trace',['../msg_8h.html#a251580a49318758cc7f76a7633151ba6',1,'msg.h']]],
   ['msg_5funset_5fflag',['msg_unset_flag',['../msg_8h.html#a8613d44d2dbbe78f4400a4470e3d5dc5',1,'msg.h']]]
 ];

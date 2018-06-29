@@ -440,7 +440,7 @@ void * DS_position (const DS root, const uint count);
 /******************************************************************************/
 
 
-///** sort an array
+///* sort an array
 // *	adaptive, stable
 // *
 // *	@param buffer the array to be sorted
