@@ -26,6 +26,9 @@
 #ifndef _TYPES_H
 #define _TYPES_H
 
+#ifdef __cplusplus
+	extern "C" {
+#endif
 
 #include <stdint.h>
 #include <limits.h>
@@ -48,7 +51,7 @@ typedef unsigned char uchar; ///< an unsigned character
 
 #define UMAX_MAX ((size_t)ULLONG_MAX) ///< the maximum value of `umax`
 // UINT_MAX is defined in limits.h
-// UCHAR_MAX is defined in limits
+// UCHAR_MAX is defined in limits.h
 
 /// A type to simply indicate success or failure
 typedef enum{
@@ -67,15 +70,19 @@ typedef enum{
  */
 
 /// There are few safe use cases for sprintf()
-int   sprintf(char *, const char *,...) __attribute__ ((deprecated));
+//int   sprintf(char *, const char *,...) __attribute__ ((deprecated));
 /// There is no way to use gets safely
-char *gets   (char *                  ) __attribute__ ((deprecated));
+//char *gets   (char *                  ) __attribute__ ((deprecated));
 /// Use strncat() instead
-char *strcat (char *, const char *    ) __attribute__ ((deprecated));
+//char *strcat (char *, const char *    ) __attribute__ ((deprecated));
 /// Use strncpy() instead
-char *strcpy (char *, const char *    ) __attribute__ ((deprecated));
+//char *strcpy (char *, const char *    ) __attribute__ ((deprecated));
 
 /** @} */
+
+#ifdef __cplusplus
+	}
+#endif
 
 #endif // _TYPES_H
 
