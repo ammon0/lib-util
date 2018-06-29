@@ -109,10 +109,10 @@ bool msg_check_flag(log_descriptor log, flag_t f);
  *	not defined. This could be useful for speed critical components of a program.
  */
 #ifdef DEBUG
-	#define msg_trace(log, format, ...) \
-	msg_print(log, V_TRACE, format, __VA_ARGS__)
+	#define msg_trace(log, ...) \
+	msg_print(log, V_TRACE, __VA_ARGS__)
 #else
-	#define msg_trace(log, format, ...)
+	#define msg_trace(log, ...)
 #endif
 
 #ifdef __cplusplus
