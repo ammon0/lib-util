@@ -117,6 +117,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gr
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Visit a data entry in the structure. </p>
 <p>None will change the contents of the structure. Data accessed through any of the various traversal functions may be directly modified through the returned pointer. Obviously, do not modify the sort key in a sorted data structure as it will result in unpredictable behavior and possible data loss.</p>
+<p><a class="el" href="group__visit.html#ga380ec859ac582b8fb874a16dfdd2d707" title="visit the next in-order node ">DS_next()</a>, and <a class="el" href="group__visit.html#ga2d268d31c093b31b9afd3750df701125" title="visit the previous in-order node ">DS_previous()</a> will return <code>NULL</code> after they have reached the last and first elements respectively.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">root</td><td>is the root of a data structure</td></tr>

@@ -355,7 +355,7 @@ void * DS_insert_last (DS root, const void * data);
 /**	@defgroup remove Remove Data from a Structure
  *
  *	Remove a data entry from a known position. The returned pointer points to
- *	the data stored in a temporary space. he caller must copy that data out as
+ *	the data stored in a temporary space. The caller must copy that data out as
  *	there is no guarantee that it will be preserved after the next call to the
  *	data structure.
  *
@@ -399,6 +399,9 @@ const void * DS_remove_last (DS root);
  *	be directly modified through the returned pointer. Obviously, do not modify
  *	the sort key in a sorted data structure as it will result in unpredictable
  *	behavior and possible data loss.
+ *
+ *	DS_next(), and DS_previous() will return `NULL` after they have reached the
+ *	last and first elements respectively.
  *
  *	@param root is the root of a data structure
  *
