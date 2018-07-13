@@ -644,10 +644,13 @@ const void * DS_remove(DS root){
 	
 	if (root->current.l == NULL) return NULL;
 	
-	data = root->current.l->data;
+	//data = root->current.l->data;
 	
 	switch (root->type){
 	case DS_bst:
+		// save the data
+		data = root->current.t->data;
+		
 		// get the parent's pointer pointer
 		if(!root->current.t->parent) parent_pt = &root->head.t;
 		else if(root->current.t->parent->left == root->current.t)
@@ -688,6 +691,9 @@ const void * DS_remove(DS root){
 		break;
 		
 	case DS_list:
+		// save the data
+		data = root->current.l->data;
+		
 		// Check if we are at the beginning or end
 		if (root->current.l == root->head.l)
 			return DS_remove_first(root);
@@ -695,6 +701,9 @@ const void * DS_remove(DS root){
 			return DS_remove_last (root);
 	
 	case DS_circular_list:
+		// save the data
+		data = root->current.l->data;
+		
 		if (root->current.l->next == root->current.l){
 			// last node in a circular list
 			root->head.l = NULL;
