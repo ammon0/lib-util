@@ -2,7 +2,7 @@
  *
  *	lib-util : A Utility Library
  *
- *	Copyright (c) 2016-2017 Ammon Dodson
+ *	Copyright (c) 2016-2018 Ammon Dodson
  *	You should have received a copy of the licence terms with this software. If
  *	not, please visit the project homepage at:
  *	https://github.com/ammon0/lib-util

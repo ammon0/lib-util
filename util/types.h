@@ -2,7 +2,7 @@
  *
  *	lib-util : A Utility Library
  *
- *	Copyright (c) 2016-2017 Ammon Dodson
+ *	Copyright (c) 2016-2018 Ammon Dodson
  *	You should have received a copy of the license terms with this software. If
  *	not, please visit the project homepage at:
  *	https://github.com/ammon0/lib-util
@@ -64,21 +64,6 @@ typedef enum{
  */
 #define RETURN return_t __attribute__((warn_unused_result))
 
-
-/** @defgroup deprecated Mark some standard library functions as deprecated
- *	@{
- */
-
-/// There are few safe use cases for sprintf()
-//int   sprintf(char *, const char *,...) __attribute__ ((deprecated));
-/// There is no way to use gets safely
-//char *gets   (char *                  ) __attribute__ ((deprecated));
-/// Use strncat() instead
-//char *strcat (char *, const char *    ) __attribute__ ((deprecated));
-/// Use strncpy() instead
-//char *strcpy (char *, const char *    ) __attribute__ ((deprecated));
-
-/** @} */
 
 #ifdef __cplusplus
 	}
