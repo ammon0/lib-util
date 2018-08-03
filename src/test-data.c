@@ -3,11 +3,11 @@
 #include <util/types.h>
 #include <util/data.h>
 #include <util/msg.h>
+#include <util/string.h>
 
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 static inline imax cmp(const void * left, const void * right){
 	return strcmp((char*) left, (char*) right);

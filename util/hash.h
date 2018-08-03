@@ -41,7 +41,7 @@
 #define _HASH_H
 
 #include <util/types.h>
-#include <string.h>
+#include <util/string.h>
 #include <stdio.h>
 
 #ifdef __cplusplus

@@ -9,11 +9,12 @@
  *
  ******************************************************************************/
 
+
+
 #include <util/input.h>
+#include <util/types.h>
 
 #include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
 #include <ctype.h>
 
 #define IN	1 /* inside a word */
