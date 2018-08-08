@@ -96,55 +96,54 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Safe version of the C std library <a class="el" href="string_8h.html" title="Safe version of the C std library string.h. ">string.h</a>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="string_8h_source.html">string.h</a>&gt;</code><br />
-<code>#include &lt;assert.h&gt;</code><br />
 </div>
 <p><a href="string_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a553e500bed7ba19fe623e7e6bfa081fd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a553e500bed7ba19fe623e7e6bfa081fd"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a553e500bed7ba19fe623e7e6bfa081fd">strcpy</a>(...)&#160;&#160;&#160;assert(0)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a553e500bed7ba19fe623e7e6bfa081fd">strcpy</a>(...)&#160;&#160;&#160;strcpy is disabled</td></tr>
 <tr class="memdesc:a553e500bed7ba19fe623e7e6bfa081fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">disable standard library strcpy <br /></td></tr>
 <tr class="separator:a553e500bed7ba19fe623e7e6bfa081fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a725d248f62209bb193f68e7a8853d913"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a725d248f62209bb193f68e7a8853d913"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a725d248f62209bb193f68e7a8853d913">strcat</a>(...)&#160;&#160;&#160;assert(0)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a725d248f62209bb193f68e7a8853d913">strcat</a>(...)&#160;&#160;&#160;strcat is disabled</td></tr>
 <tr class="memdesc:a725d248f62209bb193f68e7a8853d913"><td class="mdescLeft">&#160;</td><td class="mdescRight">disable standard library strcat <br /></td></tr>
 <tr class="separator:a725d248f62209bb193f68e7a8853d913"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50d0cc05e2e394cefd516c66c1defd3d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a50d0cc05e2e394cefd516c66c1defd3d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a50d0cc05e2e394cefd516c66c1defd3d">strncpy</a>(...)&#160;&#160;&#160;assert(0)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a50d0cc05e2e394cefd516c66c1defd3d">strncpy</a>(...)&#160;&#160;&#160;strncpy is disabled</td></tr>
 <tr class="memdesc:a50d0cc05e2e394cefd516c66c1defd3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">disable standard library strncpy <br /></td></tr>
 <tr class="separator:a50d0cc05e2e394cefd516c66c1defd3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7396c0c0275ddff67b792086ee44c2f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af7396c0c0275ddff67b792086ee44c2f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#af7396c0c0275ddff67b792086ee44c2f">strncat</a>(...)&#160;&#160;&#160;assert(0)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#af7396c0c0275ddff67b792086ee44c2f">strncat</a>(...)&#160;&#160;&#160;strncat is disabled</td></tr>
 <tr class="memdesc:af7396c0c0275ddff67b792086ee44c2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">disable standard library strncat <br /></td></tr>
 <tr class="separator:af7396c0c0275ddff67b792086ee44c2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3e83d8fb520fff82377524e80c39067c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a3e83d8fb520fff82377524e80c39067c">strlcpy</a> (char *restrict dst, const char *restrict src, size_t dstsize) __nonnull((1</td></tr>
-<tr class="memdesc:a3e83d8fb520fff82377524e80c39067c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy a string in src to dest Copies up to dstsize - 1 characters from the string src to dst, NUL-terminating the result if dstsize is not 0.  <a href="#a3e83d8fb520fff82377524e80c39067c">More...</a><br /></td></tr>
-<tr class="separator:a3e83d8fb520fff82377524e80c39067c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7106a13c337e1a736174657b2f8360f"><td class="memItemLeft" align="right" valign="top">size_t size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ad7106a13c337e1a736174657b2f8360f">strlcat</a> (char *restrict dst, const char *restrict src, size_t dstsize) __nonnull((1</td></tr>
-<tr class="memdesc:ad7106a13c337e1a736174657b2f8360f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the string in src to the end of dest It will append at most dstsize - strlen(dst) - 1 bytes.  <a href="#ad7106a13c337e1a736174657b2f8360f">More...</a><br /></td></tr>
-<tr class="separator:ad7106a13c337e1a736174657b2f8360f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88b86e99514186235725a17d938e2d5c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a88b86e99514186235725a17d938e2d5c">strlcpy</a> (char *dst, const char *src, size_t dstsize)</td></tr>
+<tr class="memdesc:a88b86e99514186235725a17d938e2d5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy a string in src to dest Copies up to dstsize - 1 characters from the string src to dst, NUL-terminating the result if dstsize is not 0.  <a href="#a88b86e99514186235725a17d938e2d5c">More...</a><br /></td></tr>
+<tr class="separator:a88b86e99514186235725a17d938e2d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad80273393c6297cc5dbc81690708f983"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ad80273393c6297cc5dbc81690708f983">strlcat</a> (char *dst, const char *src, size_t dstsize)</td></tr>
+<tr class="memdesc:ad80273393c6297cc5dbc81690708f983"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the string in src to the end of dest It will append at most dstsize - strlen(dst) - 1 bytes.  <a href="#ad80273393c6297cc5dbc81690708f983">More...</a><br /></td></tr>
+<tr class="separator:ad80273393c6297cc5dbc81690708f983"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Safe version of the C std library <a class="el" href="string_8h.html" title="Safe version of the C std library string.h. ">string.h</a>. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ad7106a13c337e1a736174657b2f8360f"></a>
+<a class="anchor" id="ad80273393c6297cc5dbc81690708f983"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t size_t strlcat </td>
+          <td class="memname">size_t strlcat </td>
           <td>(</td>
-          <td class="paramtype">char *restrict&#160;</td>
+          <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>dst</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *restrict&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>src</em>, </td>
         </tr>
         <tr>
@@ -178,20 +177,20 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3e83d8fb520fff82377524e80c39067c"></a>
+<a class="anchor" id="a88b86e99514186235725a17d938e2d5c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">size_t strlcpy </td>
           <td>(</td>
-          <td class="paramtype">char *restrict&#160;</td>
+          <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>dst</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *restrict&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>src</em>, </td>
         </tr>
         <tr>

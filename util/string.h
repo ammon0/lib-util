@@ -26,7 +26,7 @@
 
 
 #include <string.h>
-#include <assert.h>
+
 
 #undef strcpy
 #undef strcat
@@ -34,10 +34,10 @@
 #undef strncat
 
 // disable problematic functions of the standard library
-#define strcpy(...)  assert(0) ///< disable standard library strcpy
-#define strcat(...)  assert(0) ///< disable standard library strcat
-#define strncpy(...) assert(0) ///< disable standard library strncpy
-#define strncat(...) assert(0) ///< disable standard library strncat
+#define strcpy(...)  strcpy is disabled ///< disable standard library strcpy
+#define strcat(...)  strcat is disabled ///< disable standard library strcat
+#define strncpy(...) strncpy is disabled ///< disable standard library strncpy
+#define strncat(...) strncat is disabled ///< disable standard library strncat
 
 
 
@@ -53,8 +53,7 @@
  *	the src string has been truncated.
  */
 size_t
-strlcpy(char * restrict dst, const char * restrict src, size_t dstsize)
-	__nonnull ((1, 2));
+strlcpy(char * dst, const char * src, size_t dstsize);
 
 
 /**	Appends the string in src to the end of dest
@@ -70,8 +69,7 @@ strlcpy(char * restrict dst, const char * restrict src, size_t dstsize)
  *	dstsize then the src string has been truncated.
  */
 size_t
-strlcat(char * restrict dst, const char * restrict src, size_t dstsize)
-	__nonnull ((1, 2));
+strlcat(char * dst, const char * src, size_t dstsize);
 
 
 
