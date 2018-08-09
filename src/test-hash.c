@@ -4,9 +4,10 @@
 #include <util/hash.h>
 #include <util/data.h>
 #include <util/input.h>
+#include <util/io.h>
 
 #include <stdlib.h>
-#include <stdio.h>
+
 #include <sys/time.h>
 #include <math.h>
 
@@ -85,7 +86,7 @@ collision_check(uint64_t (*hf)(uint64_t hash, uint32_t chunk)){
 	
 	for(uint j =0; j<SEQ_LIM; j++){
 		// hash the number
-		sprintf(f.num_str, "%015u", j); // safe use of sprintf()
+		snprintf(f.num_str, NUMSTR_SZ, "%015u", j);
 		full_hash = array_hash(HASH_SEED, hf, f.num_str, NUMSTR_SZ);
 		
 		// fold the hash
@@ -118,7 +119,7 @@ static void time_check(uint64_t (*hf)(uint64_t hash, uint32_t chunk)){
 	
 	// hash numbers
 	for(uint32_t j =0; j<TC_COUNT; j++){
-		sprintf(array, "%015u", j); // this is a safe use of sprintf()
+		snprintf(array, NUMSTR_SZ, "%015u", j);
 		full_hash += array_hash(HASH_SEED, hf, array, 4);
 	}
 	gettimeofday(&stop, NULL);

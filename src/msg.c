@@ -12,8 +12,8 @@
 
 #include <util/msg.h>
 #include <util/flags.h>
+#include <util/io.h>
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <time.h>

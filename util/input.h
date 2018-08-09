@@ -18,7 +18,7 @@
 #ifndef _INPUT_H_INCLUDE
 #define _INPUT_H_INCLUDE
 
-#include <stdio.h>
+#include <util/io.h>
 
 #ifdef __cplusplus
 	extern "C" {

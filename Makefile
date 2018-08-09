@@ -48,8 +48,8 @@ headers   :=$(wildcard $(headerdir)/*.h)
 sources   :=$(wildcard $(srcdir)/*.c)
 allfiles  := $(headers) $(sources)
 
-libraries:=libdata libinput libmsg libstring
-objects  :=data.o input.o msg.o string.o
+libraries:=libdata libinput libmsg
+objects  :=data.o input.o msg.o
 tests    :=test-hash test-input test-data test-msg test-string
 
 links    :=$(libraries)
@@ -79,7 +79,7 @@ $(objects): $(WORKDIR)/%.o: $(srcdir)/%.c $(headerdir)/%.h | $(WORKDIR)
 ##################################### TESTS ####################################
 
 $(tests): $(WORKDIR)/%: $(srcdir)/%.c | $(libraries) $(test_links)
-	$(CC) $(CFLAGS) -Wno-c++-compat -o $@ $< -Wl,-rpath=$(WORKDIR) -L$(WORKDIR) -linput -ldata -lmsg -lstring
+	$(CC) $(CFLAGS) -Wno-c++-compat -o $@ $< -Wl,-rpath=$(WORKDIR) -L$(WORKDIR) -linput -ldata -lmsg
 	chmod +x $@
 
 $(test_links):$(WORKDIR)/lib%.$(MAJOR): $(WORKDIR)/lib%.so.$(MAJOR).$(MINOR) | $(WORKDIR)

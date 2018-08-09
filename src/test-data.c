@@ -4,9 +4,8 @@
 #include <util/data.h>
 #include <util/msg.h>
 #include <util/string.h>
+#include <util/io.h>
 
-
-#include <stdio.h>
 #include <stdlib.h>
 
 static inline imax cmp(const void * left, const void * right){

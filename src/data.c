@@ -22,9 +22,10 @@
 #include <util/types.h>
 #include <util/msg.h>
 #include <util/string.h>
+#include <util/io.h>
 
 #include <stdlib.h>
-#include <stdio.h>
+
 
 
 /******************************************************************************/

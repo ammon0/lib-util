@@ -42,7 +42,7 @@
 
 #include <util/types.h>
 #include <util/string.h>
-#include <stdio.h>
+#include <util/io.h>
 
 #ifdef __cplusplus
 	extern "C" {

@@ -11,13 +11,13 @@
  
 /** @file string.h
  *
- *	Safe  version of the C std library string.h
+ *	Safe version of the C std library string.h
  *
  ******************************************************************************/
 
 
-#ifndef _STRING_H_INCLUDE
-#define _STRING_H_INCLUDE
+#ifndef _UTIL_STRING_H
+#define _UTIL_STRING_H
 
 
 #ifdef __cplusplus
@@ -28,17 +28,16 @@
 #include <string.h>
 
 
+// disable problematic functions of the standard library
 #undef strcpy
 #undef strcat
 #undef strncpy
 #undef strncat
 
-// disable problematic functions of the standard library
 #define strcpy(...)  strcpy is disabled ///< disable standard library strcpy
 #define strcat(...)  strcat is disabled ///< disable standard library strcat
 #define strncpy(...) strncpy is disabled ///< disable standard library strncpy
 #define strncat(...) strncat is disabled ///< disable standard library strncat
-
 
 
 /**	Copy a string in src to dest
@@ -52,8 +51,25 @@
  *	@return the total length of the string in src. If return value >= dstsize then
  *	the src string has been truncated.
  */
-size_t
-strlcpy(char * dst, const char * src, size_t dstsize);
+static inline size_t
+strlcpy(char * dst, const char * src, size_t dstsize){
+	const char * s = src;
+	size_t       n = dstsize;
+	
+	if(n != 0)
+		while(--n != 0) // executes dstsize-1 times
+			if((*dst++ = *s++) == '\0')
+				goto finish;
+	
+	// dst is now pointing to the last location
+	if(dstsize != 0) *dst = '\0';
+	
+	while (*s++ != '\0') // find the end of src
+		;
+	
+finish:
+	return (size_t)(s-src-1);
+}
 
 
 /**	Appends the string in src to the end of dest
@@ -68,8 +84,27 @@ strlcpy(char * dst, const char * src, size_t dstsize);
  *	@return the initial length of dst plus the length of src. If return value >=
  *	dstsize then the src string has been truncated.
  */
-size_t
-strlcat(char * dst, const char * src, size_t dstsize);
+static inline size_t
+strlcat(char * dst, const char * src, size_t dstsize){
+	size_t n;
+	char * d = dst;
+	
+	while(*d++ != '\0') // find the end of the dst string
+		;
+	
+	d--; // point at the '\0'
+	
+	n = (size_t)(d - dst); // the length of string in dst
+	
+	// n > dstsize - 1
+	if(n+1 > dstsize){
+		while(*src++ != '\0') // find the end of src
+			n++;
+		return n;
+	}
+	
+	return strlcpy(d, src, dstsize-n) + n;
+}
 
 
 
@@ -77,6 +112,6 @@ strlcat(char * dst, const char * src, size_t dstsize);
 	}
 #endif
 
-#endif // _STRING_H_INCLUDE
+#endif // _UTIL_STRING_H
 
 

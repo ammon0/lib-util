@@ -1,7 +1,7 @@
 // just a test program
 
 #include <util/msg.h>
-#include <stdio.h>
+#include <util/io.h>
 
 int main (void){
 	

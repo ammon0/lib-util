@@ -2,8 +2,7 @@
 
 #include <util/string.h>
 #include <util/msg.h>
-
-#include <stdio.h>
+#include <util/io.h>
 
 #define DEST_SZ 100
 
