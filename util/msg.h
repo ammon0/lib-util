@@ -63,8 +63,6 @@ typedef enum{
 } msg_log_mode;
 
 typedef struct log_t * log_descriptor; ///< A log stream descriptor
-//typedef flag8 msg_flags;
-//typedef uint8_t flag_t; ///< flags for use in the log_descriptor
 
 /// Log file options
 typedef enum{

@@ -32,12 +32,12 @@ struct log_t{
 
 const char * lvl_str[V_NUM] = {
 	"       ",
-	"ERROR  ",
-	"WARNING",
-	"NOTICE ",
-	"INFO   ",
-	"\tDEBUG",
-	"\t\tTRACE"
+	"ERROR  : ",
+	"WARNING: ",
+	"NOTICE : ",
+	"INFO   : ",
+	"\tDEBUG: ",
+	"\t\tTRACE: "
 };
 
 static msg_log_lvl _lvl = V_NOTE;
@@ -50,7 +50,7 @@ static msg_log_lvl _lvl = V_NOTE;
 
 static inline void __attribute__((format(printf, 3, 0)))
 _log_to_file(
-	FILE * fd,
+	log_descriptor log,
 	msg_log_lvl lvl,
 	const char * format,
 	va_list ap
@@ -73,28 +73,58 @@ _log_to_file(
 		"DEC"
 	};
 	
-	gettimeofday(&now, NULL);
-	seconds = time(NULL);
-	tm_pt = gmtime(&seconds);
 	
-	fprintf(
-		fd,
-		"%s.%02d %02d.%02d.%02d [%ld.%06ld] %s: ",
-		months[tm_pt->tm_mon],
-		tm_pt->tm_mday,
-		
-		tm_pt->tm_hour,
-		tm_pt->tm_min,
-		tm_pt->tm_sec,
-		
-		now.tv_sec,
-		now.tv_usec,
-		
-		lvl_str[lvl]
-	);
 	
-	if(ap) vfprintf(fd, format, ap);
-	else   fprintf(fd, "%s\n", format);
+	if(flag_status(log->mode, MSG_LOG_DATE, flag8)){
+		seconds = time(NULL);
+		tm_pt = gmtime(&seconds);
+		
+		fprintf(
+			log->fd,
+			"%s.%02d %02d.%02d.%02d ",
+			months[tm_pt->tm_mon],
+			tm_pt->tm_mday,
+			tm_pt->tm_hour,
+			tm_pt->tm_min,
+			tm_pt->tm_sec
+		);
+	}
+	
+	if(flag_status(log->mode, MSG_LOG_USEC, flag8)){
+		gettimeofday(&now, NULL);
+		
+		fprintf(
+			log->fd,
+			"[%ld.%06ld] ",
+			now.tv_sec,
+			now.tv_usec
+		);
+	}
+	
+	fprintf(log->fd, "%s", lvl_str[lvl]);
+	
+	
+/*	fprintf(*/
+/*		fd,*/
+/*		"%s.%02d %02d.%02d.%02d [%ld.%06ld] %s: ",*/
+/*		months[tm_pt->tm_mon],*/
+/*		tm_pt->tm_mday,*/
+/*		*/
+/*		tm_pt->tm_hour,*/
+/*		tm_pt->tm_min,*/
+/*		tm_pt->tm_sec,*/
+/*		*/
+/*		now.tv_sec,*/
+/*		now.tv_usec,*/
+/*		*/
+/*		lvl_str[lvl]*/
+/*	);*/
+	
+	if(ap) vfprintf(log->fd, format, ap);
+	else   fprintf(log->fd, "%s", format);
+	
+	if(flag_status(log->mode, MSG_LOG_SYNC, flag8)) fflush(log->fd);
+	
 }
 
 
@@ -114,6 +144,8 @@ log_descriptor msg_log_open(msg_log_mode mode, const char *path){
 		return NULL;
 	}
 	
+	log->mode = 0;
+	
 	if(mode == lm_append) log->fd = fopen(path, "a");
 	else                  log->fd = fopen(path, "w");
 	
@@ -123,12 +155,12 @@ log_descriptor msg_log_open(msg_log_mode mode, const char *path){
 		return NULL;
 	}
 	
-	_log_to_file(log->fd, V_INFO, "*** OPENING LOG ***", NULL);
+	_log_to_file(log, V_INFO, "*** OPENING LOG ***\n", NULL);
 	return log;
 }
 
 void msg_log_close(log_descriptor log){
-	_log_to_file(log->fd, V_INFO, "*** CLOSING LOG ***", NULL);
+	_log_to_file(log, V_INFO, "*** CLOSING LOG ***\n", NULL);
 	fclose(log->fd);
 	free(log);
 }
@@ -141,12 +173,12 @@ msg_print(log_descriptor log, msg_log_lvl lvl, const char * format, ...){
 	va_start(ap, format);
 	
 	if(log){
-		_log_to_file(log->fd, lvl, format, ap);
+		_log_to_file(log, lvl, format, ap);
 		fflush(log->fd);
 	}
 	
 	if(_lvl >= lvl){
-		fprintf(stderr, "%s: ", lvl_str[lvl]);
+		fprintf(stderr, "%s", lvl_str[lvl]);
 		vfprintf(stderr, format, ap);
 	}
 	
