@@ -11,13 +11,13 @@
 
 
 #include <util/msg.h>
-#include <util/flags.h>
+//#include <util/flags.h>
 #include <util/io.h>
 
 #include <stdlib.h>
 #include <stdarg.h>
 #include <time.h>
-#include <sys/time.h>
+#include <sys/time.h> // unix dependant
 
 
 /******************************************************************************/
@@ -93,7 +93,8 @@ _log_to_file(
 		lvl_str[lvl]
 	);
 	
-	vfprintf(fd, format, ap);
+	if(ap) vfprintf(fd, format, ap);
+	else   fprintf(fd, "%s\n", format);
 }
 
 
@@ -104,33 +105,36 @@ _log_to_file(
 
 void msg_set_verbosity(msg_log_lvl verbosity){ _lvl = verbosity; }
 
-return_t msg_log_open (log_descriptor log, msg_log_mode mode, const char *path){
+log_descriptor msg_log_open(msg_log_mode mode, const char *path){
+	log_descriptor log;
+	
 	log = (log_descriptor) malloc(sizeof(struct log_t));
 	if(!log){
-		msg_print(NULL, V_ERROR, "log_open(): could not allocate memory");
-		return r_failure;
+		msg_print(NULL, V_ERROR, "msg_log_open(): could not allocate memory\n");
+		return NULL;
 	}
 	
 	if(mode == lm_append) log->fd = fopen(path, "a");
 	else                  log->fd = fopen(path, "w");
 	
 	if(!log->fd){
-		msg_print(NULL, V_ERROR, "log_open(): could not open file");
+		msg_print(NULL, V_ERROR, "msg_log_open(): could not open file\n");
 		free(log);
-		return r_failure;
+		return NULL;
 	}
 	
-	_log_to_file(log->fd, V_INFO, "<<<<<< Log start >>>>>>", NULL);
-	return r_success;
+	_log_to_file(log->fd, V_INFO, "*** OPENING LOG ***", NULL);
+	return log;
 }
 
 void msg_log_close(log_descriptor log){
+	_log_to_file(log->fd, V_INFO, "*** CLOSING LOG ***", NULL);
 	fclose(log->fd);
 	free(log);
 }
 
 
-void __attribute__((format(printf, 3, 4)))
+void //__attribute__((format(printf, 3, 4)))
 msg_print(log_descriptor log, msg_log_lvl lvl, const char * format, ...){
 	va_list ap;
 	
@@ -149,16 +153,16 @@ msg_print(log_descriptor log, msg_log_lvl lvl, const char * format, ...){
 	va_end(ap);
 }
 
-void msg_set_flag(log_descriptor log, flag_t f){
+void msg_set_flag(log_descriptor log, msg_flags f){
 	flag_set(log->mode, f,flag8);
 }
 
-void msg_unset_flag(log_descriptor log, flag_t f){
+void msg_unset_flag(log_descriptor log, msg_flags f){
 	flag_unset(log->mode, f,flag8);
 }
 
 bool __attribute__((const))
-msg_check_flag(log_descriptor log, flag_t f){
+msg_check_flag(log_descriptor log, msg_flags f){
 	return flag_status(log->mode, f, flag8);
 }
 

@@ -209,7 +209,7 @@ int main(void){
 	DS_dump(heap);
 	
 	for(int i=0; i<4; i++){
-		msg_print(NULL, V_INFO, "Current is: %s\n", DS_current(heap));
+		msg_print(NULL, V_INFO, "Current is: %s\n", (char*)DS_current(heap));
 		msg_print(NULL, V_INFO, "Count is: %d\n", DS_count(heap));
 		DS_remove(heap);
 	}

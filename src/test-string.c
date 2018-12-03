@@ -29,7 +29,7 @@ int main(void){
 		msg_print(NULL, V_ERROR, "canary missing\n");
 	
 	if(retval != strlen(beg_string))
-		msg_print(NULL, V_ERROR, "retval %u\n", retval);
+		msg_print(NULL, V_ERROR, "retval %lu\n", retval);
 	
 	
 	retval = strlcpy(dest_string, beg_string, 1);
@@ -37,7 +37,7 @@ int main(void){
 		msg_print(NULL, V_ERROR, "1 dest_string: '%s'\n", dest_string);
 	
 	if(retval != strlen(beg_string))
-		msg_print(NULL, V_ERROR, "retval %u\n", retval);
+		msg_print(NULL, V_ERROR, "retval %lu\n", retval);
 	
 	
 	retval = strlcpy(dest_string, beg_string, 2);
@@ -45,7 +45,7 @@ int main(void){
 		msg_print(NULL, V_ERROR, "2 dest_string: '%s'\n", dest_string);
 	
 	if(retval != strlen(beg_string))
-		msg_print(NULL, V_ERROR, "retval %u\n", retval);
+		msg_print(NULL, V_ERROR, "retval %lu\n", retval);
 	
 	
 	retval = strlcpy(dest_string, beg_string, DEST_SZ);
@@ -53,7 +53,7 @@ int main(void){
 		msg_print(NULL, V_ERROR, "DEST_SZ\n");
 	
 	if(retval != strlen(beg_string))
-		msg_print(NULL, V_ERROR, "retval %u\n", retval);
+		msg_print(NULL, V_ERROR, "retval %lu\n", retval);
 	
 	
 	/** strlcat **/
@@ -62,7 +62,7 @@ int main(void){
 	msg_print(NULL, V_NOTE, "%s\n", dest_string);
 	
 	if(retval != strlen(beg_string) + strlen(end_string))
-		msg_print(NULL, V_ERROR, "retval %u\n", retval);
+		msg_print(NULL, V_ERROR, "retval %lu\n", retval);
 	
 }
 

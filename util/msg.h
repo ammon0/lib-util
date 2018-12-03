@@ -11,7 +11,9 @@
  
 /** @file msg.h
  *
- *	Functions for logging and printing messages to stderr.
+ *	Functions for logging to files and printing messages to stderr. Each message
+ *	is tagged with the message's importance. There are various options for date
+ *	and time tagging.
  *	
  *	##Log Levels
  *	The log level setting determines what messages will be printed to `stderr`.
@@ -30,6 +32,11 @@
 
 
 #include <util/types.h>
+#include <util/flags.h>
+
+#ifdef __cplusplus
+	extern "C" {
+#endif
 
 
 /******************************************************************************/
@@ -46,7 +53,7 @@ typedef enum {
 	V_INFO,  ///< print information
 	V_DEBUG, ///< print debug output
 	V_TRACE, ///< Print program trace information
-	V_NUM    ///< the number of log levels, DO NOT USE
+	V_NUM    ///< the number of log levels, **DO NOT USE**
 } msg_log_lvl;
 
 /// Mode to determine if the file will be appended to or replaced
@@ -56,7 +63,14 @@ typedef enum{
 } msg_log_mode;
 
 typedef struct log_t * log_descriptor; ///< A log stream descriptor
-typedef uint8_t flag_t; ///< flags for use in the log_descriptor
+//typedef flag8 msg_flags;
+//typedef uint8_t flag_t; ///< flags for use in the log_descriptor
+
+typedef enum{
+	MSG_LOG_SYNC,
+	MSG_LOG_DATE,
+	MSG_LOG_USEC
+} msg_flags;
 
 
 /******************************************************************************/
@@ -64,24 +78,21 @@ typedef uint8_t flag_t; ///< flags for use in the log_descriptor
 /******************************************************************************/
 
 
-#define MF_LOG_SYNC (flag_t)0 ///< sync log file after each entry
-#define MF_LOG_DATE (flag_t)1 ///< record the date in the log file
-#define MF_LOG_USEC (flag_t)2 ///< record seconds / useconds in the log file
+//#define MF_LOG_SYNC 0 ///< sync log file after each entry
+//#define MF_LOG_DATE 1 ///< record the date in the log file
+//#define MF_LOG_USEC 2 ///< record seconds / useconds in the log file
 
 
 /******************************************************************************/
 //                                PROTOTYPES
 /******************************************************************************/
 
-#ifdef __cplusplus
-	extern "C" {
-#endif
 
 /// Set the minimum log level necessary to print to `stderr`
 void msg_set_verbosity(msg_log_lvl);
 
 /// Open a log file
-RETURN msg_log_open (log_descriptor log, msg_log_mode mode, const char *path);
+log_descriptor msg_log_open (msg_log_mode mode, const char *path);
 
 /// Close a log file
 void msg_log_close(log_descriptor log);
@@ -95,14 +106,15 @@ void msg_log_close(log_descriptor log);
  *
  *	@return void.
  */
-void msg_print(log_descriptor log, msg_log_lvl lvl, const char * format, ...);
+void __attribute__((format(printf, 3, 4)))
+msg_print(log_descriptor log, msg_log_lvl lvl, const char * format, ...);
 
 /// set a flag on the log_descriptor
-void msg_set_flag(log_descriptor log, flag_t f);
+void msg_set_flag(log_descriptor log, msg_flags f);
 /// unset a flag on the log_descriptor
-void msg_unset_flag(log_descriptor log, flag_t f);
+void msg_unset_flag(log_descriptor log, msg_flags f);
 /// check if a flag is set on the log_descriptor
-bool msg_check_flag(log_descriptor log, flag_t f);
+bool msg_check_flag(log_descriptor log, msg_flags f);
 
 /**	Optimized program trace
  *	msg_print() is implemented as a macro that expands to nothing when DEBUG is
