@@ -174,7 +174,11 @@ msg_print(log_descriptor log, msg_log_lvl lvl, const char * format, ...){
 	
 	if(log){
 		_log_to_file(log, lvl, format, ap);
-		fflush(log->fd);
+		//fflush(log->fd);
+		
+		// ap is modified after it is passed
+		va_end(ap);
+		va_start(ap, format);
 	}
 	
 	if(_lvl >= lvl){

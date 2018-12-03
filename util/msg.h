@@ -81,7 +81,7 @@ typedef enum{
 void msg_set_verbosity(msg_log_lvl);
 
 /// Open a log file
-log_descriptor msg_log_open (msg_log_mode mode, const char *path);
+log_descriptor msg_log_open(msg_log_mode mode, const char *path);
 
 /// Close a log file
 void msg_log_close(log_descriptor log);
