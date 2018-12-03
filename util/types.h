@@ -16,7 +16,7 @@
  *	## Includes
  *	* The integer types: `int8_t`, `int16_t`, `int32_t`, and `int64_t`
  *	* Limits for the integer types
- *	* `bool`
+ *	* `bool`, `true`, `false`
  *	* `NULL`
  *	* size_t
  *	* `uchar`, `uint`, `umax`, and `imax`

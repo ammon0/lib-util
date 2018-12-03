@@ -44,7 +44,7 @@ Future plans include:
 Types include:
 *	The integer types: `int8_t`, `int16_t`, `int32_t`, and `int64_t`
 *	Limits for the integer types
-*	`bool`
+*	`bool`, `true`, `false`
 *	`NULL`
 *	`size_t`
 *	`uint`, `umax`, and `imax`
@@ -63,6 +63,10 @@ Functions include:
 * array_hash() : hash an array
 * string_hash() : hash a null terminated string
 * file_hash() : hash a file
+
+### msg.h : Logging Facilities
+
+Functions for logging to files and printing messages to stderr. Each message is tagged with the message's importance. There are various options for date and time tagging.
 
 ## Version Numbering
 This project is using [semantic versioning](http://semver.org/). As such, the API as documented in the header files and the project website will not change in an incompatible way unless there is a new major version number. Compatible changes are indicated by the minor version number.
