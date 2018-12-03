@@ -66,21 +66,12 @@ typedef struct log_t * log_descriptor; ///< A log stream descriptor
 //typedef flag8 msg_flags;
 //typedef uint8_t flag_t; ///< flags for use in the log_descriptor
 
+/// Log file options
 typedef enum{
-	MSG_LOG_SYNC,
-	MSG_LOG_DATE,
-	MSG_LOG_USEC
+	MSG_LOG_SYNC, ///< sync log file after each entry
+	MSG_LOG_DATE, ///< record the date in the log file
+	MSG_LOG_USEC  ///< record seconds / useconds in the log file
 } msg_flags;
-
-
-/******************************************************************************/
-//                                CONSTANTS
-/******************************************************************************/
-
-
-//#define MF_LOG_SYNC 0 ///< sync log file after each entry
-//#define MF_LOG_DATE 1 ///< record the date in the log file
-//#define MF_LOG_USEC 2 ///< record seconds / useconds in the log file
 
 
 /******************************************************************************/

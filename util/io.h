@@ -27,13 +27,13 @@
 
 #include <stdio.h>
 
-// what to do with sprintf?
+
 
 // disable problematic functions of the standard library
 #undef gets
 #undef sprintf
 
-#define gets(...)    gets is disabled ///< disable standard library strcpy
+#define gets(...)    gets is disabled
 #define sprintf(...) sprintf is disabled, use snprintf
 
 
